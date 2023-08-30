@@ -1,0 +1,744 @@
+<?xml version="1.0"?>
+<dumps>
+  <platform name="win64" char_bit="8" short_bit="16" int_bit="32" long_bit="32" long_long_bit="64" pointer_bit="64"/>
+  <rawtokens>
+    <file index="0" name="startup.c"/>
+    <tok fileIndex="0" linenr="1" column="1" str="#"/>
+    <tok fileIndex="0" linenr="1" column="2" str="include"/>
+    <tok fileIndex="0" linenr="1" column="10" str="&lt;stdint.h&gt;"/>
+    <tok fileIndex="0" linenr="2" column="1" str="extern"/>
+    <tok fileIndex="0" linenr="2" column="8" str="int"/>
+    <tok fileIndex="0" linenr="2" column="12" str="main"/>
+    <tok fileIndex="0" linenr="2" column="16" str="("/>
+    <tok fileIndex="0" linenr="2" column="17" str=")"/>
+    <tok fileIndex="0" linenr="2" column="18" str=";"/>
+    <tok fileIndex="0" linenr="3" column="1" str="extern"/>
+    <tok fileIndex="0" linenr="3" column="8" str="uint32_t"/>
+    <tok fileIndex="0" linenr="3" column="17" str="_E_text"/>
+    <tok fileIndex="0" linenr="3" column="24" str=";"/>
+    <tok fileIndex="0" linenr="4" column="1" str="extern"/>
+    <tok fileIndex="0" linenr="4" column="8" str="uint32_t"/>
+    <tok fileIndex="0" linenr="4" column="17" str="_S_data"/>
+    <tok fileIndex="0" linenr="4" column="24" str=";"/>
+    <tok fileIndex="0" linenr="5" column="1" str="extern"/>
+    <tok fileIndex="0" linenr="5" column="8" str="uint32_t"/>
+    <tok fileIndex="0" linenr="5" column="17" str="_E_data"/>
+    <tok fileIndex="0" linenr="5" column="24" str=";"/>
+    <tok fileIndex="0" linenr="6" column="1" str="extern"/>
+    <tok fileIndex="0" linenr="6" column="8" str="uint32_t"/>
+    <tok fileIndex="0" linenr="6" column="17" str="_S_bss"/>
+    <tok fileIndex="0" linenr="6" column="23" str=";"/>
+    <tok fileIndex="0" linenr="7" column="1" str="extern"/>
+    <tok fileIndex="0" linenr="7" column="8" str="uint32_t"/>
+    <tok fileIndex="0" linenr="7" column="17" str="_E_bss"/>
+    <tok fileIndex="0" linenr="7" column="23" str=";"/>
+    <tok fileIndex="0" linenr="8" column="1" str="extern"/>
+    <tok fileIndex="0" linenr="8" column="8" str="uint32_t"/>
+    <tok fileIndex="0" linenr="8" column="17" str="_stack_top"/>
+    <tok fileIndex="0" linenr="8" column="27" str=";"/>
+    <tok fileIndex="0" linenr="9" column="1" str="void"/>
+    <tok fileIndex="0" linenr="9" column="6" str="Reset_Handler"/>
+    <tok fileIndex="0" linenr="9" column="19" str="("/>
+    <tok fileIndex="0" linenr="9" column="20" str="void"/>
+    <tok fileIndex="0" linenr="9" column="24" str=")"/>
+    <tok fileIndex="0" linenr="9" column="25" str=";"/>
+    <tok fileIndex="0" linenr="10" column="1" str="void"/>
+    <tok fileIndex="0" linenr="10" column="6" str="NMI_Handler"/>
+    <tok fileIndex="0" linenr="10" column="17" str="("/>
+    <tok fileIndex="0" linenr="10" column="18" str=")"/>
+    <tok fileIndex="0" linenr="10" column="19" str="__attribute__"/>
+    <tok fileIndex="0" linenr="10" column="32" str="("/>
+    <tok fileIndex="0" linenr="10" column="33" str="("/>
+    <tok fileIndex="0" linenr="10" column="34" str="weak"/>
+    <tok fileIndex="0" linenr="10" column="38" str=","/>
+    <tok fileIndex="0" linenr="10" column="39" str="alias"/>
+    <tok fileIndex="0" linenr="10" column="44" str="("/>
+    <tok fileIndex="0" linenr="10" column="45" str="&quot;Default_Handler&quot;"/>
+    <tok fileIndex="0" linenr="10" column="62" str=")"/>
+    <tok fileIndex="0" linenr="10" column="63" str=")"/>
+    <tok fileIndex="0" linenr="10" column="64" str=")"/>
+    <tok fileIndex="0" linenr="10" column="65" str=";"/>
+    <tok fileIndex="0" linenr="11" column="1" str="void"/>
+    <tok fileIndex="0" linenr="11" column="6" str="H_fault_Handler"/>
+    <tok fileIndex="0" linenr="11" column="21" str="("/>
+    <tok fileIndex="0" linenr="11" column="22" str=")"/>
+    <tok fileIndex="0" linenr="11" column="23" str="__attribute__"/>
+    <tok fileIndex="0" linenr="11" column="36" str="("/>
+    <tok fileIndex="0" linenr="11" column="37" str="("/>
+    <tok fileIndex="0" linenr="11" column="38" str="weak"/>
+    <tok fileIndex="0" linenr="11" column="42" str=","/>
+    <tok fileIndex="0" linenr="11" column="43" str="alias"/>
+    <tok fileIndex="0" linenr="11" column="48" str="("/>
+    <tok fileIndex="0" linenr="11" column="49" str="&quot;Default_Handler&quot;"/>
+    <tok fileIndex="0" linenr="11" column="66" str=")"/>
+    <tok fileIndex="0" linenr="11" column="67" str=")"/>
+    <tok fileIndex="0" linenr="11" column="68" str=")"/>
+    <tok fileIndex="0" linenr="11" column="69" str=";"/>
+    <tok fileIndex="0" linenr="12" column="1" str="void"/>
+    <tok fileIndex="0" linenr="12" column="6" str="MM_Fault_Handler"/>
+    <tok fileIndex="0" linenr="12" column="22" str="("/>
+    <tok fileIndex="0" linenr="12" column="23" str=")"/>
+    <tok fileIndex="0" linenr="12" column="24" str="__attribute__"/>
+    <tok fileIndex="0" linenr="12" column="37" str="("/>
+    <tok fileIndex="0" linenr="12" column="38" str="("/>
+    <tok fileIndex="0" linenr="12" column="39" str="weak"/>
+    <tok fileIndex="0" linenr="12" column="43" str=","/>
+    <tok fileIndex="0" linenr="12" column="44" str="alias"/>
+    <tok fileIndex="0" linenr="12" column="49" str="("/>
+    <tok fileIndex="0" linenr="12" column="50" str="&quot;Default_Handler&quot;"/>
+    <tok fileIndex="0" linenr="12" column="67" str=")"/>
+    <tok fileIndex="0" linenr="12" column="68" str=")"/>
+    <tok fileIndex="0" linenr="12" column="69" str=")"/>
+    <tok fileIndex="0" linenr="12" column="70" str=";"/>
+    <tok fileIndex="0" linenr="13" column="1" str="void"/>
+    <tok fileIndex="0" linenr="13" column="6" str="Bus_Fault"/>
+    <tok fileIndex="0" linenr="13" column="15" str="("/>
+    <tok fileIndex="0" linenr="13" column="16" str=")"/>
+    <tok fileIndex="0" linenr="13" column="17" str="__attribute__"/>
+    <tok fileIndex="0" linenr="13" column="30" str="("/>
+    <tok fileIndex="0" linenr="13" column="31" str="("/>
+    <tok fileIndex="0" linenr="13" column="32" str="weak"/>
+    <tok fileIndex="0" linenr="13" column="36" str=","/>
+    <tok fileIndex="0" linenr="13" column="37" str="alias"/>
+    <tok fileIndex="0" linenr="13" column="42" str="("/>
+    <tok fileIndex="0" linenr="13" column="43" str="&quot;Default_Handler&quot;"/>
+    <tok fileIndex="0" linenr="13" column="60" str=")"/>
+    <tok fileIndex="0" linenr="13" column="61" str=")"/>
+    <tok fileIndex="0" linenr="13" column="62" str=")"/>
+    <tok fileIndex="0" linenr="13" column="63" str=";"/>
+    <tok fileIndex="0" linenr="14" column="1" str="void"/>
+    <tok fileIndex="0" linenr="14" column="6" str="Usage_Fault_Handler"/>
+    <tok fileIndex="0" linenr="14" column="25" str="("/>
+    <tok fileIndex="0" linenr="14" column="26" str=")"/>
+    <tok fileIndex="0" linenr="14" column="27" str="__attribute__"/>
+    <tok fileIndex="0" linenr="14" column="40" str="("/>
+    <tok fileIndex="0" linenr="14" column="41" str="("/>
+    <tok fileIndex="0" linenr="14" column="42" str="weak"/>
+    <tok fileIndex="0" linenr="14" column="46" str=","/>
+    <tok fileIndex="0" linenr="14" column="47" str="alias"/>
+    <tok fileIndex="0" linenr="14" column="52" str="("/>
+    <tok fileIndex="0" linenr="14" column="53" str="&quot;Default_Handler&quot;"/>
+    <tok fileIndex="0" linenr="14" column="70" str=")"/>
+    <tok fileIndex="0" linenr="14" column="71" str=")"/>
+    <tok fileIndex="0" linenr="14" column="72" str=")"/>
+    <tok fileIndex="0" linenr="14" column="73" str=";"/>
+    <tok fileIndex="0" linenr="15" column="1" str="void"/>
+    <tok fileIndex="0" linenr="15" column="6" str="Default_Handler"/>
+    <tok fileIndex="0" linenr="15" column="21" str="("/>
+    <tok fileIndex="0" linenr="15" column="22" str=")"/>
+    <tok fileIndex="0" linenr="15" column="23" str="{"/>
+    <tok fileIndex="0" linenr="16" column="2" str="Reset_Handler"/>
+    <tok fileIndex="0" linenr="16" column="15" str="("/>
+    <tok fileIndex="0" linenr="16" column="16" str=")"/>
+    <tok fileIndex="0" linenr="16" column="17" str=";"/>
+    <tok fileIndex="0" linenr="17" column="1" str="}"/>
+    <tok fileIndex="0" linenr="18" column="1" str="uint32_t"/>
+    <tok fileIndex="0" linenr="18" column="10" str="vectors"/>
+    <tok fileIndex="0" linenr="18" column="17" str="["/>
+    <tok fileIndex="0" linenr="18" column="18" str="]"/>
+    <tok fileIndex="0" linenr="18" column="20" str="__attribute__"/>
+    <tok fileIndex="0" linenr="18" column="33" str="("/>
+    <tok fileIndex="0" linenr="18" column="34" str="("/>
+    <tok fileIndex="0" linenr="18" column="35" str="section"/>
+    <tok fileIndex="0" linenr="18" column="42" str="("/>
+    <tok fileIndex="0" linenr="18" column="43" str="&quot;.vectors&quot;"/>
+    <tok fileIndex="0" linenr="18" column="53" str=")"/>
+    <tok fileIndex="0" linenr="18" column="54" str=")"/>
+    <tok fileIndex="0" linenr="18" column="55" str=")"/>
+    <tok fileIndex="0" linenr="18" column="57" str="="/>
+    <tok fileIndex="0" linenr="18" column="58" str="{"/>
+    <tok fileIndex="0" linenr="19" column="2" str="("/>
+    <tok fileIndex="0" linenr="19" column="3" str="uint32_t"/>
+    <tok fileIndex="0" linenr="19" column="11" str=")"/>
+    <tok fileIndex="0" linenr="19" column="12" str="&amp;"/>
+    <tok fileIndex="0" linenr="19" column="13" str="_stack_top"/>
+    <tok fileIndex="0" linenr="19" column="23" str=","/>
+    <tok fileIndex="0" linenr="20" column="2" str="("/>
+    <tok fileIndex="0" linenr="20" column="3" str="uint32_t"/>
+    <tok fileIndex="0" linenr="20" column="11" str=")"/>
+    <tok fileIndex="0" linenr="20" column="12" str="&amp;"/>
+    <tok fileIndex="0" linenr="20" column="13" str="Reset_Handler"/>
+    <tok fileIndex="0" linenr="20" column="26" str=","/>
+    <tok fileIndex="0" linenr="21" column="2" str="("/>
+    <tok fileIndex="0" linenr="21" column="3" str="uint32_t"/>
+    <tok fileIndex="0" linenr="21" column="11" str=")"/>
+    <tok fileIndex="0" linenr="21" column="12" str="&amp;"/>
+    <tok fileIndex="0" linenr="21" column="13" str="NMI_Handler"/>
+    <tok fileIndex="0" linenr="21" column="24" str=","/>
+    <tok fileIndex="0" linenr="22" column="2" str="("/>
+    <tok fileIndex="0" linenr="22" column="3" str="uint32_t"/>
+    <tok fileIndex="0" linenr="22" column="11" str=")"/>
+    <tok fileIndex="0" linenr="22" column="12" str="&amp;"/>
+    <tok fileIndex="0" linenr="22" column="13" str="H_fault_Handler"/>
+    <tok fileIndex="0" linenr="22" column="28" str=","/>
+    <tok fileIndex="0" linenr="23" column="2" str="("/>
+    <tok fileIndex="0" linenr="23" column="3" str="uint32_t"/>
+    <tok fileIndex="0" linenr="23" column="11" str=")"/>
+    <tok fileIndex="0" linenr="23" column="12" str="&amp;"/>
+    <tok fileIndex="0" linenr="23" column="13" str="MM_Fault_Handler"/>
+    <tok fileIndex="0" linenr="23" column="29" str=","/>
+    <tok fileIndex="0" linenr="24" column="2" str="("/>
+    <tok fileIndex="0" linenr="24" column="3" str="uint32_t"/>
+    <tok fileIndex="0" linenr="24" column="11" str=")"/>
+    <tok fileIndex="0" linenr="24" column="12" str="&amp;"/>
+    <tok fileIndex="0" linenr="24" column="13" str="Bus_Fault"/>
+    <tok fileIndex="0" linenr="24" column="22" str=","/>
+    <tok fileIndex="0" linenr="25" column="2" str="("/>
+    <tok fileIndex="0" linenr="25" column="3" str="uint32_t"/>
+    <tok fileIndex="0" linenr="25" column="11" str=")"/>
+    <tok fileIndex="0" linenr="25" column="12" str="&amp;"/>
+    <tok fileIndex="0" linenr="25" column="13" str="Usage_Fault_Handler"/>
+    <tok fileIndex="0" linenr="26" column="1" str="}"/>
+    <tok fileIndex="0" linenr="26" column="2" str=";"/>
+    <tok fileIndex="0" linenr="28" column="1" str="void"/>
+    <tok fileIndex="0" linenr="28" column="6" str="Reset_Handler"/>
+    <tok fileIndex="0" linenr="28" column="19" str="("/>
+    <tok fileIndex="0" linenr="28" column="20" str=")"/>
+    <tok fileIndex="0" linenr="29" column="1" str="{"/>
+    <tok fileIndex="0" linenr="30" column="2" str="uint32_t"/>
+    <tok fileIndex="0" linenr="30" column="11" str="Data_Size"/>
+    <tok fileIndex="0" linenr="30" column="21" str="="/>
+    <tok fileIndex="0" linenr="30" column="23" str="("/>
+    <tok fileIndex="0" linenr="30" column="24" str="uint8_t"/>
+    <tok fileIndex="0" linenr="30" column="31" str="*"/>
+    <tok fileIndex="0" linenr="30" column="32" str=")"/>
+    <tok fileIndex="0" linenr="30" column="33" str="&amp;"/>
+    <tok fileIndex="0" linenr="30" column="34" str="_E_data"/>
+    <tok fileIndex="0" linenr="30" column="42" str="-"/>
+    <tok fileIndex="0" linenr="30" column="44" str="("/>
+    <tok fileIndex="0" linenr="30" column="45" str="uint8_t"/>
+    <tok fileIndex="0" linenr="30" column="52" str="*"/>
+    <tok fileIndex="0" linenr="30" column="53" str=")"/>
+    <tok fileIndex="0" linenr="30" column="54" str="&amp;"/>
+    <tok fileIndex="0" linenr="30" column="55" str="_S_data"/>
+    <tok fileIndex="0" linenr="30" column="62" str=";"/>
+    <tok fileIndex="0" linenr="31" column="2" str="uint8_t"/>
+    <tok fileIndex="0" linenr="31" column="9" str="*"/>
+    <tok fileIndex="0" linenr="31" column="11" str="P_src"/>
+    <tok fileIndex="0" linenr="31" column="17" str="="/>
+    <tok fileIndex="0" linenr="31" column="19" str="("/>
+    <tok fileIndex="0" linenr="31" column="20" str="uint8_t"/>
+    <tok fileIndex="0" linenr="31" column="27" str="*"/>
+    <tok fileIndex="0" linenr="31" column="28" str=")"/>
+    <tok fileIndex="0" linenr="31" column="29" str="&amp;"/>
+    <tok fileIndex="0" linenr="31" column="30" str="_E_text"/>
+    <tok fileIndex="0" linenr="31" column="37" str=";"/>
+    <tok fileIndex="0" linenr="32" column="2" str="uint8_t"/>
+    <tok fileIndex="0" linenr="32" column="9" str="*"/>
+    <tok fileIndex="0" linenr="32" column="11" str="P_dest"/>
+    <tok fileIndex="0" linenr="32" column="18" str="="/>
+    <tok fileIndex="0" linenr="32" column="20" str="("/>
+    <tok fileIndex="0" linenr="32" column="21" str="uint8_t"/>
+    <tok fileIndex="0" linenr="32" column="28" str="*"/>
+    <tok fileIndex="0" linenr="32" column="29" str=")"/>
+    <tok fileIndex="0" linenr="32" column="30" str="&amp;"/>
+    <tok fileIndex="0" linenr="32" column="31" str="_S_data"/>
+    <tok fileIndex="0" linenr="32" column="38" str=";"/>
+    <tok fileIndex="0" linenr="33" column="2" str="for"/>
+    <tok fileIndex="0" linenr="33" column="5" str="("/>
+    <tok fileIndex="0" linenr="33" column="6" str="uint32_t"/>
+    <tok fileIndex="0" linenr="33" column="15" str="i"/>
+    <tok fileIndex="0" linenr="33" column="16" str="="/>
+    <tok fileIndex="0" linenr="33" column="17" str="0"/>
+    <tok fileIndex="0" linenr="33" column="19" str=";"/>
+    <tok fileIndex="0" linenr="33" column="21" str="i"/>
+    <tok fileIndex="0" linenr="33" column="22" str="&lt;"/>
+    <tok fileIndex="0" linenr="33" column="24" str="Data_Size"/>
+    <tok fileIndex="0" linenr="33" column="34" str=";"/>
+    <tok fileIndex="0" linenr="33" column="36" str="i"/>
+    <tok fileIndex="0" linenr="33" column="37" str="++"/>
+    <tok fileIndex="0" linenr="33" column="39" str=")"/>
+    <tok fileIndex="0" linenr="33" column="40" str="{"/>
+    <tok fileIndex="0" linenr="34" column="3" str="*"/>
+    <tok fileIndex="0" linenr="34" column="4" str="("/>
+    <tok fileIndex="0" linenr="34" column="5" str="("/>
+    <tok fileIndex="0" linenr="34" column="6" str="uint8_t"/>
+    <tok fileIndex="0" linenr="34" column="13" str="*"/>
+    <tok fileIndex="0" linenr="34" column="14" str=")"/>
+    <tok fileIndex="0" linenr="34" column="15" str="P_dest"/>
+    <tok fileIndex="0" linenr="34" column="21" str="++"/>
+    <tok fileIndex="0" linenr="34" column="23" str=")"/>
+    <tok fileIndex="0" linenr="34" column="24" str="="/>
+    <tok fileIndex="0" linenr="34" column="25" str="*"/>
+    <tok fileIndex="0" linenr="34" column="26" str="("/>
+    <tok fileIndex="0" linenr="34" column="27" str="("/>
+    <tok fileIndex="0" linenr="34" column="28" str="uint8_t"/>
+    <tok fileIndex="0" linenr="34" column="35" str="*"/>
+    <tok fileIndex="0" linenr="34" column="36" str=")"/>
+    <tok fileIndex="0" linenr="34" column="37" str="P_src"/>
+    <tok fileIndex="0" linenr="34" column="42" str="++"/>
+    <tok fileIndex="0" linenr="34" column="44" str=")"/>
+    <tok fileIndex="0" linenr="34" column="45" str=";"/>
+    <tok fileIndex="0" linenr="35" column="2" str="}"/>
+    <tok fileIndex="0" linenr="36" column="2" str="uint32_t"/>
+    <tok fileIndex="0" linenr="36" column="11" str="Bss_Size"/>
+    <tok fileIndex="0" linenr="36" column="20" str="="/>
+    <tok fileIndex="0" linenr="36" column="22" str="("/>
+    <tok fileIndex="0" linenr="36" column="23" str="uint8_t"/>
+    <tok fileIndex="0" linenr="36" column="30" str="*"/>
+    <tok fileIndex="0" linenr="36" column="31" str=")"/>
+    <tok fileIndex="0" linenr="36" column="32" str="&amp;"/>
+    <tok fileIndex="0" linenr="36" column="33" str="_E_bss"/>
+    <tok fileIndex="0" linenr="36" column="40" str="-"/>
+    <tok fileIndex="0" linenr="36" column="42" str="("/>
+    <tok fileIndex="0" linenr="36" column="43" str="uint8_t"/>
+    <tok fileIndex="0" linenr="36" column="50" str="*"/>
+    <tok fileIndex="0" linenr="36" column="51" str=")"/>
+    <tok fileIndex="0" linenr="36" column="52" str="&amp;"/>
+    <tok fileIndex="0" linenr="36" column="53" str="_S_bss"/>
+    <tok fileIndex="0" linenr="36" column="59" str=";"/>
+    <tok fileIndex="0" linenr="37" column="2" str="P_dest"/>
+    <tok fileIndex="0" linenr="37" column="8" str="="/>
+    <tok fileIndex="0" linenr="37" column="9" str="("/>
+    <tok fileIndex="0" linenr="37" column="10" str="uint8_t"/>
+    <tok fileIndex="0" linenr="37" column="17" str="*"/>
+    <tok fileIndex="0" linenr="37" column="18" str=")"/>
+    <tok fileIndex="0" linenr="37" column="19" str="&amp;"/>
+    <tok fileIndex="0" linenr="37" column="20" str="_S_bss"/>
+    <tok fileIndex="0" linenr="37" column="26" str=";"/>
+    <tok fileIndex="0" linenr="38" column="2" str="for"/>
+    <tok fileIndex="0" linenr="38" column="5" str="("/>
+    <tok fileIndex="0" linenr="38" column="6" str="uint32_t"/>
+    <tok fileIndex="0" linenr="38" column="15" str="i"/>
+    <tok fileIndex="0" linenr="38" column="16" str="="/>
+    <tok fileIndex="0" linenr="38" column="17" str="0"/>
+    <tok fileIndex="0" linenr="38" column="19" str=";"/>
+    <tok fileIndex="0" linenr="38" column="21" str="i"/>
+    <tok fileIndex="0" linenr="38" column="22" str="&lt;"/>
+    <tok fileIndex="0" linenr="38" column="24" str="Bss_Size"/>
+    <tok fileIndex="0" linenr="38" column="33" str=";"/>
+    <tok fileIndex="0" linenr="38" column="35" str="i"/>
+    <tok fileIndex="0" linenr="38" column="36" str="++"/>
+    <tok fileIndex="0" linenr="38" column="38" str=")"/>
+    <tok fileIndex="0" linenr="38" column="39" str="{"/>
+    <tok fileIndex="0" linenr="39" column="3" str="*"/>
+    <tok fileIndex="0" linenr="39" column="4" str="("/>
+    <tok fileIndex="0" linenr="39" column="5" str="("/>
+    <tok fileIndex="0" linenr="39" column="6" str="uint8_t"/>
+    <tok fileIndex="0" linenr="39" column="13" str="*"/>
+    <tok fileIndex="0" linenr="39" column="14" str=")"/>
+    <tok fileIndex="0" linenr="39" column="15" str="P_dest"/>
+    <tok fileIndex="0" linenr="39" column="21" str="++"/>
+    <tok fileIndex="0" linenr="39" column="23" str=")"/>
+    <tok fileIndex="0" linenr="39" column="24" str="="/>
+    <tok fileIndex="0" linenr="39" column="25" str="("/>
+    <tok fileIndex="0" linenr="39" column="26" str="uint8_t"/>
+    <tok fileIndex="0" linenr="39" column="33" str=")"/>
+    <tok fileIndex="0" linenr="39" column="34" str="0"/>
+    <tok fileIndex="0" linenr="39" column="35" str=";"/>
+    <tok fileIndex="0" linenr="40" column="2" str="}"/>
+    <tok fileIndex="0" linenr="42" column="2" str="main"/>
+    <tok fileIndex="0" linenr="42" column="6" str="("/>
+    <tok fileIndex="0" linenr="42" column="7" str=")"/>
+    <tok fileIndex="0" linenr="42" column="8" str=";"/>
+    <tok fileIndex="0" linenr="43" column="1" str="}"/>
+  </rawtokens>
+  <suppressions>
+  </suppressions>
+<dump cfg="">
+  <standards>
+    <c version="c11"/>
+    <cpp version="c++20"/>
+  </standards>
+  <directivelist>
+    <directive file="startup.c" linenr="1" str="#include &lt;stdint.h&gt;"/>
+  </directivelist>
+  <tokenlist>
+    <token id="00000218DB4FFD60" file="startup.c" linenr="2" column="1" str="extern" scope="00000218DAF04550" type="name"/>
+    <token id="00000218DB500300" file="startup.c" linenr="2" column="8" str="int" scope="00000218DAF04550" type="name"/>
+    <token id="00000218DB5006C0" file="startup.c" linenr="2" column="12" str="main" scope="00000218DAF04550" type="name" function="00000218DB216BA0"/>
+    <token id="00000218DB500240" file="startup.c" linenr="2" column="16" str="(" scope="00000218DAF04550" link="00000218DB5000C0" valueType-type="int" valueType-sign="signed" valueType-reference="None"/>
+    <token id="00000218DB5000C0" file="startup.c" linenr="2" column="17" str=")" scope="00000218DAF04550" link="00000218DB500240"/>
+    <token id="00000218DB5005A0" file="startup.c" linenr="2" column="18" str=";" scope="00000218DAF04550"/>
+    <token id="00000218DB4FFAC0" file="startup.c" linenr="3" column="1" str="extern" scope="00000218DAF04550" type="name"/>
+    <token id="00000218DB500720" file="startup.c" linenr="3" column="8" str="uint32_t" scope="00000218DAF04550" type="name"/>
+    <token id="00000218DB4FFB20" file="startup.c" linenr="3" column="17" str="_E_text" scope="00000218DAF04550" type="name" varId="1" variable="00000218DB4EF700" valueType-type="int" valueType-sign="unsigned" valueType-reference="None"/>
+    <token id="00000218DB500600" file="startup.c" linenr="3" column="24" str=";" scope="00000218DAF04550"/>
+    <token id="00000218DB4FFA00" file="startup.c" linenr="4" column="1" str="extern" scope="00000218DAF04550" type="name"/>
+    <token id="00000218DB500780" file="startup.c" linenr="4" column="8" str="uint32_t" scope="00000218DAF04550" type="name"/>
+    <token id="00000218DB5007E0" file="startup.c" linenr="4" column="17" str="_S_data" scope="00000218DAF04550" type="name" varId="2" variable="00000218DB4F0420" valueType-type="int" valueType-sign="unsigned" valueType-reference="None"/>
+    <token id="00000218DB5008A0" file="startup.c" linenr="4" column="24" str=";" scope="00000218DAF04550"/>
+    <token id="00000218DB4FF9A0" file="startup.c" linenr="5" column="1" str="extern" scope="00000218DAF04550" type="name"/>
+    <token id="00000218DB4FFA60" file="startup.c" linenr="5" column="8" str="uint32_t" scope="00000218DAF04550" type="name"/>
+    <token id="00000218DB4FFB80" file="startup.c" linenr="5" column="17" str="_E_data" scope="00000218DAF04550" type="name" varId="3" variable="00000218DB4F0F80" valueType-type="int" valueType-sign="unsigned" valueType-reference="None"/>
+    <token id="00000218DB4FFBE0" file="startup.c" linenr="5" column="24" str=";" scope="00000218DAF04550"/>
+    <token id="00000218DB4FFC40" file="startup.c" linenr="6" column="1" str="extern" scope="00000218DAF04550" type="name"/>
+    <token id="00000218DB4FFEE0" file="startup.c" linenr="6" column="8" str="uint32_t" scope="00000218DAF04550" type="name"/>
+    <token id="00000218DB4FFFA0" file="startup.c" linenr="6" column="17" str="_S_bss" scope="00000218DAF04550" type="name" varId="4" variable="00000218DB4F0030" valueType-type="int" valueType-sign="unsigned" valueType-reference="None"/>
+    <token id="00000218DB500000" file="startup.c" linenr="6" column="23" str=";" scope="00000218DAF04550"/>
+    <token id="00000218DB500060" file="startup.c" linenr="7" column="1" str="extern" scope="00000218DAF04550" type="name"/>
+    <token id="00000218DB53D670" file="startup.c" linenr="7" column="8" str="uint32_t" scope="00000218DAF04550" type="name"/>
+    <token id="00000218DB53D190" file="startup.c" linenr="7" column="17" str="_E_bss" scope="00000218DAF04550" type="name" varId="5" variable="00000218DB4F1060" valueType-type="int" valueType-sign="unsigned" valueType-reference="None"/>
+    <token id="00000218DB53D550" file="startup.c" linenr="7" column="23" str=";" scope="00000218DAF04550"/>
+    <token id="00000218DB53D430" file="startup.c" linenr="8" column="1" str="extern" scope="00000218DAF04550" type="name"/>
+    <token id="00000218DB53CD70" file="startup.c" linenr="8" column="8" str="uint32_t" scope="00000218DAF04550" type="name"/>
+    <token id="00000218DB53CDD0" file="startup.c" linenr="8" column="17" str="_stack_top" scope="00000218DAF04550" type="name" varId="6" variable="00000218DB4EFB60" valueType-type="int" valueType-sign="unsigned" valueType-reference="None"/>
+    <token id="00000218DB53D070" file="startup.c" linenr="8" column="27" str=";" scope="00000218DAF04550"/>
+    <token id="00000218DB53D6D0" file="startup.c" linenr="9" column="1" str="void" scope="00000218DAF04550" type="name"/>
+    <token id="00000218DB53D3D0" file="startup.c" linenr="9" column="6" str="Reset_Handler" scope="00000218DAF04550" type="name" function="00000218DB216CE0"/>
+    <token id="00000218DB53D490" file="startup.c" linenr="9" column="19" str="(" scope="00000218DAF04550" link="00000218DB53D250" valueType-type="void" valueType-reference="None"/>
+    <token id="00000218DB53D250" file="startup.c" linenr="9" column="24" str=")" scope="00000218DAF04550" link="00000218DB53D490"/>
+    <token id="00000218DB53D5B0" file="startup.c" linenr="9" column="25" str=";" scope="00000218DAF04550"/>
+    <token id="00000218DB53CEF0" file="startup.c" linenr="10" column="1" str="void" scope="00000218DAF04550" type="name"/>
+    <token id="00000218DB53D730" file="startup.c" linenr="10" column="6" str="NMI_Handler" scope="00000218DAF04550" type="name" function="00000218DB216E20"/>
+    <token id="00000218DB53D2B0" file="startup.c" linenr="10" column="17" str="(" scope="00000218DAF04550" link="00000218DB53D4F0" valueType-type="void" valueType-reference="None"/>
+    <token id="00000218DB53D4F0" file="startup.c" linenr="10" column="18" str=")" scope="00000218DAF04550" link="00000218DB53D2B0"/>
+    <token id="00000218DB53D790" file="startup.c" linenr="10" column="65" str=";" scope="00000218DAF04550"/>
+    <token id="00000218DB53D010" file="startup.c" linenr="11" column="1" str="void" scope="00000218DAF04550" type="name"/>
+    <token id="00000218DB53D310" file="startup.c" linenr="11" column="6" str="H_fault_Handler" scope="00000218DAF04550" type="name" function="00000218DB216EC0"/>
+    <token id="00000218DB53CBF0" file="startup.c" linenr="11" column="21" str="(" scope="00000218DAF04550" link="00000218DB53CCB0" valueType-type="void" valueType-reference="None"/>
+    <token id="00000218DB53CCB0" file="startup.c" linenr="11" column="22" str=")" scope="00000218DAF04550" link="00000218DB53CBF0"/>
+    <token id="00000218DB53CC50" file="startup.c" linenr="11" column="69" str=";" scope="00000218DAF04550"/>
+    <token id="00000218DB3905E0" file="startup.c" linenr="12" column="1" str="void" scope="00000218DAF04550" type="name"/>
+    <token id="00000218DB390160" file="startup.c" linenr="12" column="6" str="MM_Fault_Handler" scope="00000218DAF04550" type="name" function="00000218DB216F60"/>
+    <token id="00000218DB390DC0" file="startup.c" linenr="12" column="22" str="(" scope="00000218DAF04550" link="00000218DB390D00" valueType-type="void" valueType-reference="None"/>
+    <token id="00000218DB390D00" file="startup.c" linenr="12" column="23" str=")" scope="00000218DAF04550" link="00000218DB390DC0"/>
+    <token id="00000218DB390F40" file="startup.c" linenr="12" column="70" str=";" scope="00000218DAF04550"/>
+    <token id="00000218DB390A00" file="startup.c" linenr="13" column="1" str="void" scope="00000218DAF04550" type="name"/>
+    <token id="00000218DB390880" file="startup.c" linenr="13" column="6" str="Bus_Fault" scope="00000218DAF04550" type="name" function="00000218DB216380"/>
+    <token id="00000218DB3908E0" file="startup.c" linenr="13" column="15" str="(" scope="00000218DAF04550" link="00000218DB3902E0" valueType-type="void" valueType-reference="None"/>
+    <token id="00000218DB3902E0" file="startup.c" linenr="13" column="16" str=")" scope="00000218DAF04550" link="00000218DB3908E0"/>
+    <token id="00000218DB390A60" file="startup.c" linenr="13" column="63" str=";" scope="00000218DAF04550"/>
+    <token id="00000218DB3906A0" file="startup.c" linenr="14" column="1" str="void" scope="00000218DAF04550" type="name"/>
+    <token id="00000218DB390700" file="startup.c" linenr="14" column="6" str="Usage_Fault_Handler" scope="00000218DAF04550" type="name" function="00000218DB216420"/>
+    <token id="00000218DB390760" file="startup.c" linenr="14" column="25" str="(" scope="00000218DAF04550" link="00000218DB86C970" valueType-type="void" valueType-reference="None"/>
+    <token id="00000218DB86C970" file="startup.c" linenr="14" column="26" str=")" scope="00000218DAF04550" link="00000218DB390760"/>
+    <token id="00000218DB86C370" file="startup.c" linenr="14" column="73" str=";" scope="00000218DAF04550"/>
+    <token id="00000218DB86C610" file="startup.c" linenr="15" column="1" str="void" scope="00000218DAF04550" type="name"/>
+    <token id="00000218DB86CAF0" file="startup.c" linenr="15" column="6" str="Default_Handler" scope="00000218DAF04550" type="name" function="00000218DB216560"/>
+    <token id="00000218DB86C310" file="startup.c" linenr="15" column="21" str="(" scope="00000218DAF04550" link="00000218DB86C550" valueType-type="void" valueType-reference="None"/>
+    <token id="00000218DB86C550" file="startup.c" linenr="15" column="22" str=")" scope="00000218DAF04550" link="00000218DB86C310"/>
+    <token id="00000218DB86C3D0" file="startup.c" linenr="15" column="23" str="{" scope="00000218DAF03EF0" link="00000218DB86C8B0"/>
+    <token id="00000218DB86CD30" file="startup.c" linenr="16" column="2" str="Reset_Handler" scope="00000218DAF03EF0" type="name" function="00000218DB216CE0" astParent="00000218DB86CB50"/>
+    <token id="00000218DB86CB50" file="startup.c" linenr="16" column="15" str="(" scope="00000218DAF03EF0" link="00000218DB86C850" astOperand1="00000218DB86CD30" valueType-type="void" valueType-reference="None"/>
+    <token id="00000218DB86C850" file="startup.c" linenr="16" column="16" str=")" scope="00000218DAF03EF0" link="00000218DB86CB50"/>
+    <token id="00000218DB86C250" file="startup.c" linenr="16" column="17" str=";" scope="00000218DAF03EF0"/>
+    <token id="00000218DB86C8B0" file="startup.c" linenr="17" column="1" str="}" scope="00000218DAF03EF0" link="00000218DB86C3D0"/>
+    <token id="00000218DB86C130" file="startup.c" linenr="18" column="1" str="uint32_t" scope="00000218DAF04550" type="name"/>
+    <token id="00000218DB86CF10" file="startup.c" linenr="18" column="10" str="vectors" scope="00000218DAF04550" type="name" varId="7" variable="00000218DB4F05E0" astParent="00000218DB86C430" valueType-type="int" valueType-sign="unsigned" valueType-pointer="1" valueType-reference="None"/>
+    <token id="00000218DB86C430" file="startup.c" linenr="18" column="17" str="[" scope="00000218DAF04550" link="00000218DB86C490" astParent="00000218DB86C190" astOperand1="00000218DB86CF10" astOperand2="00000218DB86F150" valueType-type="int" valueType-sign="unsigned" valueType-pointer="1" valueType-reference="None"/>
+    <token id="00000218DB86F150" file="startup.c" linenr="18" column="0" str="7" scope="00000218DAF04550" type="number" isInt="true" values="00000218DAF6EAB0" astParent="00000218DB86C430" valueType-type="int" valueType-sign="signed" valueType-reference="None"/>
+    <token id="00000218DB86C490" file="startup.c" linenr="18" column="18" str="]" scope="00000218DAF04550" link="00000218DB86C430"/>
+    <token id="00000218DB86C190" file="startup.c" linenr="18" column="57" str="=" scope="00000218DAF04550" type="op" isAssignmentOp="true" astOperand1="00000218DB86C430" astOperand2="00000218DB86C910" valueType-type="int" valueType-sign="unsigned" valueType-pointer="1" valueType-reference="None"/>
+    <token id="00000218DB86C910" file="startup.c" linenr="18" column="58" str="{" scope="00000218DAF04550" link="00000218DAFDDE30" astParent="00000218DB86C190" astOperand1="00000218DAFDD530"/>
+    <token id="00000218DB86CC70" file="startup.c" linenr="19" column="2" str="(" scope="00000218DAF04550" link="00000218DB86CE50" astParent="00000218DAFDD770" astOperand1="00000218DAFDD6B0" valueType-type="int" valueType-sign="unsigned" valueType-reference="None"/>
+    <token id="00000218DB86CDF0" file="startup.c" linenr="19" column="3" str="uint32_t" scope="00000218DAF04550" type="name"/>
+    <token id="00000218DB86CE50" file="startup.c" linenr="19" column="11" str=")" scope="00000218DAF04550" link="00000218DB86CC70"/>
+    <token id="00000218DAFDD6B0" file="startup.c" linenr="19" column="12" str="&amp;" scope="00000218DAF04550" type="op" astParent="00000218DB86CC70" astOperand1="00000218DAFDDD70" valueType-type="int" valueType-sign="unsigned" valueType-pointer="1" valueType-reference="None"/>
+    <token id="00000218DAFDDD70" file="startup.c" linenr="19" column="13" str="_stack_top" scope="00000218DAF04550" type="name" varId="6" variable="00000218DB4EFB60" astParent="00000218DAFDD6B0" valueType-type="int" valueType-sign="unsigned" valueType-reference="None"/>
+    <token id="00000218DAFDD770" file="startup.c" linenr="19" column="23" str="," scope="00000218DAF04550" astParent="00000218DAFDDF50" astOperand1="00000218DB86CC70" astOperand2="00000218DAFDDB90"/>
+    <token id="00000218DAFDDB90" file="startup.c" linenr="20" column="2" str="(" scope="00000218DAF04550" link="00000218DAFDD710" astParent="00000218DAFDD770" astOperand1="00000218DAFDD470" valueType-type="int" valueType-sign="unsigned" valueType-reference="None"/>
+    <token id="00000218DAFDD2F0" file="startup.c" linenr="20" column="3" str="uint32_t" scope="00000218DAF04550" type="name"/>
+    <token id="00000218DAFDD710" file="startup.c" linenr="20" column="11" str=")" scope="00000218DAF04550" link="00000218DAFDDB90"/>
+    <token id="00000218DAFDD470" file="startup.c" linenr="20" column="12" str="&amp;" scope="00000218DAF04550" type="op" astParent="00000218DAFDDB90" astOperand1="00000218DAFDE370"/>
+    <token id="00000218DAFDE370" file="startup.c" linenr="20" column="13" str="Reset_Handler" scope="00000218DAF04550" type="name" astParent="00000218DAFDD470"/>
+    <token id="00000218DAFDDF50" file="startup.c" linenr="20" column="26" str="," scope="00000218DAF04550" astParent="00000218DAFDD350" astOperand1="00000218DAFDD770" astOperand2="00000218DAFDDBF0"/>
+    <token id="00000218DAFDDBF0" file="startup.c" linenr="21" column="2" str="(" scope="00000218DAF04550" link="00000218DAFDDC50" astParent="00000218DAFDDF50" astOperand1="00000218DAFDE850" valueType-type="int" valueType-sign="unsigned" valueType-reference="None"/>
+    <token id="00000218DAFDD290" file="startup.c" linenr="21" column="3" str="uint32_t" scope="00000218DAF04550" type="name"/>
+    <token id="00000218DAFDDC50" file="startup.c" linenr="21" column="11" str=")" scope="00000218DAF04550" link="00000218DAFDDBF0"/>
+    <token id="00000218DAFDE850" file="startup.c" linenr="21" column="12" str="&amp;" scope="00000218DAF04550" type="op" astParent="00000218DAFDDBF0" astOperand1="00000218DAFDE550"/>
+    <token id="00000218DAFDE550" file="startup.c" linenr="21" column="13" str="NMI_Handler" scope="00000218DAF04550" type="name" astParent="00000218DAFDE850"/>
+    <token id="00000218DAFDD350" file="startup.c" linenr="21" column="24" str="," scope="00000218DAF04550" astParent="00000218DAFDDCB0" astOperand1="00000218DAFDDF50" astOperand2="00000218DAFDD590"/>
+    <token id="00000218DAFDD590" file="startup.c" linenr="22" column="2" str="(" scope="00000218DAF04550" link="00000218DAFDE3D0" astParent="00000218DAFDD350" astOperand1="00000218DAFDE310" valueType-type="int" valueType-sign="unsigned" valueType-reference="None"/>
+    <token id="00000218DAFDE6D0" file="startup.c" linenr="22" column="3" str="uint32_t" scope="00000218DAF04550" type="name"/>
+    <token id="00000218DAFDE3D0" file="startup.c" linenr="22" column="11" str=")" scope="00000218DAF04550" link="00000218DAFDD590"/>
+    <token id="00000218DAFDE310" file="startup.c" linenr="22" column="12" str="&amp;" scope="00000218DAF04550" type="op" astParent="00000218DAFDD590" astOperand1="00000218DAFDD5F0"/>
+    <token id="00000218DAFDD5F0" file="startup.c" linenr="22" column="13" str="H_fault_Handler" scope="00000218DAF04550" type="name" astParent="00000218DAFDE310"/>
+    <token id="00000218DAFDDCB0" file="startup.c" linenr="22" column="28" str="," scope="00000218DAF04550" astParent="00000218DAFDD830" astOperand1="00000218DAFDD350" astOperand2="00000218DAFDD110"/>
+    <token id="00000218DAFDD110" file="startup.c" linenr="23" column="2" str="(" scope="00000218DAF04550" link="00000218DAFDE670" astParent="00000218DAFDDCB0" astOperand1="00000218DAFDD7D0" valueType-type="int" valueType-sign="unsigned" valueType-reference="None"/>
+    <token id="00000218DAFDDD10" file="startup.c" linenr="23" column="3" str="uint32_t" scope="00000218DAF04550" type="name"/>
+    <token id="00000218DAFDE670" file="startup.c" linenr="23" column="11" str=")" scope="00000218DAF04550" link="00000218DAFDD110"/>
+    <token id="00000218DAFDD7D0" file="startup.c" linenr="23" column="12" str="&amp;" scope="00000218DAF04550" type="op" astParent="00000218DAFDD110" astOperand1="00000218DAFDD0B0"/>
+    <token id="00000218DAFDD0B0" file="startup.c" linenr="23" column="13" str="MM_Fault_Handler" scope="00000218DAF04550" type="name" astParent="00000218DAFDD7D0"/>
+    <token id="00000218DAFDD830" file="startup.c" linenr="23" column="29" str="," scope="00000218DAF04550" astParent="00000218DAFDD530" astOperand1="00000218DAFDDCB0" astOperand2="00000218DAFDD4D0"/>
+    <token id="00000218DAFDD4D0" file="startup.c" linenr="24" column="2" str="(" scope="00000218DAF04550" link="00000218DAFDDDD0" astParent="00000218DAFDD830" astOperand1="00000218DAFDE1F0" valueType-type="int" valueType-sign="unsigned" valueType-reference="None"/>
+    <token id="00000218DAFDE430" file="startup.c" linenr="24" column="3" str="uint32_t" scope="00000218DAF04550" type="name"/>
+    <token id="00000218DAFDDDD0" file="startup.c" linenr="24" column="11" str=")" scope="00000218DAF04550" link="00000218DAFDD4D0"/>
+    <token id="00000218DAFDE1F0" file="startup.c" linenr="24" column="12" str="&amp;" scope="00000218DAF04550" type="op" astParent="00000218DAFDD4D0" astOperand1="00000218DAFDE070"/>
+    <token id="00000218DAFDE070" file="startup.c" linenr="24" column="13" str="Bus_Fault" scope="00000218DAF04550" type="name" astParent="00000218DAFDE1F0"/>
+    <token id="00000218DAFDD530" file="startup.c" linenr="24" column="22" str="," scope="00000218DAF04550" astParent="00000218DB86C910" astOperand1="00000218DAFDD830" astOperand2="00000218DAFDD650"/>
+    <token id="00000218DAFDD650" file="startup.c" linenr="25" column="2" str="(" scope="00000218DAF04550" link="00000218DAFDE490" astParent="00000218DAFDD530" astOperand1="00000218DAFDDFB0" valueType-type="int" valueType-sign="unsigned" valueType-reference="None"/>
+    <token id="00000218DAFDDA10" file="startup.c" linenr="25" column="3" str="uint32_t" scope="00000218DAF04550" type="name"/>
+    <token id="00000218DAFDE490" file="startup.c" linenr="25" column="11" str=")" scope="00000218DAF04550" link="00000218DAFDD650"/>
+    <token id="00000218DAFDDFB0" file="startup.c" linenr="25" column="12" str="&amp;" scope="00000218DAF04550" type="op" astParent="00000218DAFDD650" astOperand1="00000218DAFDE010"/>
+    <token id="00000218DAFDE010" file="startup.c" linenr="25" column="13" str="Usage_Fault_Handler" scope="00000218DAF04550" type="name" astParent="00000218DAFDDFB0"/>
+    <token id="00000218DAFDDE30" file="startup.c" linenr="26" column="1" str="}" scope="00000218DAF04550" link="00000218DB86C910"/>
+    <token id="00000218DAFDE250" file="startup.c" linenr="26" column="2" str=";" scope="00000218DAF04550"/>
+    <token id="00000218DAFDD890" file="startup.c" linenr="28" column="1" str="void" scope="00000218DAF04550" type="name"/>
+    <token id="00000218DAFDE4F0" file="startup.c" linenr="28" column="6" str="Reset_Handler" scope="00000218DAF04550" type="name" function="00000218DB216CE0"/>
+    <token id="00000218DAFDDE90" file="startup.c" linenr="28" column="19" str="(" scope="00000218DAF04550" link="00000218DAFDE0D0" valueType-type="void" valueType-reference="None"/>
+    <token id="00000218DAFDE0D0" file="startup.c" linenr="28" column="20" str=")" scope="00000218DAF04550" link="00000218DAFDDE90"/>
+    <token id="00000218DAFDE130" file="startup.c" linenr="29" column="1" str="{" scope="00000218DAF03CD0" link="00000218DB870650"/>
+    <token id="00000218DAFDD3B0" file="startup.c" linenr="30" column="2" str="uint32_t" scope="00000218DAF03CD0" type="name"/>
+    <token id="00000218DAFDD170" file="startup.c" linenr="30" column="11" str="Data_Size" scope="00000218DAF03CD0" type="name" varId="8" variable="00000218DB4EF9A0" valueType-type="int" valueType-sign="unsigned" valueType-reference="None"/>
+    <token id="00000218DAFDD8F0" file="startup.c" linenr="30" column="21" str=";" scope="00000218DAF03CD0" isSplittedVarDeclEq="true"/>
+    <token id="00000218DB86FB10" file="startup.c" linenr="30" column="11" str="Data_Size" scope="00000218DAF03CD0" type="name" varId="8" variable="00000218DB4EF9A0" astParent="00000218DB86FCF0" valueType-type="int" valueType-sign="unsigned" valueType-reference="None"/>
+    <token id="00000218DB86FCF0" file="startup.c" linenr="30" column="21" str="=" scope="00000218DAF03CD0" type="op" isAssignmentOp="true" astOperand1="00000218DB86FB10" astOperand2="00000218DAFDE5B0" valueType-type="int" valueType-sign="unsigned" valueType-reference="None"/>
+    <token id="00000218DAFDE190" file="startup.c" linenr="30" column="23" str="(" scope="00000218DAF03CD0" link="00000218DAFDD950" values="00000218DAF6EDD0" astParent="00000218DAFDE5B0" astOperand1="00000218DAFDD1D0" valueType-type="char" valueType-sign="unsigned" valueType-pointer="1" valueType-reference="None"/>
+    <token id="00000218DAFDD410" file="startup.c" linenr="30" column="24" str="uint8_t" scope="00000218DAF03CD0" type="name"/>
+    <token id="00000218DAFDDAD0" file="startup.c" linenr="30" column="31" str="*" scope="00000218DAF03CD0" type="op" isArithmeticalOp="true"/>
+    <token id="00000218DAFDD950" file="startup.c" linenr="30" column="32" str=")" scope="00000218DAF03CD0" link="00000218DAFDE190"/>
+    <token id="00000218DAFDD1D0" file="startup.c" linenr="30" column="33" str="&amp;" scope="00000218DAF03CD0" type="op" values="00000218DAF6EDB0" astParent="00000218DAFDE190" astOperand1="00000218DAFDD9B0" valueType-type="int" valueType-sign="unsigned" valueType-pointer="1" valueType-reference="None"/>
+    <token id="00000218DAFDD9B0" file="startup.c" linenr="30" column="34" str="_E_data" scope="00000218DAF03CD0" type="name" varId="3" variable="00000218DB4F0F80" astParent="00000218DAFDD1D0" valueType-type="int" valueType-sign="unsigned" valueType-reference="None"/>
+    <token id="00000218DAFDE5B0" file="startup.c" linenr="30" column="42" str="-" scope="00000218DAF03CD0" type="op" isArithmeticalOp="true" astParent="00000218DB86FCF0" astOperand1="00000218DAFDE190" astOperand2="00000218DAFDDA70" valueType-type="int" valueType-sign="signed" valueType-reference="None" valueType-originalTypeName="ptrdiff_t"/>
+    <token id="00000218DAFDDA70" file="startup.c" linenr="30" column="44" str="(" scope="00000218DAF03CD0" link="00000218DAFDE2B0" values="00000218DAF6EA50" astParent="00000218DAFDE5B0" astOperand1="00000218DAFDD230" valueType-type="char" valueType-sign="unsigned" valueType-pointer="1" valueType-reference="None"/>
+    <token id="00000218DAFDDB30" file="startup.c" linenr="30" column="45" str="uint8_t" scope="00000218DAF03CD0" type="name"/>
+    <token id="00000218DAFDDEF0" file="startup.c" linenr="30" column="52" str="*" scope="00000218DAF03CD0" type="op" isArithmeticalOp="true"/>
+    <token id="00000218DAFDE2B0" file="startup.c" linenr="30" column="53" str=")" scope="00000218DAF03CD0" link="00000218DAFDDA70"/>
+    <token id="00000218DAFDD230" file="startup.c" linenr="30" column="54" str="&amp;" scope="00000218DAF03CD0" type="op" values="00000218DAF6EF50" astParent="00000218DAFDDA70" astOperand1="00000218DAFDE610" valueType-type="int" valueType-sign="unsigned" valueType-pointer="1" valueType-reference="None"/>
+    <token id="00000218DAFDE610" file="startup.c" linenr="30" column="55" str="_S_data" scope="00000218DAF03CD0" type="name" varId="2" variable="00000218DB4F0420" astParent="00000218DAFDD230" valueType-type="int" valueType-sign="unsigned" valueType-reference="None"/>
+    <token id="00000218DAFDE730" file="startup.c" linenr="30" column="62" str=";" scope="00000218DAF03CD0"/>
+    <token id="00000218DAFDE790" file="startup.c" linenr="31" column="2" str="uint8_t" scope="00000218DAF03CD0" type="name" astParent="00000218DAFDE7F0"/>
+    <token id="00000218DAFDE7F0" file="startup.c" linenr="31" column="9" str="*" scope="00000218DAF03CD0" type="op" isArithmeticalOp="true" astOperand1="00000218DAFDE790" astOperand2="00000218DAFDEE50"/>
+    <token id="00000218DAFDEE50" file="startup.c" linenr="31" column="11" str="P_src" scope="00000218DAF03CD0" type="name" varId="9" variable="00000218DB4F06C0" astParent="00000218DAFDE7F0" valueType-type="char" valueType-sign="unsigned" valueType-pointer="1" valueType-reference="None"/>
+    <token id="00000218DAFDE8B0" file="startup.c" linenr="31" column="17" str=";" scope="00000218DAF03CD0" isSplittedVarDeclEq="true"/>
+    <token id="00000218DB86F570" file="startup.c" linenr="31" column="11" str="P_src" scope="00000218DAF03CD0" type="name" varId="9" variable="00000218DB4F06C0" astParent="00000218DB86F9F0" valueType-type="char" valueType-sign="unsigned" valueType-pointer="1" valueType-reference="None"/>
+    <token id="00000218DB86F9F0" file="startup.c" linenr="31" column="17" str="=" scope="00000218DAF03CD0" type="op" isAssignmentOp="true" astOperand1="00000218DB86F570" astOperand2="00000218DAFDEB50" valueType-type="char" valueType-sign="unsigned" valueType-pointer="1" valueType-reference="None"/>
+    <token id="00000218DAFDEB50" file="startup.c" linenr="31" column="19" str="(" scope="00000218DAF03CD0" link="00000218DAFDED30" values="00000218DAF6ECB0" astParent="00000218DB86F9F0" astOperand1="00000218DAFDEC70" valueType-type="char" valueType-sign="unsigned" valueType-pointer="1" valueType-reference="None"/>
+    <token id="00000218DAFDEA30" file="startup.c" linenr="31" column="20" str="uint8_t" scope="00000218DAF03CD0" type="name"/>
+    <token id="00000218DAFDEA90" file="startup.c" linenr="31" column="27" str="*" scope="00000218DAF03CD0" type="op" isArithmeticalOp="true"/>
+    <token id="00000218DAFDED30" file="startup.c" linenr="31" column="28" str=")" scope="00000218DAF03CD0" link="00000218DAFDEB50"/>
+    <token id="00000218DAFDEC70" file="startup.c" linenr="31" column="29" str="&amp;" scope="00000218DAF03CD0" type="op" values="00000218DAF6EC90" astParent="00000218DAFDEB50" astOperand1="00000218DAFDEDF0" valueType-type="int" valueType-sign="unsigned" valueType-pointer="1" valueType-reference="None"/>
+    <token id="00000218DAFDEDF0" file="startup.c" linenr="31" column="30" str="_E_text" scope="00000218DAF03CD0" type="name" varId="1" variable="00000218DB4EF700" astParent="00000218DAFDEC70" valueType-type="int" valueType-sign="unsigned" valueType-reference="None"/>
+    <token id="00000218DAFDE970" file="startup.c" linenr="31" column="37" str=";" scope="00000218DAF03CD0"/>
+    <token id="00000218DAFDEF70" file="startup.c" linenr="32" column="2" str="uint8_t" scope="00000218DAF03CD0" type="name" astParent="00000218DAFDE9D0"/>
+    <token id="00000218DAFDE9D0" file="startup.c" linenr="32" column="9" str="*" scope="00000218DAF03CD0" type="op" isArithmeticalOp="true" astOperand1="00000218DAFDEF70" astOperand2="00000218DAFDED90"/>
+    <token id="00000218DAFDED90" file="startup.c" linenr="32" column="11" str="P_dest" scope="00000218DAF03CD0" type="name" varId="10" variable="00000218DB4EF4D0" astParent="00000218DAFDE9D0" valueType-type="char" valueType-sign="unsigned" valueType-pointer="1" valueType-reference="None"/>
+    <token id="00000218DAFDE910" file="startup.c" linenr="32" column="18" str=";" scope="00000218DAF03CD0" isSplittedVarDeclEq="true"/>
+    <token id="00000218DB86FAB0" file="startup.c" linenr="32" column="11" str="P_dest" scope="00000218DAF03CD0" type="name" varId="10" variable="00000218DB4EF4D0" astParent="00000218DB86FF30" valueType-type="char" valueType-sign="unsigned" valueType-pointer="1" valueType-reference="None"/>
+    <token id="00000218DB86FF30" file="startup.c" linenr="32" column="18" str="=" scope="00000218DAF03CD0" type="op" isAssignmentOp="true" astOperand1="00000218DB86FAB0" astOperand2="00000218DAFDEAF0" valueType-type="char" valueType-sign="unsigned" valueType-pointer="1" valueType-reference="None"/>
+    <token id="00000218DAFDEAF0" file="startup.c" linenr="32" column="20" str="(" scope="00000218DAF03CD0" link="00000218DAFDEEB0" values="00000218DAF6EBF0" astParent="00000218DB86FF30" astOperand1="00000218DAFDEBB0" valueType-type="char" valueType-sign="unsigned" valueType-pointer="1" valueType-reference="None"/>
+    <token id="00000218DAFDEFD0" file="startup.c" linenr="32" column="21" str="uint8_t" scope="00000218DAF03CD0" type="name"/>
+    <token id="00000218DAFDECD0" file="startup.c" linenr="32" column="28" str="*" scope="00000218DAF03CD0" type="op" isArithmeticalOp="true"/>
+    <token id="00000218DAFDEEB0" file="startup.c" linenr="32" column="29" str=")" scope="00000218DAF03CD0" link="00000218DAFDEAF0"/>
+    <token id="00000218DAFDEBB0" file="startup.c" linenr="32" column="30" str="&amp;" scope="00000218DAF03CD0" type="op" values="00000218DAF6EF30" astParent="00000218DAFDEAF0" astOperand1="00000218DAFDEC10" valueType-type="int" valueType-sign="unsigned" valueType-pointer="1" valueType-reference="None"/>
+    <token id="00000218DAFDEC10" file="startup.c" linenr="32" column="31" str="_S_data" scope="00000218DAF03CD0" type="name" varId="2" variable="00000218DB4F0420" astParent="00000218DAFDEBB0" valueType-type="int" valueType-sign="unsigned" valueType-reference="None"/>
+    <token id="00000218DAFDEF10" file="startup.c" linenr="32" column="38" str=";" scope="00000218DAF03CD0"/>
+    <token id="00000218DB86DC20" file="startup.c" linenr="33" column="2" str="for" scope="00000218DAF03CD0" type="name" astParent="00000218DB86E820"/>
+    <token id="00000218DB86E820" file="startup.c" linenr="33" column="5" str="(" scope="00000218DAF03CD0" link="00000218DB86DCE0" astOperand1="00000218DB86DC20" astOperand2="00000218DB86E100"/>
+    <token id="00000218DB86E460" file="startup.c" linenr="33" column="6" str="uint32_t" scope="00000218DAF03CD0" type="name"/>
+    <token id="00000218DB86D9E0" file="startup.c" linenr="33" column="15" str="i" scope="00000218DAF03CD0" type="name" varId="11" variable="00000218DB4F0F10" astParent="00000218DB86E3A0" valueType-type="int" valueType-sign="unsigned" valueType-reference="None"/>
+    <token id="00000218DB86E3A0" file="startup.c" linenr="33" column="16" str="=" scope="00000218DAF03CD0" type="op" isAssignmentOp="true" astParent="00000218DB86E100" astOperand1="00000218DB86D9E0" astOperand2="00000218DB86E760" valueType-type="int" valueType-sign="unsigned" valueType-reference="None"/>
+    <token id="00000218DB86E760" file="startup.c" linenr="33" column="17" str="0" scope="00000218DAF03CD0" type="number" isInt="true" values="00000218DAF6E9B0" astParent="00000218DB86E3A0" valueType-type="int" valueType-sign="signed" valueType-reference="None"/>
+    <token id="00000218DB86E100" file="startup.c" linenr="33" column="19" str=";" scope="00000218DAF03CD0" astParent="00000218DB86E820" astOperand1="00000218DB86E3A0" astOperand2="00000218DB86DA40"/>
+    <token id="00000218DB86D8C0" file="startup.c" linenr="33" column="21" str="i" scope="00000218DAF03CD0" type="name" varId="11" variable="00000218DB4F0F10" astParent="00000218DB86DBC0" valueType-type="int" valueType-sign="unsigned" valueType-reference="None"/>
+    <token id="00000218DB86DBC0" file="startup.c" linenr="33" column="22" str="&lt;" scope="00000218DAF03CD0" type="op" isComparisonOp="true" astParent="00000218DB86DA40" astOperand1="00000218DB86D8C0" astOperand2="00000218DB86D920" valueType-type="bool" valueType-reference="None"/>
+    <token id="00000218DB86D920" file="startup.c" linenr="33" column="24" str="Data_Size" scope="00000218DAF03CD0" type="name" varId="8" variable="00000218DB4EF9A0" astParent="00000218DB86DBC0" valueType-type="int" valueType-sign="unsigned" valueType-reference="None"/>
+    <token id="00000218DB86DA40" file="startup.c" linenr="33" column="34" str=";" scope="00000218DAF03CD0" astParent="00000218DB86E100" astOperand1="00000218DB86DBC0" astOperand2="00000218DB86D980"/>
+    <token id="00000218DB86E1C0" file="startup.c" linenr="33" column="36" str="i" scope="00000218DAF03CD0" type="name" varId="11" variable="00000218DB4F0F10" astParent="00000218DB86D980" valueType-type="int" valueType-sign="unsigned" valueType-reference="None"/>
+    <token id="00000218DB86D980" file="startup.c" linenr="33" column="37" str="++" scope="00000218DAF03CD0" type="op" astParent="00000218DB86DA40" astOperand1="00000218DB86E1C0" valueType-type="int" valueType-sign="unsigned" valueType-reference="None"/>
+    <token id="00000218DB86DCE0" file="startup.c" linenr="33" column="39" str=")" scope="00000218DAF03CD0" link="00000218DB86E820"/>
+    <token id="00000218DB86E220" file="startup.c" linenr="33" column="40" str="{" scope="00000218DAF03DE0" link="00000218DB86DD40"/>
+    <token id="00000218DB86D740" file="startup.c" linenr="34" column="3" str="*" scope="00000218DAF03DE0" type="op" isArithmeticalOp="true" astParent="00000218DB86DB00" astOperand1="00000218DB86D320" valueType-type="char" valueType-sign="unsigned" valueType-reference="None"/>
+    <token id="00000218DB86DAA0" file="startup.c" linenr="34" column="4" str="(" scope="00000218DAF03DE0" link="00000218DB86DE60"/>
+    <token id="00000218DB86D320" file="startup.c" linenr="34" column="5" str="(" scope="00000218DAF03DE0" link="00000218DB86D3E0" astParent="00000218DB86D740" astOperand1="00000218DB86DFE0" valueType-type="char" valueType-sign="unsigned" valueType-pointer="1" valueType-reference="None"/>
+    <token id="00000218DB86E4C0" file="startup.c" linenr="34" column="6" str="uint8_t" scope="00000218DAF03DE0" type="name"/>
+    <token id="00000218DB86E7C0" file="startup.c" linenr="34" column="13" str="*" scope="00000218DAF03DE0" type="op" isArithmeticalOp="true"/>
+    <token id="00000218DB86D3E0" file="startup.c" linenr="34" column="14" str=")" scope="00000218DAF03DE0" link="00000218DB86D320"/>
+    <token id="00000218DB86D7A0" file="startup.c" linenr="34" column="15" str="P_dest" scope="00000218DAF03DE0" type="name" varId="10" variable="00000218DB4EF4D0" values="00000218DAF6EAD0" astParent="00000218DB86DFE0" valueType-type="char" valueType-sign="unsigned" valueType-pointer="1" valueType-reference="None"/>
+    <token id="00000218DB86DFE0" file="startup.c" linenr="34" column="21" str="++" scope="00000218DAF03DE0" type="op" astParent="00000218DB86D320" astOperand1="00000218DB86D7A0" valueType-type="char" valueType-sign="unsigned" valueType-pointer="1" valueType-reference="None"/>
+    <token id="00000218DB86DE60" file="startup.c" linenr="34" column="23" str=")" scope="00000218DAF03DE0" link="00000218DB86DAA0"/>
+    <token id="00000218DB86DB00" file="startup.c" linenr="34" column="24" str="=" scope="00000218DAF03DE0" type="op" isAssignmentOp="true" astOperand1="00000218DB86D740" astOperand2="00000218DB86DC80" valueType-type="char" valueType-sign="unsigned" valueType-reference="None"/>
+    <token id="00000218DB86DC80" file="startup.c" linenr="34" column="25" str="*" scope="00000218DAF03DE0" type="op" isArithmeticalOp="true" astParent="00000218DB86DB00" astOperand1="00000218DB86E520" valueType-type="char" valueType-sign="unsigned" valueType-reference="None"/>
+    <token id="00000218DB86E280" file="startup.c" linenr="34" column="26" str="(" scope="00000218DAF03DE0" link="00000218DB86E6A0"/>
+    <token id="00000218DB86E520" file="startup.c" linenr="34" column="27" str="(" scope="00000218DAF03DE0" link="00000218DB86E340" astParent="00000218DB86DC80" astOperand1="00000218DB86E160" valueType-type="char" valueType-sign="unsigned" valueType-pointer="1" valueType-reference="None"/>
+    <token id="00000218DB86DB60" file="startup.c" linenr="34" column="28" str="uint8_t" scope="00000218DAF03DE0" type="name"/>
+    <token id="00000218DB86E040" file="startup.c" linenr="34" column="35" str="*" scope="00000218DAF03DE0" type="op" isArithmeticalOp="true"/>
+    <token id="00000218DB86E340" file="startup.c" linenr="34" column="36" str=")" scope="00000218DAF03DE0" link="00000218DB86E520"/>
+    <token id="00000218DB86E400" file="startup.c" linenr="34" column="37" str="P_src" scope="00000218DAF03DE0" type="name" varId="9" variable="00000218DB4F06C0" values="00000218DAF6EE50" astParent="00000218DB86E160" valueType-type="char" valueType-sign="unsigned" valueType-pointer="1" valueType-reference="None"/>
+    <token id="00000218DB86E160" file="startup.c" linenr="34" column="42" str="++" scope="00000218DAF03DE0" type="op" astParent="00000218DB86E520" astOperand1="00000218DB86E400" valueType-type="char" valueType-sign="unsigned" valueType-pointer="1" valueType-reference="None"/>
+    <token id="00000218DB86E6A0" file="startup.c" linenr="34" column="44" str=")" scope="00000218DAF03DE0" link="00000218DB86E280"/>
+    <token id="00000218DB86E2E0" file="startup.c" linenr="34" column="45" str=";" scope="00000218DAF03DE0"/>
+    <token id="00000218DB86DD40" file="startup.c" linenr="35" column="2" str="}" scope="00000218DAF03DE0" link="00000218DB86E220"/>
+    <token id="00000218DB86DE00" file="startup.c" linenr="36" column="2" str="uint32_t" scope="00000218DAF03CD0" type="name"/>
+    <token id="00000218DB86E640" file="startup.c" linenr="36" column="11" str="Bss_Size" scope="00000218DAF03CD0" type="name" varId="12" variable="00000218DB4EF540" valueType-type="int" valueType-sign="unsigned" valueType-reference="None"/>
+    <token id="00000218DB86E700" file="startup.c" linenr="36" column="20" str=";" scope="00000218DAF03CD0" isSplittedVarDeclEq="true"/>
+    <token id="00000218DB86F210" file="startup.c" linenr="36" column="11" str="Bss_Size" scope="00000218DAF03CD0" type="name" varId="12" variable="00000218DB4EF540" astParent="00000218DB86FD50" valueType-type="int" valueType-sign="unsigned" valueType-reference="None"/>
+    <token id="00000218DB86FD50" file="startup.c" linenr="36" column="20" str="=" scope="00000218DAF03CD0" type="op" isAssignmentOp="true" astOperand1="00000218DB86F210" astOperand2="00000218DB86DDA0" valueType-type="int" valueType-sign="unsigned" valueType-reference="None"/>
+    <token id="00000218DB86E580" file="startup.c" linenr="36" column="22" str="(" scope="00000218DAF03CD0" link="00000218DB86D800" values="00000218DAF6ED30" astParent="00000218DB86DDA0" astOperand1="00000218DB86D4A0" valueType-type="char" valueType-sign="unsigned" valueType-pointer="1" valueType-reference="None"/>
+    <token id="00000218DB86E5E0" file="startup.c" linenr="36" column="23" str="uint8_t" scope="00000218DAF03CD0" type="name"/>
+    <token id="00000218DB86D080" file="startup.c" linenr="36" column="30" str="*" scope="00000218DAF03CD0" type="op" isArithmeticalOp="true"/>
+    <token id="00000218DB86D800" file="startup.c" linenr="36" column="31" str=")" scope="00000218DAF03CD0" link="00000218DB86E580"/>
+    <token id="00000218DB86D4A0" file="startup.c" linenr="36" column="32" str="&amp;" scope="00000218DAF03CD0" type="op" values="00000218DAF6EDF0" astParent="00000218DB86E580" astOperand1="00000218DB86D5C0" valueType-type="int" valueType-sign="unsigned" valueType-pointer="1" valueType-reference="None"/>
+    <token id="00000218DB86D5C0" file="startup.c" linenr="36" column="33" str="_E_bss" scope="00000218DAF03CD0" type="name" varId="5" variable="00000218DB4F1060" astParent="00000218DB86D4A0" valueType-type="int" valueType-sign="unsigned" valueType-reference="None"/>
+    <token id="00000218DB86DDA0" file="startup.c" linenr="36" column="40" str="-" scope="00000218DAF03CD0" type="op" isArithmeticalOp="true" astParent="00000218DB86FD50" astOperand1="00000218DB86E580" astOperand2="00000218DB86DEC0" valueType-type="int" valueType-sign="signed" valueType-reference="None" valueType-originalTypeName="ptrdiff_t"/>
+    <token id="00000218DB86DEC0" file="startup.c" linenr="36" column="42" str="(" scope="00000218DAF03CD0" link="00000218DB86D0E0" values="00000218DAF6EE10" astParent="00000218DB86DDA0" astOperand1="00000218DB86D2C0" valueType-type="char" valueType-sign="unsigned" valueType-pointer="1" valueType-reference="None"/>
+    <token id="00000218DB86E0A0" file="startup.c" linenr="36" column="43" str="uint8_t" scope="00000218DAF03CD0" type="name"/>
+    <token id="00000218DB86D260" file="startup.c" linenr="36" column="50" str="*" scope="00000218DAF03CD0" type="op" isArithmeticalOp="true"/>
+    <token id="00000218DB86D0E0" file="startup.c" linenr="36" column="51" str=")" scope="00000218DAF03CD0" link="00000218DB86DEC0"/>
+    <token id="00000218DB86D2C0" file="startup.c" linenr="36" column="52" str="&amp;" scope="00000218DAF03CD0" type="op" values="00000218DAF6ECD0" astParent="00000218DB86DEC0" astOperand1="00000218DB86DF20" valueType-type="int" valueType-sign="unsigned" valueType-pointer="1" valueType-reference="None"/>
+    <token id="00000218DB86DF20" file="startup.c" linenr="36" column="53" str="_S_bss" scope="00000218DAF03CD0" type="name" varId="4" variable="00000218DB4F0030" astParent="00000218DB86D2C0" valueType-type="int" valueType-sign="unsigned" valueType-reference="None"/>
+    <token id="00000218DB86D140" file="startup.c" linenr="36" column="59" str=";" scope="00000218DAF03CD0"/>
+    <token id="00000218DB86D1A0" file="startup.c" linenr="37" column="2" str="P_dest" scope="00000218DAF03CD0" type="name" varId="10" variable="00000218DB4EF4D0" astParent="00000218DB86DF80" valueType-type="char" valueType-sign="unsigned" valueType-pointer="1" valueType-reference="None"/>
+    <token id="00000218DB86DF80" file="startup.c" linenr="37" column="8" str="=" scope="00000218DAF03CD0" type="op" isAssignmentOp="true" astOperand1="00000218DB86D1A0" astOperand2="00000218DB86D380" valueType-type="char" valueType-sign="unsigned" valueType-pointer="1" valueType-reference="None"/>
+    <token id="00000218DB86D380" file="startup.c" linenr="37" column="9" str="(" scope="00000218DAF03CD0" link="00000218DB86D440" values="00000218DAF6EE70" astParent="00000218DB86DF80" astOperand1="00000218DB86D500" valueType-type="char" valueType-sign="unsigned" valueType-pointer="1" valueType-reference="None"/>
+    <token id="00000218DB86D860" file="startup.c" linenr="37" column="10" str="uint8_t" scope="00000218DAF03CD0" type="name"/>
+    <token id="00000218DB86D200" file="startup.c" linenr="37" column="17" str="*" scope="00000218DAF03CD0" type="op" isArithmeticalOp="true"/>
+    <token id="00000218DB86D440" file="startup.c" linenr="37" column="18" str=")" scope="00000218DAF03CD0" link="00000218DB86D380"/>
+    <token id="00000218DB86D500" file="startup.c" linenr="37" column="19" str="&amp;" scope="00000218DAF03CD0" type="op" values="00000218DAF6ECF0" astParent="00000218DB86D380" astOperand1="00000218DB86D560" valueType-type="int" valueType-sign="unsigned" valueType-pointer="1" valueType-reference="None"/>
+    <token id="00000218DB86D560" file="startup.c" linenr="37" column="20" str="_S_bss" scope="00000218DAF03CD0" type="name" varId="4" variable="00000218DB4F0030" astParent="00000218DB86D500" valueType-type="int" valueType-sign="unsigned" valueType-reference="None"/>
+    <token id="00000218DB86D620" file="startup.c" linenr="37" column="26" str=";" scope="00000218DAF03CD0"/>
+    <token id="00000218DB86D680" file="startup.c" linenr="38" column="2" str="for" scope="00000218DAF03CD0" type="name" astParent="00000218DB86D6E0"/>
+    <token id="00000218DB86D6E0" file="startup.c" linenr="38" column="5" str="(" scope="00000218DAF03CD0" link="00000218DB86E8E0" astOperand1="00000218DB86D680" astOperand2="00000218DB86EBE0"/>
+    <token id="00000218DB86E9A0" file="startup.c" linenr="38" column="6" str="uint32_t" scope="00000218DAF03CD0" type="name"/>
+    <token id="00000218DB86EA00" file="startup.c" linenr="38" column="15" str="i" scope="00000218DAF03CD0" type="name" varId="13" variable="00000218DB4F01F0" astParent="00000218DB86EAC0" valueType-type="int" valueType-sign="unsigned" valueType-reference="None"/>
+    <token id="00000218DB86EAC0" file="startup.c" linenr="38" column="16" str="=" scope="00000218DAF03CD0" type="op" isAssignmentOp="true" astParent="00000218DB86EBE0" astOperand1="00000218DB86EA00" astOperand2="00000218DB86EDC0" valueType-type="int" valueType-sign="unsigned" valueType-reference="None"/>
+    <token id="00000218DB86EDC0" file="startup.c" linenr="38" column="17" str="0" scope="00000218DAF03CD0" type="number" isInt="true" values="00000218DAF6EC10" astParent="00000218DB86EAC0" valueType-type="int" valueType-sign="signed" valueType-reference="None"/>
+    <token id="00000218DB86EBE0" file="startup.c" linenr="38" column="19" str=";" scope="00000218DAF03CD0" astParent="00000218DB86D6E0" astOperand1="00000218DB86EAC0" astOperand2="00000218DB86EC40"/>
+    <token id="00000218DB86EA60" file="startup.c" linenr="38" column="21" str="i" scope="00000218DAF03CD0" type="name" varId="13" variable="00000218DB4F01F0" astParent="00000218DB86EE20" valueType-type="int" valueType-sign="unsigned" valueType-reference="None"/>
+    <token id="00000218DB86EE20" file="startup.c" linenr="38" column="22" str="&lt;" scope="00000218DAF03CD0" type="op" isComparisonOp="true" astParent="00000218DB86EC40" astOperand1="00000218DB86EA60" astOperand2="00000218DB86ED60" valueType-type="bool" valueType-reference="None"/>
+    <token id="00000218DB86ED60" file="startup.c" linenr="38" column="24" str="Bss_Size" scope="00000218DAF03CD0" type="name" varId="12" variable="00000218DB4EF540" astParent="00000218DB86EE20" valueType-type="int" valueType-sign="unsigned" valueType-reference="None"/>
+    <token id="00000218DB86EC40" file="startup.c" linenr="38" column="33" str=";" scope="00000218DAF03CD0" astParent="00000218DB86EBE0" astOperand1="00000218DB86EE20" astOperand2="00000218DB86EB20"/>
+    <token id="00000218DB86EE80" file="startup.c" linenr="38" column="35" str="i" scope="00000218DAF03CD0" type="name" varId="13" variable="00000218DB4F01F0" astParent="00000218DB86EB20" valueType-type="int" valueType-sign="unsigned" valueType-reference="None"/>
+    <token id="00000218DB86EB20" file="startup.c" linenr="38" column="36" str="++" scope="00000218DAF03CD0" type="op" astParent="00000218DB86EC40" astOperand1="00000218DB86EE80" valueType-type="int" valueType-sign="unsigned" valueType-reference="None"/>
+    <token id="00000218DB86E8E0" file="startup.c" linenr="38" column="38" str=")" scope="00000218DAF03CD0" link="00000218DB86D6E0"/>
+    <token id="00000218DB86EF40" file="startup.c" linenr="38" column="39" str="{" scope="00000218DAF04660" link="00000218DB870110"/>
+    <token id="00000218DB86EEE0" file="startup.c" linenr="39" column="3" str="*" scope="00000218DAF04660" type="op" isArithmeticalOp="true" astParent="00000218DB870230" astOperand1="00000218DB86ED00" valueType-type="char" valueType-sign="unsigned" valueType-reference="None"/>
+    <token id="00000218DB86E880" file="startup.c" linenr="39" column="4" str="(" scope="00000218DAF04660" link="00000218DB86FB70"/>
+    <token id="00000218DB86ED00" file="startup.c" linenr="39" column="5" str="(" scope="00000218DAF04660" link="00000218DB86ECA0" astParent="00000218DB86EEE0" astOperand1="00000218DB86F330" valueType-type="char" valueType-sign="unsigned" valueType-pointer="1" valueType-reference="None"/>
+    <token id="00000218DB86EFA0" file="startup.c" linenr="39" column="6" str="uint8_t" scope="00000218DAF04660" type="name"/>
+    <token id="00000218DB86EB80" file="startup.c" linenr="39" column="13" str="*" scope="00000218DAF04660" type="op" isArithmeticalOp="true"/>
+    <token id="00000218DB86ECA0" file="startup.c" linenr="39" column="14" str=")" scope="00000218DAF04660" link="00000218DB86ED00"/>
+    <token id="00000218DB86E940" file="startup.c" linenr="39" column="15" str="P_dest" scope="00000218DAF04660" type="name" varId="10" variable="00000218DB4EF4D0" values="00000218DAF6EEB0" astParent="00000218DB86F330" valueType-type="char" valueType-sign="unsigned" valueType-pointer="1" valueType-reference="None"/>
+    <token id="00000218DB86F330" file="startup.c" linenr="39" column="21" str="++" scope="00000218DAF04660" type="op" astParent="00000218DB86ED00" astOperand1="00000218DB86E940" valueType-type="char" valueType-sign="unsigned" valueType-pointer="1" valueType-reference="None"/>
+    <token id="00000218DB86FB70" file="startup.c" linenr="39" column="23" str=")" scope="00000218DAF04660" link="00000218DB86E880"/>
+    <token id="00000218DB870230" file="startup.c" linenr="39" column="24" str="=" scope="00000218DAF04660" type="op" isAssignmentOp="true" astOperand1="00000218DB86EEE0" astOperand2="00000218DB8704D0" valueType-type="char" valueType-sign="unsigned" valueType-reference="None"/>
+    <token id="00000218DB8704D0" file="startup.c" linenr="39" column="25" str="(" scope="00000218DAF04660" link="00000218DB86FFF0" values="00000218DAF6EA30" astParent="00000218DB870230" astOperand1="00000218DB870350" valueType-type="char" valueType-sign="unsigned" valueType-reference="None"/>
+    <token id="00000218DB86FA50" file="startup.c" linenr="39" column="26" str="uint8_t" scope="00000218DAF04660" type="name"/>
+    <token id="00000218DB86FFF0" file="startup.c" linenr="39" column="33" str=")" scope="00000218DAF04660" link="00000218DB8704D0"/>
+    <token id="00000218DB870350" file="startup.c" linenr="39" column="34" str="0" scope="00000218DAF04660" type="number" isInt="true" values="00000218DAF6ED90" astParent="00000218DB8704D0" valueType-type="int" valueType-sign="signed" valueType-reference="None"/>
+    <token id="00000218DB8703B0" file="startup.c" linenr="39" column="35" str=";" scope="00000218DAF04660"/>
+    <token id="00000218DB870110" file="startup.c" linenr="40" column="2" str="}" scope="00000218DAF04660" link="00000218DB86EF40"/>
+    <token id="00000218DB8706B0" file="startup.c" linenr="42" column="2" str="main" scope="00000218DAF03CD0" type="name" function="00000218DB216BA0" astParent="00000218DB8702F0"/>
+    <token id="00000218DB8702F0" file="startup.c" linenr="42" column="6" str="(" scope="00000218DAF03CD0" link="00000218DB86FC90" astOperand1="00000218DB8706B0" valueType-type="int" valueType-sign="signed" valueType-reference="None"/>
+    <token id="00000218DB86FC90" file="startup.c" linenr="42" column="7" str=")" scope="00000218DAF03CD0" link="00000218DB8702F0"/>
+    <token id="00000218DB86FE10" file="startup.c" linenr="42" column="8" str=";" scope="00000218DAF03CD0"/>
+    <token id="00000218DB870650" file="startup.c" linenr="43" column="1" str="}" scope="00000218DAF03CD0" link="00000218DAFDE130"/>
+  </tokenlist>
+  <scopes>
+    <scope id="00000218DAF04550" type="Global">
+      <functionList>
+        <function id="00000218DB216BA0" tokenDef="00000218DB5006C0" name="main" type="Function"/>
+        <function id="00000218DB216CE0" tokenDef="00000218DB53D3D0" name="Reset_Handler" type="Function"/>
+        <function id="00000218DB216E20" tokenDef="00000218DB53D730" name="NMI_Handler" type="Function"/>
+        <function id="00000218DB216EC0" tokenDef="00000218DB53D310" name="H_fault_Handler" type="Function"/>
+        <function id="00000218DB216F60" tokenDef="00000218DB390160" name="MM_Fault_Handler" type="Function"/>
+        <function id="00000218DB216380" tokenDef="00000218DB390880" name="Bus_Fault" type="Function"/>
+        <function id="00000218DB216420" tokenDef="00000218DB390700" name="Usage_Fault_Handler" type="Function"/>
+        <function id="00000218DB216560" tokenDef="00000218DB86CAF0" name="Default_Handler" type="Function"/>
+      </functionList>
+      <varlist>
+        <var id="00000218DB4EF700"/>
+        <var id="00000218DB4F0420"/>
+        <var id="00000218DB4F0F80"/>
+        <var id="00000218DB4F0030"/>
+        <var id="00000218DB4F1060"/>
+        <var id="00000218DB4EFB60"/>
+        <var id="00000218DB4F05E0"/>
+      </varlist>
+    </scope>
+    <scope id="00000218DAF03EF0" type="Function" className="Default_Handler" bodyStart="00000218DB86C3D0" bodyEnd="00000218DB86C8B0" nestedIn="00000218DAF04550" function="00000218DB216560"/>
+    <scope id="00000218DAF03CD0" type="Function" className="Reset_Handler" bodyStart="00000218DAFDE130" bodyEnd="00000218DB870650" nestedIn="00000218DAF04550" function="00000218DB216CE0">
+      <varlist>
+        <var id="00000218DB4EF9A0"/>
+        <var id="00000218DB4F06C0"/>
+        <var id="00000218DB4EF4D0"/>
+        <var id="00000218DB4EF540"/>
+      </varlist>
+    </scope>
+    <scope id="00000218DAF03DE0" type="For" bodyStart="00000218DB86E220" bodyEnd="00000218DB86DD40" nestedIn="00000218DAF03CD0">
+      <varlist>
+        <var id="00000218DB4F0F10"/>
+      </varlist>
+    </scope>
+    <scope id="00000218DAF04660" type="For" bodyStart="00000218DB86EF40" bodyEnd="00000218DB870110" nestedIn="00000218DAF03CD0">
+      <varlist>
+        <var id="00000218DB4F01F0"/>
+      </varlist>
+    </scope>
+  </scopes>
+  <variables>
+    <var id="00000218DB4EF4D0" nameToken="00000218DAFDED90" typeStartToken="00000218DAFDEF70" typeEndToken="00000218DAFDE9D0" access="Local" scope="00000218DAF03CD0" constness="0" isArgument="false" isArray="false" isClass="false" isConst="false" isExtern="false" isLocal="true" isPointer="true" isReference="false" isStatic="false"/>
+    <var id="00000218DB4EF540" nameToken="00000218DB86E640" typeStartToken="00000218DB86DE00" typeEndToken="00000218DB86DE00" access="Local" scope="00000218DAF03CD0" constness="0" isArgument="false" isArray="false" isClass="false" isConst="false" isExtern="false" isLocal="true" isPointer="false" isReference="false" isStatic="false"/>
+    <var id="00000218DB4EF700" nameToken="00000218DB4FFB20" typeStartToken="00000218DB500720" typeEndToken="00000218DB500720" access="Global" scope="00000218DAF04550" constness="0" isArgument="false" isArray="false" isClass="false" isConst="false" isExtern="true" isLocal="false" isPointer="false" isReference="false" isStatic="false"/>
+    <var id="00000218DB4EF9A0" nameToken="00000218DAFDD170" typeStartToken="00000218DAFDD3B0" typeEndToken="00000218DAFDD3B0" access="Local" scope="00000218DAF03CD0" constness="0" isArgument="false" isArray="false" isClass="false" isConst="false" isExtern="false" isLocal="true" isPointer="false" isReference="false" isStatic="false"/>
+    <var id="00000218DB4EFB60" nameToken="00000218DB53CDD0" typeStartToken="00000218DB53CD70" typeEndToken="00000218DB53CD70" access="Global" scope="00000218DAF04550" constness="0" isArgument="false" isArray="false" isClass="false" isConst="false" isExtern="true" isLocal="false" isPointer="false" isReference="false" isStatic="false"/>
+    <var id="00000218DB4F0030" nameToken="00000218DB4FFFA0" typeStartToken="00000218DB4FFEE0" typeEndToken="00000218DB4FFEE0" access="Global" scope="00000218DAF04550" constness="0" isArgument="false" isArray="false" isClass="false" isConst="false" isExtern="true" isLocal="false" isPointer="false" isReference="false" isStatic="false"/>
+    <var id="00000218DB4F01F0" nameToken="00000218DB86EA00" typeStartToken="00000218DB86E9A0" typeEndToken="00000218DB86E9A0" access="Local" scope="00000218DAF04660" constness="0" isArgument="false" isArray="false" isClass="false" isConst="false" isExtern="false" isLocal="true" isPointer="false" isReference="false" isStatic="false"/>
+    <var id="00000218DB4F0420" nameToken="00000218DB5007E0" typeStartToken="00000218DB500780" typeEndToken="00000218DB500780" access="Global" scope="00000218DAF04550" constness="0" isArgument="false" isArray="false" isClass="false" isConst="false" isExtern="true" isLocal="false" isPointer="false" isReference="false" isStatic="false"/>
+    <var id="00000218DB4F05E0" nameToken="00000218DB86CF10" typeStartToken="00000218DB86C130" typeEndToken="00000218DB86C130" access="Global" scope="00000218DAF04550" constness="0" isArgument="false" isArray="true" isClass="false" isConst="false" isExtern="false" isLocal="false" isPointer="false" isReference="false" isStatic="false"/>
+    <var id="00000218DB4F06C0" nameToken="00000218DAFDEE50" typeStartToken="00000218DAFDE790" typeEndToken="00000218DAFDE7F0" access="Local" scope="00000218DAF03CD0" constness="0" isArgument="false" isArray="false" isClass="false" isConst="false" isExtern="false" isLocal="true" isPointer="true" isReference="false" isStatic="false"/>
+    <var id="00000218DB4F0F10" nameToken="00000218DB86D9E0" typeStartToken="00000218DB86E460" typeEndToken="00000218DB86E460" access="Local" scope="00000218DAF03DE0" constness="0" isArgument="false" isArray="false" isClass="false" isConst="false" isExtern="false" isLocal="true" isPointer="false" isReference="false" isStatic="false"/>
+    <var id="00000218DB4F0F80" nameToken="00000218DB4FFB80" typeStartToken="00000218DB4FFA60" typeEndToken="00000218DB4FFA60" access="Global" scope="00000218DAF04550" constness="0" isArgument="false" isArray="false" isClass="false" isConst="false" isExtern="true" isLocal="false" isPointer="false" isReference="false" isStatic="false"/>
+    <var id="00000218DB4F1060" nameToken="00000218DB53D190" typeStartToken="00000218DB53D670" typeEndToken="00000218DB53D670" access="Global" scope="00000218DAF04550" constness="0" isArgument="false" isArray="false" isClass="false" isConst="false" isExtern="true" isLocal="false" isPointer="false" isReference="false" isStatic="false"/>
+  </variables>
+  <valueflow>
+    <values id="00000218DAF6EAB0">
+      <value intvalue="7" known="true"/>
+    </values>
+    <values id="00000218DAF6EDD0">
+      <value lifetime="00000218DAFDD9B0" possible="true"/>
+    </values>
+    <values id="00000218DAF6EDB0">
+      <value lifetime="00000218DAFDD9B0" possible="true"/>
+    </values>
+    <values id="00000218DAF6EA50">
+      <value lifetime="00000218DAFDE610" possible="true"/>
+    </values>
+    <values id="00000218DAF6EF50">
+      <value lifetime="00000218DAFDE610" possible="true"/>
+    </values>
+    <values id="00000218DAF6ECB0">
+      <value lifetime="00000218DAFDEDF0" possible="true"/>
+    </values>
+    <values id="00000218DAF6EC90">
+      <value lifetime="00000218DAFDEDF0" possible="true"/>
+    </values>
+    <values id="00000218DAF6EBF0">
+      <value lifetime="00000218DAFDEC10" possible="true"/>
+    </values>
+    <values id="00000218DAF6EF30">
+      <value lifetime="00000218DAFDEC10" possible="true"/>
+    </values>
+    <values id="00000218DAF6E9B0">
+      <value intvalue="0" known="true"/>
+    </values>
+    <values id="00000218DAF6EAD0">
+      <value lifetime="00000218DAFDEC10" possible="true"/>
+    </values>
+    <values id="00000218DAF6EE50">
+      <value lifetime="00000218DAFDEDF0" possible="true"/>
+    </values>
+    <values id="00000218DAF6ED30">
+      <value lifetime="00000218DB86D5C0" possible="true"/>
+    </values>
+    <values id="00000218DAF6EDF0">
+      <value lifetime="00000218DB86D5C0" possible="true"/>
+    </values>
+    <values id="00000218DAF6EE10">
+      <value lifetime="00000218DB86DF20" possible="true"/>
+    </values>
+    <values id="00000218DAF6ECD0">
+      <value lifetime="00000218DB86DF20" possible="true"/>
+    </values>
+    <values id="00000218DAF6EE70">
+      <value lifetime="00000218DB86D560" possible="true"/>
+    </values>
+    <values id="00000218DAF6ECF0">
+      <value lifetime="00000218DB86D560" possible="true"/>
+    </values>
+    <values id="00000218DAF6EC10">
+      <value intvalue="0" known="true"/>
+    </values>
+    <values id="00000218DAF6EEB0">
+      <value lifetime="00000218DB86D560" possible="true"/>
+    </values>
+    <values id="00000218DAF6EA30">
+      <value intvalue="0" known="true"/>
+    </values>
+    <values id="00000218DAF6ED90">
+      <value intvalue="0" known="true"/>
+    </values>
+  </valueflow>
+</dump>
+</dumps>
