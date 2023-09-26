@@ -1,0 +1,251 @@
+/* Learn-In-Depth
+ * File name :Stm32f103C6_Driver_gpio.c
+ *  Description: source file for GBIO DRIVER stm32f103xx
+ * Created By: mohamed salah fathy
+ */
+
+
+#include "Stm32f103C6_Driver_gpio.h"
+
+/**================================================================
+ * @Fn			-Get_CR_shif
+ * @brief 		-get the shift number for cr reg
+ * @param[in]	- Pin number
+ * @param[out]	- uint8 value for shifted position
+ * @retval-		- None
+ * Note-
+ */
+uint8 Get_CR_shif(uint8 Pin_Num){
+	uint8 Shift_value;
+	switch(Pin_Num){
+	case 8:
+	case 0:
+		Shift_value=0;
+		break;
+	case 9:
+	case 1:
+		Shift_value=4;
+		break;
+	case 10:
+	case 2:
+		Shift_value=8;
+		break;
+
+	case 11:
+	case 3:
+		Shift_value=12;
+		break;
+	case 12:
+	case 4:
+		Shift_value=16;
+		break;
+	case 13:
+	case 5:
+		Shift_value=20;
+		break;
+	case 14:
+	case 6:
+		Shift_value=24;
+		break;
+	case 15:
+	case 7:
+		Shift_value=28;
+		break;
+	}
+	return Shift_value;
+
+}
+
+/**================================================================
+ * @Fn			-MCAL_GPIO_Init
+ * @brief 		-Init port and config pin
+ * @param[in]	- GPIO_Typedef pointer to port ,number of pin
+ * @retval-		- None
+ * Note-
+ */
+void MCAL_GPIO_Init(GPIO_Typedef* GPIOx,GPIO_PIN_Config* Pin_Config){
+	//Config register to hold adress of CR
+	vuint32 *Config_Reg=NULL;
+	if(((Pin_Config->Pin_Num)<PIN_8) && ((Pin_Config->Pin_Num)>=PIN_0)){
+		Config_Reg = &(GPIOx->CRL);
+	}else{
+		Config_Reg = &(GPIOx->CRH);
+	}
+	/*make the Mode and CNF zeros*/
+	*Config_Reg &= ~ (0XF <<Get_CR_shif(Pin_Config->Pin_Num));
+	switch(Pin_Config->Mode){
+	case Analog_input_Mode:
+	case Floating_Mode:
+		*Config_Reg |= (Floating_Mode<<(Get_CR_shif(Pin_Config->Pin_Num)+CNF_SHIFT));
+		break;
+	case Input_PU:
+		*Config_Reg |= (Input_PU<<(Get_CR_shif(Pin_Config->Pin_Num)+CNF_SHIFT));
+		GPIOx ->ODR |= (1<<Pin_Config->Pin_Num);
+		break;
+	case Input_PD:
+		*Config_Reg |= ((Input_PD-1)<<(Get_CR_shif(Pin_Config->Pin_Num)+CNF_SHIFT));
+		GPIOx ->ODR &= ~(1<<Pin_Config->Pin_Num);
+		break;
+	case OUTPUT_PP:
+		*Config_Reg |= ((OUTPUT_PP-OUTPUT_MODE_E)<<(Get_CR_shif(Pin_Config->Pin_Num)+CNF_SHIFT));
+		*Config_Reg |= ((Pin_Config->speed)<<(Get_CR_shif(Pin_Config->Pin_Num)));
+		break;
+	case OUTPUT_OD:
+		*Config_Reg |= ((OUTPUT_OD-OUTPUT_MODE_E)<<(Get_CR_shif(Pin_Config->Pin_Num)+CNF_SHIFT));
+		*Config_Reg |= ((Pin_Config->speed)<<(Get_CR_shif(Pin_Config->Pin_Num)));
+		break;
+	case ALT_OUTPUT_PP:
+		*Config_Reg |= ((ALT_OUTPUT_PP-OUTPUT_MODE_E)<<(Get_CR_shif(Pin_Config->Pin_Num)+CNF_SHIFT));
+		*Config_Reg |= ((Pin_Config->speed)<<(Get_CR_shif(Pin_Config->Pin_Num)));
+		break;
+	case ALT_OUTPUT_OD:
+		*Config_Reg |= ((ALT_OUTPUT_OD-OUTPUT_MODE_E)<<(Get_CR_shif(Pin_Config->Pin_Num)+CNF_SHIFT));
+		*Config_Reg |= ((Pin_Config->speed)<<(Get_CR_shif(Pin_Config->Pin_Num)));
+		break;
+
+
+	}
+}
+/**================================================================
+ * @Fn			-MCAL_GPIO_DeInit
+ * @brief 		-DeInit port
+ * @param[in]	- GPIO_Typedef pointer to port
+ * @retval-		- None
+ * Note-
+ */
+
+void MCAL_GPIO_DeInit(GPIO_Typedef* GPIOx){
+	if(GPIOx == GPIOA){
+		GPIOA_RESET();
+	}else if(GPIOx == GPIOB){
+		GPIOB_RESET();
+	}else if(GPIOx == GPIOC){
+		GPIOC_RESET();
+	}else if(GPIOx == GPIOD){
+		GPIOD_RESET();
+	}else if(GPIOx == GPIOE){
+		GPIOE_RESET();
+	}
+}
+/**================================================================
+ * @Fn			-MCAL_GPIO_ReadPin
+ * @brief 		-Read specific pin from any port
+ * @param[in]	- GPIO_Typedef pointer to port ,number of pin
+ * @retval-		- HIGH OR LOW
+ * Note-
+ */
+uint8 MCAL_GPIO_ReadPin(GPIO_Typedef* GPIOx,uint8 Pin_Num){
+	uint8 Pin_Val;
+	if(((GPIOx->IDR) & (1<<Pin_Num)) == PIN_LOW){
+		Pin_Val = PIN_LOW;
+	}else{
+		Pin_Val = PIN_HIGH;
+	}
+	return Pin_Val;
+}
+/**================================================================
+ * @Fn			-MCAL_GPIO_ReadPort
+ * @brief 		-Read specific port value
+ * @param[in]	- GPIO_Typedef pointer to port
+ * @retval-		- 16 bit value of port
+ * Note-
+ */
+
+uint16 MCAL_GPIO_ReadPort(GPIO_Typedef* GPIOx){
+
+	return (uint16)(GPIOx->IDR);
+}
+
+/**================================================================
+ * @Fn			-MCAL_GPIO_WritePin
+ * @brief 		-write on specific pin
+ * @param[in]	- GPIO_Typedef pointer to port,pin number,value
+ * @retval-		- none
+ * Note-
+ */
+
+void MCAL_GPIO_WritePin(GPIO_Typedef* GPIOx,uint8 Pin_Num,uint8 value){
+
+	if(GPIOx != NULL){
+		if(value == PIN_HIGH ){
+			/*Bits 15:0 BSy: Port x Set bit y (y= 0 .. 15)
+			These bits are write-only and can be accessed in Word mode only.
+			0: No action on the corresponding ODRx bit
+			1: Set the corresponding ODRx bit*/
+			GPIOx->ODR |= (PIN_HIGH<<Pin_Num);
+		}else if(value == PIN_LOW){
+
+			GPIOx->ODR |= (PIN_LOW<<Pin_Num);
+		}
+	}
+
+}
+
+/**================================================================
+ * @Fn			-MCAL_GPIO_WritePort
+ * @brief 		-write on specific PORT
+ * @param[in]	- GPIO_Typedef pointer to port,value
+ * @retval-		- none
+ * Note-
+ */
+void MCAL_GPIO_WritePort(GPIO_Typedef* GPIOx,uint16 value){
+	if(GPIOx != NULL){
+
+		GPIOx->ODR = (uint16)value;
+
+	}
+
+}
+
+/**================================================================
+ * @Fn			-Get_Pin_locked
+ * @brief 		-lock specific Pin
+ * @param[in]	- GPIO_Typedef pointer to port
+ * @retval-		- ERROR OR SECCESS
+ * Note-
+ */
+
+uint8 Get_Pin_locked(GPIO_Typedef* GPIOx,uint8 Pin_Num){
+uint8 lock_status;
+	/*
+Bits 31:17 Reserved
+Bit 16 LCKK[16]: Lock key
+This bit can be read anytime. It can only be modified using the Lock Key Writing Sequence.
+0: Port configuration lock key not active
+1: Port configuration lock key active. GPIOx_LCKR register is locked until the next reset.
+LOCK key writing sequence:
+Write 1
+Write 0
+Write 1
+Read 0
+Read 1 (this read is optional but confirms that the lock is active)
+Note: During the LOCK Key Writing sequence, the value of LCK[15:0] must not change.
+Any error in the lock sequence will abort the lock.
+Bits 15:0 LCKy: Port x Lock bit y (y= 0 .. 15)
+These bits are read write but can only be written when the LCKK bit is 0.
+0: Port configuration not locked
+1: Port configuration locked.*/
+	GPIOx->LCKR |= (1<<Pin_Num);
+	GPIOx->LCKR |= (1<<16); //write 1
+	GPIOx->LCKR = (1<<Pin_Num); //write 0
+	GPIOx->LCKR |= (1<<16); //write 1
+	GPIOx->LCKR = (1<<Pin_Num); //write 0
+	if(((GPIOx->LCKR)& (1<<16))== LOCKING_FAIL){
+		lock_status= LOCKING_FAIL;
+	}else {
+
+		lock_status= LOCKING_SUCCESS;
+	}
+
+
+return lock_status;
+
+}
+
+void MCAL_GPIO_TogglePin(GPIO_Typedef* GPIOx,uint8 Pin_Num){
+
+	GPIOx->ODR ^=(1<<Pin_Num);
+
+
+
+}

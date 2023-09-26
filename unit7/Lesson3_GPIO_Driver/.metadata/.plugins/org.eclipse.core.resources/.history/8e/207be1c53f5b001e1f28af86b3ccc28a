@@ -1,0 +1,108 @@
+/* Learn-In-Depth
+ * File name :Stm32f103C6_Driver_gpio.h
+ *  Description: Header file for GBIO DRIVER stm32f103xx
+ * Created By: mohamed salah fathy
+ */
+
+#ifndef INC_STM32F103C6_DRIVER_GPIO_H_
+#define INC_STM32F103C6_DRIVER_GPIO_H_
+//-----------------------------
+//Includes
+//-----------------------------
+#include "Stm32f103x6.h"
+
+//-----------------------------
+//User type definitions (structures)
+//-----------------------------
+typedef enum {
+	GPIOA_e,
+	GPIOB_e,
+	GPIOC_e,
+	GPIOD_e,
+	GPIOE_e
+}GPIO_Enum_Port;
+typedef enum {
+	Max_speed_10MHZ=1,
+	Max_speed_2MHZ,
+	Max_speed_50MHZ
+}GPIO_Speed;
+/*
+ * In input mode (MODE[1:0]=00):
+00: Analog mode
+01: Floating input (reset state)
+10: Input with pull-up / pull-down
+11: Reserved
+In output mode (MODE[1:0] > 00):
+00: General purpose output push-pull
+01: General purpose output Open-drain
+10: Alternate function output Push-pull
+11: Alternate function output Open-drain
+ *
+ * */
+typedef enum {
+	Analog_input_Mode,
+	Floating_Mode,
+	ALT_INPUT=1,
+	OUTPUT_PP,
+	OUTPUT_PU,
+	OUTPUT_PD,
+	OUTPUT_OD,
+	ALT_OUTPUT_PP,
+	ALT_OUTPUT_OD
+}GPIO_Input_Mode;
+
+typedef struct {
+
+
+	uint8 Pin_Num; /*Number of specific PIN to configure */ // @ref pin number
+
+	GPIO_Speed speed; /*configure the speed of gpio*/
+
+	GPIO_Input_Mode Mode;	/*configure the mood*/
+}GPIO_PIN_Config;
+//-----------------------------
+//Macros Configuration References
+//-----------------------------
+
+
+/*@ref Module_REF_NAME_define
+ */
+// @ref pin number
+#define PIN_0	(0U)
+#define PIN_1	(1U)
+#define PIN_2	(2U)
+#define PIN_3	(3U)
+#define PIN_4	(4U)
+#define PIN_5	(5U)
+#define PIN_6	(6U)
+#define PIN_7	(7U)
+#define PIN_8	(8U)
+#define PIN_9	(9U)
+#define PIN_10	(10U)
+#define PIN_11	(11U)
+#define PIN_12	(12U)
+#define PIN_13	(13U)
+#define PIN_14	(14U)
+#define PIN_15	(15U)
+//@ref Pin state
+#define PIN_HIGH (1u)
+#define PIN_LOW (0u)
+
+
+
+
+// @ref GPIO LOCK
+#define LOCKING_SUCCESS (0U)
+#define LOCKING_FAIL 	(1U)
+/*
+ * ===============================================
+ * APIs Supported by "MCAL GPIO DRIVER"
+ * ===============================================
+ */
+void MCAL_GPIO_Init(GPIO_Typedef* GPIOx,GPIO_PIN_Config* Pin_Config);
+void MCAL_GPIO_DeInit(GPIO_Typedef* GPIOx);
+uint8 MCAL_GPIO_ReadPin(GPIO_Typedef* GPIOx,uint8 Pin_Num);
+uint16 MCAL_GPIO_ReadPort(GPIO_Typedef* GPIOx);
+void MCAL_GPIO_WritePin(GPIO_Typedef* GPIOx,uint8 Pin_Num,uint8 value);
+void MCAL_GPIO_WritePort(GPIO_Typedef* GPIOx,uint16 value);
+#endif /* INC_STM32F103C6_DRIVER_GPIO_H_ */

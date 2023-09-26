@@ -1,0 +1,18 @@
+/*
+ * Registers.h
+ *
+ *  Created on: Sep 18, 2023
+ *      Author: LEGION
+ */
+
+#ifndef REGISTERS_H_
+#define REGISTERS_H_
+//RCC reg
+#define RCC_BASE 0x40021000
+
+
+//GPIO reg
+#define GPIO_Port_A_BASE
+
+
+#endif /* REGISTERS_H_ */

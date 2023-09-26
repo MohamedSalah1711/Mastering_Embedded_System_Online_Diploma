@@ -1,0 +1,76 @@
+/* Learn-In-Depth
+ * File name :Stm32f103C6_Driver_gpio.h
+ *  Description: Header file for GBIO DRIVER stm32f103xx
+ * Created By: mohamed salah fathy
+ */
+
+#ifndef INC_STM32F103C6_DRIVER_GPIO_H_
+#define INC_STM32F103C6_DRIVER_GPIO_H_
+//-----------------------------
+//Includes
+//-----------------------------
+#include "Stm32f103x6.h"
+
+//-----------------------------
+//User type definitions (structures)
+//-----------------------------
+typedef enum {
+	GPIOA_e,
+	GPIOB_e,
+	GPIOC_e,
+	GPIOD_e,
+	GPIOE_e
+}GPIO_Enum_Port;
+typedef enum {
+	Max_speed_10MHZ=1,
+	Max_speed_2MHZ,
+	Max_speed_50MHZ
+}GPIO_Speed;
+typedef struct {
+	uint8 Pin_Num; /*Number of specific PIN to configure */
+
+	GPIO_Speed speed;
+
+
+};
+
+
+
+
+
+
+
+
+
+
+
+//-----------------------------
+//Macros Configuration References
+//-----------------------------
+
+
+
+
+
+
+
+
+/*@ref Module_REF_NAME_define
+ */
+
+
+
+
+
+
+
+
+/*
+ * ===============================================
+ * APIs Supported by "MCAL GPIO DRIVER"
+ * ===============================================
+ */
+
+
+
+#endif /* INC_STM32F103C6_DRIVER_GPIO_H_ */
