@@ -371,3 +371,9 @@ java.lang.IllegalArgumentException: The file: C:\Users\LEGION\STM32Cube\Reposito
 2023-09-26 04:14:18,997 [INFO] Activator:179 - !SESSION log4j initialized
 2023-09-26 04:15:34,255 [INFO] RetryExec:97 - I/O exception (org.apache.http.NoHttpResponseException) caught when processing request to {s}->https://download.eclipse.org:443: The target server failed to respond
 2023-09-26 04:15:34,257 [INFO] RetryExec:113 - Retrying request to {s}->https://download.eclipse.org:443
+2023-09-26 18:24:40,886 [INFO] Activator:178 - 
+
+
+2023-09-26 18:24:40,986 [INFO] Activator:179 - !SESSION log4j initialized
+2023-09-26 18:25:02,460 [INFO] RetryExec:97 - I/O exception (java.net.SocketException) caught when processing request to {}->http://sw-center.st.com:80: Socket Closed
+2023-09-26 18:25:02,462 [INFO] RetryExec:113 - Retrying request to {}->http://sw-center.st.com:80

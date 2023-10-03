@@ -1,0 +1,56 @@
+/*
+ *file name : Stm32F103C6_EXTI_Driver.h
+ *
+ *Author: Mohamed salah
+ */
+
+#ifndef INC_STM32F103C6_EXTI_DRIVER_H_
+#define INC_STM32F103C6_EXTI_DRIVER_H_
+//-----------------------------
+//Includes
+//-----------------------------
+#include "Platform_Types.h"
+#include "Stm32f103x6.h"
+#include "Stm32f103C6_Driver_gpio.h"
+//-----------------------------
+//User type definitions (structures)
+//-----------------------------
+typedef struct {
+	uint8 			Line_Number;
+
+	GPIO_Typedef* 	GPIO_PORT;
+
+	uint8 			Pin_Number;
+
+	uint8			IVT_IRQ_REQ;
+}EXTI_GPIO_Mapping_t;
+
+typedef struct {
+	EXTI_GPIO_Mapping_t EXTI_Pin;
+
+	Trigger_Case trigger;
+
+
+}EXTI_Pin_Config_t;
+
+
+
+
+
+
+
+
+
+
+typedef enum {
+
+	Falling,Rising,Both_Falling_Rising
+}Trigger_Case;
+
+typedef enum {
+
+	Interrupt_Disable,Interrupt_Enable
+}Interrupt_status;
+
+
+#endif /* INC_STM32F103C6_EXTI_DRIVER_H_ */

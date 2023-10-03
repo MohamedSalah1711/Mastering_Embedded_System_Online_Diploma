@@ -1,0 +1,7 @@
+19:06:28 **** Incremental Build of configuration Debug for project Lcd_Keypad_Lab ****
+make -j12 all 
+arm-none-eabi-size   Lcd_Keypad_Lab.elf 
+   text	   data	    bss	    dec	    hex	filename
+   2600	     32	   1568	   4200	   1068	Lcd_Keypad_Lab.elf
+Finished building: default.size.stdout
+ 

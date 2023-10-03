@@ -1,0 +1,50 @@
+/*
+ * Keypad.c
+ *
+ * Created: 9/23/2023 2:38:54 AM
+ *  Author: LEGION
+ */ 
+#include "Keypad.h"
+uint8_t keys_char[4][4]={
+		{'7','8','9','/'},
+		{'4','5','6','X'},
+		{'1','2','3','-'},
+		{' ','0','=','+'}
+};
+void KEYPAD_init(void){
+	uint8 count;
+	// first 4 pin as input and second for pin as input pu
+	GPIO_PIN_Config Pin_config={0,Max_speed_10MHZ,Input_PU};
+	MCAL_GPIO_Init(KEYPAD_PORT,&Pin_config);
+	Pin_config.Pin_Num=1;
+	MCAL_GPIO_Init(KEYPAD_PORT,&Pin_config);
+	Pin_config.Pin_Num=3;
+	MCAL_GPIO_Init(KEYPAD_PORT,&Pin_config);
+	Pin_config.Pin_Num=4;
+	MCAL_GPIO_Init(KEYPAD_PORT,&Pin_config);
+	Pin_config.Mode=OUTPUT_PP;
+	for(count=PIN_5 ; count < PIN_9 ; count++){
+		Pin_config.Pin_Num=count;
+		MCAL_GPIO_Init(KEYPAD_PORT,&Pin_config);
+	}
+	KEYPAD_PORT = 0XFF; //VCC FOR ROWS
+
+}
+char KEYPAD_get_pressed(void){
+	int ROW,COLS,count;
+	for(COLS =0 ; COLS<4 ;COLS ++){
+		/*make coloums high*/
+
+		for(count=PIN_5 ; count < PIN_9; count++){
+			MCAL_GPIO_WritePin(KEYPAD_PORT,count,PIN_HIGH);
+		}
+		MCAL_GPIO_WritePin(KEYPAD_PORT,count,PIN_HIGH);
+		for(ROW = 0 ; ROW < 4 ; ROW++){
+			if(!(KEYPAD_READ_DATA & (1<<ROW))){
+				while(!(KEYPAD_READ_DATA & (1<<ROW)));
+				return keys_char[ROW][COLS];
+			}
+		}
+	}
+	return 'N';
+}

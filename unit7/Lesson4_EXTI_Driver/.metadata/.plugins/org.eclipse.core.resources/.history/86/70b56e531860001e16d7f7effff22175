@@ -1,0 +1,101 @@
+/*
+ *file name : Stm32F103C6_EXTI_Driver.h
+ *
+ *Author: Mohamed salah
+ */
+
+#ifndef INC_STM32F103C6_EXTI_DRIVER_H_
+#define INC_STM32F103C6_EXTI_DRIVER_H_
+//-----------------------------
+//Includes
+//-----------------------------
+#include "Platform_Types.h"
+#include "Stm32f103x6.h"
+#include "Stm32f103C6_Driver_gpio.h"
+//-----------------------------
+//User type definitions (structures)
+//-----------------------------
+typedef struct {
+	uint8 			Line_Number;
+
+	GPIO_Typedef* 	GPIO_PORT;
+
+	uint8 			Pin_Number;
+
+	uint8			IVT_IRQ_REQ;
+}EXTI_GPIO_Mapping_t;
+
+typedef struct {
+	EXTI_GPIO_Mapping_t EXTI_Pin;		//specifies External interrupt GPIO Mapping
+										// must be set based on @ref EXTI_define
+
+	Trigger_Case trigger;
+
+	Interrupt_status IRQ_EN;
+
+	void (*P_CallBack) (void);
+
+}EXTI_Pin_Config_t;
+
+//-----------------------------
+//Macros Configuration References
+//-----------------------------
+#define EXTI_0			0
+#define EXTI_1			1
+#define EXTI_2			2
+#define EXTI_3			3
+#define EXTI_4			4
+#define EXTI_5			5
+#define EXTI_6			6
+#define EXTI_7			7
+#define EXTI_8			8
+#define EXTI_9			9
+#define EXTI_10			10
+#define EXTI_11			11
+#define EXTI_12			12
+#define EXTI_13			13
+#define EXTI_14			14
+#define EXTI_15			15
+
+#define EXTI0_REQ		6
+#define EXTI1_REQ		7
+#define EXTI2_REQ		8
+#define EXTI3_REQ		9
+#define EXTI4_REQ		10
+#define EXTI5_REQ		23
+#define EXTI6_REQ		23
+#define EXTI7_REQ		23
+#define EXTI8_REQ		23
+#define EXTI9_REQ		23
+#define EXTI10_REQ		40
+#define EXTI11_REQ		40
+#define EXTI12_REQ		40
+#define EXTI13_REQ		40
+#define EXTI14_REQ		40
+#define EXTI15_REQ		40
+//@ref EXTI_define
+#define EXTI0PA0		(EXTI_GPIO_Mapping_t){EXTI_0,GPIOA,PIN_0,EXTI0_REQ}
+#define EXTI0PB0		(EXTI_GPIO_Mapping_t){EXTI_0,GPIOB,PIN_0,EXTI0_REQ}
+#define EXTI0PC0		(EXTI_GPIO_Mapping_t){EXTI_0,GPIOC,PIN_0,EXTI0_REQ}
+#define EXTI0PD0		(EXTI_GPIO_Mapping_t){EXTI_0,GPIOD,PIN_0,EXTI0_REQ}
+
+
+
+
+
+
+
+
+
+typedef enum {
+
+	Falling,Rising,Both_Falling_Rising
+}Trigger_Case;
+
+typedef enum {
+
+	Interrupt_Disable,Interrupt_Enable
+}Interrupt_status;
+
+
+#endif /* INC_STM32F103C6_EXTI_DRIVER_H_ */

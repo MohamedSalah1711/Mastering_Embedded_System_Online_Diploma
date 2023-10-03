@@ -1,0 +1,8 @@
+"HAL_Layer/Keypad.o"
+"HAL_Layer/Lcd.o"
+"MCAL_Layer/Stm32f103C6_Driver_gpio.o"
+"MCAL_Layer/Stm32f103C6_EXTI_Driver.o"
+"Src/main.o"
+"Src/syscalls.o"
+"Src/sysmem.o"
+"Startup/startup_stm32f103c6tx.o"

@@ -1,0 +1,204 @@
+/*
+ *file name : Stm32F103C6_EXTI_Driver.h
+ *
+ *Author: Mohamed salah
+ */
+
+#ifndef INC_STM32F103C6_EXTI_DRIVER_H_
+#define INC_STM32F103C6_EXTI_DRIVER_H_
+//-----------------------------
+//Includes
+//-----------------------------
+#include "Platform_Types.h"
+#include "Stm32f103x6.h"
+#include "Stm32f103C6_Driver_gpio.h"
+//-----------------------------
+//User type definitions (structures)
+//-----------------------------
+typedef struct {
+	uint8 			Line_Number;
+
+	GPIO_Typedef* 	GPIO_PORT;
+
+	uint8 			Pin_Number;
+
+	uint8			IVT_IRQ_REQ;
+}EXTI_GPIO_Mapping_t;
+
+typedef struct {
+	EXTI_GPIO_Mapping_t EXTI_Pin;		//specifies External interrupt GPIO Mapping
+	// must be set based on @ref EXTI_define
+
+	Trigger_Case trigger;				//Specifies External interrupt trigger (falling or rising or both)
+	//must be set based on @ref EXTI_Trigger
+
+	Interrupt_status IRQ_EN;			//Specifies External interrupt status (enable of disable)
+	//must be set based on @ref EXTI_Status
+
+	void (*P_CallBack) (void);			//Call back function specifies the function you wanna call when interrupt occurs
+
+}EXTI_Pin_Config_t;
+
+//-----------------------------
+//Macros Configuration References
+//-----------------------------
+#define EXTI_IMR_Reset 		0x00000000
+#define EXTI_EMR_Reset 		0x00000000
+#define EXTI_RTSR_Reset 	0x00000000
+#define EXTI_FTSR_Reset 	0x00000000
+#define EXTI_SWIER_Reset 	0x00000000
+#define EXTI_PR_Reset 		0xFFFFFFFF
+
+#define EXTI0_NVIC_ENABLE()					NVIC_ISER0|=(1<<6)
+#define EXTI0_NVIC_DISABLE()				NVIC_ICER0|=(1<<6)
+#define EXTI1_NVIC_ENABLE()					NVIC_ISER0|=(1<<7)
+#define EXTI1_NVIC_DISABLE()				NVIC_ICER0|=(1<<7)
+#define EXTI2_NVIC_ENABLE()					NVIC_ISER0|=(1<<8)
+#define EXTI2_NVIC_DISABLE()				NVIC_ICER0|=(1<<8)
+#define EXTI3_NVIC_ENABLE()					NVIC_ISER0|=(1<<9)
+#define EXTI3_NVIC_DISABLE()				NVIC_ICER0|=(1<<9)
+#define EXTI4_NVIC_ENABLE()					NVIC_ISER0|=(1<<10)
+#define EXTI4_NVIC_DISABLE()				NVIC_ICER0|=(1<<10)
+#define EXTI9_5_NVIC_ENABLE()				NVIC_ISER0|=(1<<23)
+#define EXTI9_5_NVIC_DISABLE()				NVIC_ICER0|=(1<<23)
+#define EXTI15_10_NVIC_ENABLE()				NVIC_ISER0|=(1<<10)
+#define EXTI15_10_NVIC_DISABLE()			NVIC_ICER0|=(1<<10)
+
+
+#define EXTI_0			0
+#define EXTI_1			1
+#define EXTI_2			2
+#define EXTI_3			3
+#define EXTI_4			4
+#define EXTI_5			5
+#define EXTI_6			6
+#define EXTI_7			7
+#define EXTI_8			8
+#define EXTI_9			9
+#define EXTI_10			10
+#define EXTI_11			11
+#define EXTI_12			12
+#define EXTI_13			13
+#define EXTI_14			14
+#define EXTI_15			15
+
+#define EXTI0_REQ		6
+#define EXTI1_REQ		7
+#define EXTI2_REQ		8
+#define EXTI3_REQ		9
+#define EXTI4_REQ		10
+#define EXTI5_REQ		23
+#define EXTI6_REQ		23
+#define EXTI7_REQ		23
+#define EXTI8_REQ		23
+#define EXTI9_REQ		23
+#define EXTI10_REQ		40
+#define EXTI11_REQ		40
+#define EXTI12_REQ		40
+#define EXTI13_REQ		40
+#define EXTI14_REQ		40
+#define EXTI15_REQ		40
+//@ref EXTI_define
+#define EXTI0PA0		(EXTI_GPIO_Mapping_t){EXTI_0,GPIOA,PIN_0,EXTI0_REQ}
+#define EXTI0PB0		(EXTI_GPIO_Mapping_t){EXTI_0,GPIOB,PIN_0,EXTI0_REQ}
+#define EXTI0PC0		(EXTI_GPIO_Mapping_t){EXTI_0,GPIOC,PIN_0,EXTI0_REQ}
+#define EXTI0PD0		(EXTI_GPIO_Mapping_t){EXTI_0,GPIOD,PIN_0,EXTI0_REQ}
+
+#define EXTI1PA1		(EXTI_GPIO_Mapping_t){EXTI_1,GPIOA,PIN_1,EXTI1_REQ}
+#define EXTI1PB1		(EXTI_GPIO_Mapping_t){EXTI_1,GPIOB,PIN_1,EXTI1_REQ}
+#define EXTI1PC1		(EXTI_GPIO_Mapping_t){EXTI_1,GPIOC,PIN_1,EXTI1_REQ}
+#define EXTI1PD1		(EXTI_GPIO_Mapping_t){EXTI_1,GPIOD,PIN_1,EXTI1_REQ}
+
+#define EXTI2PA2		(EXTI_GPIO_Mapping_t){EXTI_2,GPIOA,PIN_2,EXTI2_REQ}
+#define EXTI2PB2		(EXTI_GPIO_Mapping_t){EXTI_2,GPIOB,PIN_2,EXTI2_REQ}
+#define EXTI2PC2		(EXTI_GPIO_Mapping_t){EXTI_2,GPIOC,PIN_2,EXTI2_REQ}
+#define EXTI2PD2		(EXTI_GPIO_Mapping_t){EXTI_2,GPIOD,PIN_2,EXTI2_REQ}
+
+#define EXTI3PA3		(EXTI_GPIO_Mapping_t){EXTI_3,GPIOA,PIN_3,EXTI3_REQ}
+#define EXTI3PB3		(EXTI_GPIO_Mapping_t){EXTI_3,GPIOB,PIN_3,EXTI3_REQ}
+#define EXTI3PC3		(EXTI_GPIO_Mapping_t){EXTI_3,GPIOC,PIN_3,EXTI3_REQ}
+#define EXTI3PD3		(EXTI_GPIO_Mapping_t){EXTI_3,GPIOD,PIN_3,EXTI3_REQ}
+
+#define EXTI4PA4		(EXTI_GPIO_Mapping_t){EXTI_4,GPIOA,PIN_4,EXTI4_REQ}
+#define EXTI4PB4		(EXTI_GPIO_Mapping_t){EXTI_4,GPIOB,PIN_4,EXTI4_REQ}
+#define EXTI4PC4		(EXTI_GPIO_Mapping_t){EXTI_4,GPIOC,PIN_4,EXTI4_REQ}
+#define EXTI4PD4		(EXTI_GPIO_Mapping_t){EXTI_4,GPIOD,PIN_4,EXTI4_REQ}
+
+#define EXTI5PA5		(EXTI_GPIO_Mapping_t){EXTI_5,GPIOA,PIN_5,EXTI5_REQ}
+#define EXTI5PB5		(EXTI_GPIO_Mapping_t){EXTI_5,GPIOB,PIN_5,EXTI5_REQ}
+#define EXTI5PC5		(EXTI_GPIO_Mapping_t){EXTI_5,GPIOC,PIN_5,EXTI5_REQ}
+#define EXTI5PD5		(EXTI_GPIO_Mapping_t){EXTI_5,GPIOD,PIN_5,EXTI5_REQ}
+
+#define EXTI6PA6		(EXTI_GPIO_Mapping_t){EXTI_6,GPIOA,PIN_6,EXTI6_REQ}
+#define EXTI6PB6		(EXTI_GPIO_Mapping_t){EXTI_6,GPIOB,PIN_6,EXTI6_REQ}
+#define EXTI6PC6		(EXTI_GPIO_Mapping_t){EXTI_6,GPIOC,PIN_6,EXTI6_REQ}
+#define EXTI6PD6		(EXTI_GPIO_Mapping_t){EXTI_6,GPIOD,PIN_6,EXTI6_REQ}
+
+#define EXTI7PA7		(EXTI_GPIO_Mapping_t){EXTI_7,GPIOA,PIN_7,EXTI7_REQ}
+#define EXTI7PB7		(EXTI_GPIO_Mapping_t){EXTI_7,GPIOB,PIN_7,EXTI7_REQ}
+#define EXTI7PC7		(EXTI_GPIO_Mapping_t){EXTI_7,GPIOC,PIN_7,EXTI7_REQ}
+#define EXTI7PD7		(EXTI_GPIO_Mapping_t){EXTI_7,GPIOD,PIN_7,EXTI7_REQ}
+
+#define EXTI8PA8		(EXTI_GPIO_Mapping_t){EXTI_8,GPIOA,PIN_8,EXTI8_REQ}
+#define EXTI8PB8		(EXTI_GPIO_Mapping_t){EXTI_8,GPIOB,PIN_8,EXTI8_REQ}
+#define EXTI8PC8		(EXTI_GPIO_Mapping_t){EXTI_8,GPIOC,PIN_8,EXTI8_REQ}
+#define EXTI8PD8		(EXTI_GPIO_Mapping_t){EXTI_8,GPIOD,PIN_8,EXTI8_REQ}
+
+#define EXTI9PA9		(EXTI_GPIO_Mapping_t){EXTI_9,GPIOA,PIN_9,EXTI9_REQ}
+#define EXTI9PB9		(EXTI_GPIO_Mapping_t){EXTI_9,GPIOB,PIN_9,EXTI9_REQ}
+#define EXTI9PC9		(EXTI_GPIO_Mapping_t){EXTI_9,GPIOC,PIN_9,EXTI9_REQ}
+#define EXTI9PD9		(EXTI_GPIO_Mapping_t){EXTI_9,GPIOD,PIN_9,EXTI9_REQ}
+
+#define EXTI10PA10		(EXTI_GPIO_Mapping_t){EXTI_10,GPIOA,PIN_10,EXTI10_REQ}
+#define EXTI10PB10		(EXTI_GPIO_Mapping_t){EXTI_10,GPIOB,PIN_10,EXTI10_REQ}
+#define EXTI10PC10		(EXTI_GPIO_Mapping_t){EXTI_10,GPIOC,PIN_10,EXTI10_REQ}
+#define EXTI10PD10		(EXTI_GPIO_Mapping_t){EXTI_10,GPIOD,PIN_10,EXTI10_REQ}
+
+#define EXTI11PA11		(EXTI_GPIO_Mapping_t){EXTI_11,GPIOA,PIN_11,EXTI11_REQ}
+#define EXTI11PB11		(EXTI_GPIO_Mapping_t){EXTI_11,GPIOB,PIN_11,EXTI11_REQ}
+#define EXTI11PC11		(EXTI_GPIO_Mapping_t){EXTI_11,GPIOC,PIN_11,EXTI11_REQ}
+#define EXTI11PD11		(EXTI_GPIO_Mapping_t){EXTI_11,GPIOD,PIN_11,EXTI11_REQ}
+
+#define EXTI12PA12		(EXTI_GPIO_Mapping_t){EXTI_12,GPIOA,PIN_12,EXTI12_REQ}
+#define EXTI12PB12		(EXTI_GPIO_Mapping_t){EXTI_12,GPIOB,PIN_12,EXTI12_REQ}
+#define EXTI12PC12		(EXTI_GPIO_Mapping_t){EXTI_12,GPIOC,PIN_12,EXTI12_REQ}
+#define EXTI12PD12		(EXTI_GPIO_Mapping_t){EXTI_12,GPIOD,PIN_12,EXTI12_REQ}
+
+#define EXTI13PA13		(EXTI_GPIO_Mapping_t){EXTI_13,GPIOA,PIN_13,EXTI13_REQ}
+#define EXTI13PB13		(EXTI_GPIO_Mapping_t){EXTI_13,GPIOB,PIN_13,EXTI13_REQ}
+#define EXTI13PC13		(EXTI_GPIO_Mapping_t){EXTI_13,GPIOC,PIN_13,EXTI13_REQ}
+#define EXTI13PD13		(EXTI_GPIO_Mapping_t){EXTI_13,GPIOD,PIN_13,EXTI13_REQ}
+
+#define EXTI14PA14		(EXTI_GPIO_Mapping_t){EXTI_14,GPIOA,PIN_14,EXTI14_REQ}
+#define EXTI14PB14		(EXTI_GPIO_Mapping_t){EXTI_14,GPIOB,PIN_14,EXTI14_REQ}
+#define EXTI14PC14		(EXTI_GPIO_Mapping_t){EXTI_14,GPIOC,PIN_14,EXTI14_REQ}
+#define EXTI14PD14		(EXTI_GPIO_Mapping_t){EXTI_14,GPIOD,PIN_14,EXTI14_REQ}
+
+#define EXTI15PA15		(EXTI_GPIO_Mapping_t){EXTI_15,GPIOA,PIN_15,EXTI15_REQ}
+#define EXTI15PB15		(EXTI_GPIO_Mapping_t){EXTI_15,GPIOB,PIN_15,EXTI15_REQ}
+#define EXTI15PC15		(EXTI_GPIO_Mapping_t){EXTI_15,GPIOC,PIN_15,EXTI15_REQ}
+#define EXTI15PD15		(EXTI_GPIO_Mapping_t){EXTI_15,GPIOD,PIN_15,EXTI15_REQ}
+
+
+//@ref EXTI_Trigger
+typedef enum {
+
+	Falling,Rising,Both_Falling_Rising
+}Trigger_Case;
+
+//@ref EXTI_Status
+typedef enum {
+
+	Interrupt_Disable,Interrupt_Enable
+}Interrupt_status;
+/*
+ * ===============================================
+ * APIs Supported by "MCAL GPIO DRIVER"
+ * ===============================================
+ */
+
+void MCAL_EXTI_GPIO_Init(EXTI_Pin_Config_t* EXTI_Config);
+void MCAL_EXTI_GPIO_Deinit();
+void MCAL_EXTI_GPIO_Update(EXTI_Pin_Config_t* EXTI_Config);
+
+#endif /* INC_STM32F103C6_EXTI_DRIVER_H_ */

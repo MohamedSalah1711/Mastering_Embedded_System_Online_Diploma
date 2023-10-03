@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;Drivers/HAL&apos; to &apos;HAL_Layer&apos;" description="Rename resource &apos;HAL&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="HAL" name="HAL_Layer" stamp="1696133375069" updateReferences="true"/>
+</session>
