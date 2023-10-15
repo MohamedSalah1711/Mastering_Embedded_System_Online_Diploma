@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;USART/MCSL&apos; to &apos;MCAL&apos;" description="Rename resource &apos;MCSL&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="MCSL" name="MCAL" stamp="1697126413394" updateReferences="true"/>
+</session>

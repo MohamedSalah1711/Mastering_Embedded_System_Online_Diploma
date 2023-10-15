@@ -1,0 +1,131 @@
+/*
+ * Stm32f103C6_Driver_USART.h
+ * Author: mohamed salah fathy
+ */
+
+#ifndef INC_STM32F103C6_DRIVER_USART_H_
+#define INC_STM32F103C6_DRIVER_USART_H_
+//-----------------------------
+//Includes
+//-----------------------------
+#include "Stm32f103x6.h"
+#include "Stm32f103C6_Driver_gpio.h"
+//-----------------------------
+//User type definitions (structures)
+//-----------------------------
+typedef enum {
+	Eight_Bit,
+	Nine_Bit
+}USART_Word_Length;
+typedef enum {
+	One_Bit,
+	Half_Bit,
+	Two_Bit,
+	One_And_Half_Bit,
+}USART_Stop_Bits;
+typedef enum {
+	Baud_Rate_2400 = 2400,
+	Baud_Rate_9600 = 9600,
+	Baud_Rate_19200 = 19200,
+	Baud_Rate_57600 = 57600,
+	Baud_Rate_115200 = 115200,
+	Baud_Rate_230400 = 230400,
+	Baud_Rate_460800 = 460800,
+	Baud_Rate_921600 = 921600,
+	Baud_Rate_2250000 = 2250000,
+	Baud_Rate_4500000 = 4500000,
+
+}USART_Baud_Rate;
+typedef enum {
+	Transmitter,Recevier,Both
+}USART_Mode;
+typedef enum {
+	Disable,Enable
+}Interrupt_Status;
+typedef enum {
+	even,odd,none
+}USART_Parity;
+typedef enum {
+	NONE,RTS,CTS,CTS_RTS
+}USART_FLOW_CONTROL;
+typedef struct {
+	USART_Word_Length Length;
+	USART_Stop_Bits   Stop;
+	USART_Mode 		  Mode;
+	USART_Baud_Rate	  Baud_Rate;
+	Interrupt_Status Interrupt;
+	uint8			Interrupt_Type; //@ref interrupt type enable
+	USART_Parity		Parity;
+	USART_FLOW_CONTROL	HW_Flow;
+	void (* P_CallBack) (void);
+}USART_Pin_Config;
+//defined macros
+#define USART_Enable			(1u)
+#define USART_Interrupt_Enable			(1u)
+#define Parity_Enable			(1u)
+#define Parity_Disable			(0u)
+#define	CTS_ENABLE				(1u)
+#define	RTS_ENABLE				(1u)
+#define	CTS_DISABLE				(0u)
+#define	RTS_DISABLE				(0u)
+#define	HSI						(8000000UL)
+#define	HSE						(16000000UL)
+#define	PLL						(16000000UL)
+//@ref interrupt type enable
+#define Interrupt_RXNEIE_Enable		0
+#define Interrupt_TXE_Enable		1
+#define Interrupt_PE_Enable			2
+#define Interrupt_TC_Enable			3
+#define	Interrupt_Disable			5
+#define	USART1_RX_MCAL_PORT			GPIOA
+#define	USART1_TX_MCAL_PORT			GPIOA
+#define	USART1_RTS_MCAL_PORT		GPIOA
+#define	USART1_CTS_MCAL_PORT		GPIOA
+
+
+#define	USART1_RX_MCAL_PIN			PIN_10
+#define	USART1_TX_MCAL_PIN			PIN_9
+#define	USART1_RTS_MCAL_PIN			PIN_12
+#define	USART1_CTS_MCAL_PIN			PIN_11
+
+#define	USART2_RX_MCAL_PORT			GPIOA
+#define	USART2_TX_MCAL_PORT			GPIOA
+#define	USART2_RTS_MCAL_PORT		GPIOA
+#define	USART2_CTS_MCAL_PORT		GPIOA
+
+#define	USART2_RX_MCAL_PIN			PIN_3
+#define	USART2_TX_MCAL_PIN			PIN_2
+#define	USART2_RTS_MCAL_PIN			PIN_1
+#define	USART2_CTS_MCAL_PIN			PIN_0
+
+#define	USART3_RX_MCAL_PORT			GPIOB
+#define	USART3_TX_MCAL_PORT			GPIOB
+#define	USART3_RTS_MCAL_PORT		GPIOB
+#define	USART3_CTS_MCAL_PORT		GPIOB
+
+#define	USART3_RX_MCAL_PIN			PIN_11
+#define	USART3_TX_MCAL_PIN			PIN_10
+#define	USART3_RTS_MCAL_PIN			PIN_14
+#define	USART3_CTS_MCAL_PIN			PIN_13
+
+
+#define USARTDIV(_PCLK_,_BAUD_)				(uint32)(_PCLK_/(16* _BAUD_))
+#define USARTDIVMUL100(_PCLK_,_BAUD_)		(uint32)(100* _PCLK_/(16* _BAUD_))
+#define MantissaMul100(_PCLK_,_BAUD_)		(uint32)(USARTDIV(_PCLK_,_BAUD_) * 100)
+
+/*
+ * ===============================================
+ * APIs Supported by "MCAL USART DRIVER"
+ * ===============================================
+ */
+void MCAL_USART_Init(USART_Reg* USARTx,USART_Pin_Config* Pin_Config);
+void MCAL_USART_DeInit(USART_Reg* USARTx);
+void MCAL_USART_Send_Data(USART_Reg* USARTx, uint16 * P_Buffer,Interrupt_Status Interrupt);
+void MCAL_USART_Check_Last_Buffer(USART_Reg* USARTx);
+void MCAL_USART_ReceiveData(USART_Reg* USARTx, uint16 * P_Buffer,Interrupt_Status Interrupt);
+void MCAL_USART_GPIO_Set_Pins(USART_Reg* USARTx);
+uint32	Get_SYS_CLK(void);
+uint32	Get_AHB_CLK(void);
+uint32	Get_APB1_CLK(void);
+uint32	Get_APB2_CLK(void);
+#endif /* INC_STM32F103C6_DRIVER_USART_H_ */

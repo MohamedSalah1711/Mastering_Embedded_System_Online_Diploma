@@ -1,0 +1,314 @@
+/*
+ *Stm32f103C6_Driver_USART.c
+ *Author: mohamed salah fathy
+ */
+//GLOBAL_Var
+#include "Stm32f103C6_Driver_USART.h"
+
+USART_Pin_Config* Global_Config;
+uint8 AHB_PRE_SCALER[16U]={0,0,0,0,0,0,0,0,1,2,3,4,5,6,7,8};
+uint8 APB_PRE_SCALER[8U]={0,0,0,0,1,2,3,4};
+void MCAL_USART_Init(USART_Reg* USARTx,USART_Pin_Config* Pin_Config){
+	Global_Config = Pin_Config;
+	//Enable Clock For Uartx
+	if(USARTx == USART1){
+		ENABLE_CLOCK_USART1();
+	}else if(USARTx == USART2){
+		ENABLE_CLOCK_USART2();
+	}else if(USARTx == USART3){
+		ENABLE_CLOCK_USART3();
+	}
+
+	//Enable the USART by writing the UE bit in USART_CR1 register to 1.
+	USARTx->USART_CR1.BIT_Name.UE=USART_Enable;
+	//Program the M bit in USART_CR1 to define the word length.
+	/*Bit 10 PCE: Parity control enable
+	This bit selects the hardware parity control (generation and detection). When the parity
+	control is enabled, the computed parity is inserted at the MSB position (9th bit if M=1; 8th bit
+	if M=0) and parity is checked on the received data. This bit is set and cleared by software.
+	Once it is set, PCE is active after the current byte (in reception and in transmission).
+	0: Parity control disabled
+	1: Parity control enabled*/
+	switch(Pin_Config->Parity){
+	case  even:
+		USARTx->USART_CR1.BIT_Name.PCE=Parity_Enable;
+		USARTx->USART_CR1.BIT_Name.PS = even;
+		break;
+	case  odd:
+		USARTx->USART_CR1.BIT_Name.PCE=Parity_Enable;
+		USARTx->USART_CR1.BIT_Name.PS = odd;
+		break;
+	case  none:
+		USARTx->USART_CR1.BIT_Name.PCE=Parity_Disable;
+		break;
+	}
+	//Configure Stop Bits
+	USARTx->USART_CR2.BIT_Name.STOP = Pin_Config->Stop;
+	//Configure word length
+	/*M: Word length
+	This bit determines the word length. It is set or cleared by software.
+	0: 1 Start bit, 8 Data bits, n Stop bit
+	1: 1 Start bit, 9 Data bits, n Stop bit*/
+	USARTx->USART_CR1.BIT_Name.M=Pin_Config->Length;
+	//Hardware control flow
+	if(Pin_Config->HW_Flow == CTS_RTS){
+		USARTx->USART_CR3.BIT_Name.CTSE=CTS_ENABLE;
+		USARTx->USART_CR3.BIT_Name.RTSE=RTS_ENABLE;
+	}else if (Pin_Config->HW_Flow == RTS){
+		USARTx->USART_CR3.BIT_Name.RTSE=RTS_ENABLE;
+	}else if (Pin_Config->HW_Flow == CTS){
+		USARTx->USART_CR3.BIT_Name.CTSE=CTS_ENABLE;
+	}else{
+		USARTx->USART_CR3.BIT_Name.CTSE=CTS_DISABLE;
+		USARTx->USART_CR3.BIT_Name.RTSE=RTS_DISABLE;
+	}
+	//Configure Baud rate
+	if(USARTx == USART1){
+		pclk = Get_APB1_CLK();
+	}else{
+		pclk = Get_APB2_CLK();
+	}
+	//USARTDIV = DIV_Mantissa + (DIV_Fraction / 16)
+	USARTx->USART_BRR.BIT_Name.DIV_Fraction=Div_Fraction;
+	USARTx->USART_BRR.BIT_Name.DIV_Mantissa = Mantissa;
+	//IRQ STATUS
+	if(Pin_Config->Interrupt == Enable){
+		switch(Pin_Config->Interrupt_Type){
+		case Interrupt_RXNEIE_Enable:
+			USARTx->USART_CR1.BIT_Name.RXNEIE=USART_Interrupt_Enable;
+			break;
+		case Interrupt_TXE_Enable:
+			USARTx->USART_CR1.BIT_Name.TXEIE=USART_Interrupt_Enable;
+			break;
+		case Interrupt_PE_Enable:
+			USARTx->USART_CR1.BIT_Name.PEIE=USART_Interrupt_Enable;
+			break;
+		case Interrupt_TC_Enable:
+			USARTx->USART_CR1.BIT_Name.TCIE=USART_Interrupt_Enable;
+			break;
+
+		}
+		if(USARTx == USART1){
+			USART1_NVIC_EN();
+		}else if(USARTx == USART2){
+			USART2_NVIC_EN();
+		}else if(USARTx == USART3){
+			USART3_NVIC_EN();
+		}
+	}else{
+
+		if(USARTx == USART1){
+			USART1_NVIC_DIS();
+		}else if(USARTx == USART2){
+			USART2_NVIC_DIS();
+		}else if(USARTx == USART3){
+			USART3_NVIC_DIS();
+		}
+	}
+
+
+}
+
+void MCAL_USART_DeInit(USART_Reg* USARTx){
+	if(USARTx == USART1){
+		USART1_RESET();
+		USART1_NVIC_DIS();
+	}else if(USARTx == USART2){
+		USART2_RESET();
+		USART2_NVIC_DIS();
+	}else if(USARTx == USART3){
+		USART3_RESET();
+		USART3_NVIC_DIS();
+	}
+}
+void MCAL_USART_Send_Data(USART_Reg* USARTx, uint16 * P_Buffer,Interrupt_Status Interrupt){
+	if(Interrupt == Disable)
+		while(!USARTx->USART_SR.BIT_Name.TXE);
+	//When transmitting with the parity enabled (PCE bit set to 1 in the USART_CR1 register),
+	//the value written in the MSB (bit 7 or bit 8 depending on the data length) has no effect
+	//because it is replaced by the parity.
+	if(Global_Config->Length == Eight_Bit ){
+		USARTx->USART_DR.ALL_REG =(*P_Buffer  & (uint8) (0xFF));
+	}else{
+		USARTx->USART_DR.ALL_REG =(*P_Buffer  & (uint16) (0x1FF));
+	}
+}
+void MCAL_USART_Check_Last_Buffer(USART_Reg* USARTx){
+
+	while(!USARTx->USART_SR.BIT_Name.TC);
+}
+void MCAL_USART_ReceiveData(USART_Reg* USARTx, uint16 * P_Buffer,Interrupt_Status Interrupt){
+	if(Interrupt == Disable)
+		while(!USARTx->USART_SR.BIT_Name.RXNE);
+	if(Global_Config->Parity == none){
+		if(Global_Config->Length == Nine_Bit){
+
+			*((uint16 *)P_Buffer)=USARTx->USART_DR.ALL_REG;
+		}else{
+			*((uint16 *)P_Buffer) = (USARTx->USART_DR.ALL_REG & (0xFF));
+		}
+	}else{
+
+		if(Global_Config->Length == Nine_Bit){
+			*((uint16 *)P_Buffer) = (USARTx->USART_DR.ALL_REG & (0xFF));
+		}else{
+			*((uint16 *)P_Buffer) = (USARTx->USART_DR.ALL_REG & (0x7F));
+		}
+	}
+}
+void MCAL_USART_GPIO_Set_Pins(USART_Reg* USARTx){
+	GPIO_PIN_Config USART_Config;
+	//USART1 >> PA9 TX >>>PA10 RX >>> PA11 CTS  >>>> PA12 RTS
+	//USART2  >> PA2 TX >>>PA3 RX >>> PA0 CTS  >>>> PA1 RTS
+	//USART3  >> PB10 TX >>>PB11 RX >>> PB13 CTS  >>>> PB14 RTS
+	if(USARTx == USART1){
+		if((Global_Config->Mode == Transmitter) || (Global_Config->Mode == Both) ){
+			//Configure TX ALT_OUTPUT_PP
+			USART_Config.Mode=ALT_OUTPUT_PP;
+			USART_Config.speed=Max_speed_10MHZ;
+			USART_Config.Pin_Num = USART1_TX_MCAL_PIN;
+			MCAL_GPIO_Init(USART1_TX_MCAL_PORT,&USART_Config);
+		}
+		if((Global_Config->Mode == Recevier) || (Global_Config->Mode == Both) ){
+			//Configure RX Input floating / Input pull-up
+			USART_Config.Mode=Floating_Mode;
+			USART_Config.speed=Max_speed_10MHZ;
+			USART_Config.Pin_Num = USART1_RX_MCAL_PIN;
+			MCAL_GPIO_Init(USART1_RX_MCAL_PORT,&USART_Config);
+		}
+		if((Global_Config->HW_Flow == RTS) || (Global_Config->HW_Flow == CTS_RTS) ){
+			//Configure RTS ALT_OUTPUT_PP
+			USART_Config.Mode=ALT_OUTPUT_PP;
+			USART_Config.speed=Max_speed_10MHZ;
+			USART_Config.Pin_Num = USART1_RTS_MCAL_PIN;
+			MCAL_GPIO_Init(USART1_RTS_MCAL_PORT,&USART_Config);
+		}
+		if((Global_Config->HW_Flow == CTS) || (Global_Config->HW_Flow == CTS_RTS) ){
+			//Configure CTS Input floating / Input pull-up
+			USART_Config.Mode=Floating_Mode;
+			USART_Config.speed=Max_speed_10MHZ;
+			USART_Config.Pin_Num = USART1_CTS_MCAL_PIN;
+			MCAL_GPIO_Init(USART1_CTS_MCAL_PORT,&USART_Config);
+		}
+
+	}
+	if(USARTx == USART2){
+		if((Global_Config->Mode == Transmitter) || (Global_Config->Mode == Both) ){
+			//Configure TX ALT_OUTPUT_PP
+			USART_Config.Mode=ALT_OUTPUT_PP;
+			USART_Config.speed=Max_speed_10MHZ;
+			USART_Config.Pin_Num = USART2_TX_MCAL_PIN;
+			MCAL_GPIO_Init(USART2_TX_MCAL_PORT,&USART_Config);
+		}
+		if((Global_Config->Mode == Recevier) || (Global_Config->Mode == Both) ){
+			//Configure RX Input floating / Input pull-up
+			USART_Config.Mode=Floating_Mode;
+			USART_Config.speed=Max_speed_10MHZ;
+			USART_Config.Pin_Num = USART2_RX_MCAL_PIN;
+			MCAL_GPIO_Init(USART2_RX_MCAL_PORT,&USART_Config);
+		}
+		if((Global_Config->HW_Flow == RTS) || (Global_Config->HW_Flow == CTS_RTS) ){
+			//Configure RTS ALT_OUTPUT_PP
+			USART_Config.Mode=ALT_OUTPUT_PP;
+			USART_Config.speed=Max_speed_10MHZ;
+			USART_Config.Pin_Num = USART2_RTS_MCAL_PIN;
+			MCAL_GPIO_Init(USART2_RTS_MCAL_PORT,&USART_Config);
+		}
+		if((Global_Config->HW_Flow == CTS) || (Global_Config->HW_Flow == CTS_RTS) ){
+			//Configure CTS Input floating / Input pull-up
+			USART_Config.Mode=Floating_Mode;
+			USART_Config.speed=Max_speed_10MHZ;
+			USART_Config.Pin_Num = USART2_CTS_MCAL_PIN;
+			MCAL_GPIO_Init(USART2_CTS_MCAL_PORT,&USART_Config);
+		}
+
+	}
+	if(USARTx == USART3){
+		if((Global_Config->Mode == Transmitter) || (Global_Config->Mode == Both) ){
+			//Configure TX ALT_OUTPUT_PP
+			USART_Config.Mode=ALT_OUTPUT_PP;
+			USART_Config.speed=Max_speed_10MHZ;
+			USART_Config.Pin_Num = USART3_TX_MCAL_PIN;
+			MCAL_GPIO_Init(USART3_TX_MCAL_PORT,&USART_Config);
+		}
+		if((Global_Config->Mode == Recevier) || (Global_Config->Mode == Both) ){
+			//Configure RX Input floating / Input pull-up
+			USART_Config.Mode=Floating_Mode;
+			USART_Config.speed=Max_speed_10MHZ;
+			USART_Config.Pin_Num = USART3_RX_MCAL_PIN;
+			MCAL_GPIO_Init(USART3_RX_MCAL_PORT,&USART_Config);
+		}
+		if((Global_Config->HW_Flow == RTS) || (Global_Config->HW_Flow == CTS_RTS) ){
+			//Configure RTS ALT_OUTPUT_PP
+			USART_Config.Mode=ALT_OUTPUT_PP;
+			USART_Config.speed=Max_speed_10MHZ;
+			USART_Config.Pin_Num = USART3_RTS_MCAL_PIN;
+			MCAL_GPIO_Init(USART3_RTS_MCAL_PORT,&USART_Config);
+		}
+		if((Global_Config->HW_Flow == CTS) || (Global_Config->HW_Flow == CTS_RTS) ){
+			//Configure CTS Input floating / Input pull-up
+			USART_Config.Mode=Floating_Mode;
+			USART_Config.speed=Max_speed_10MHZ;
+			USART_Config.Pin_Num = USART3_CTS_MCAL_PIN;
+			MCAL_GPIO_Init(USART3_CTS_MCAL_PORT,&USART_Config);
+		}
+
+	}
+
+}
+uint32	Get_SYS_CLK(void){
+	/*Bits 3:2 SWS: System clock switch status
+	Set and cleared by hardware to indicate which clock source is used as system clock.
+	00: HSI oscillator used as system clock
+	01: HSE oscillator used as system clock
+	10: PLL used as system clock
+	11: not applicable*/
+	switch((RCC->RCC_CFGR>>2) &(0b11)){
+	case 0:
+		return HSI;
+		break;
+	case 1:
+		return HSE;
+		break;
+	case 2:
+		return PLL;
+		break;
+	default :
+		return ERROR;
+		break;
+	}
+}
+uint32	Get_AHB_CLK(void){
+	//Bits 7:4 HPRE: AHB prescaler
+
+	return (Get_SYS_CLK() >> AHB_PRE_SCALER[((RCC->RCC_CFGR >> 4)& 0X0F)]);
+}
+uint32	Get_APB1_CLK(void){
+	/*Bits 10:8 PPRE1: APB low-speed prescaler (APB1)
+	Set and cleared by software to control the division factor of the APB low-speed clock
+	(PCLK1).
+	Warning: the software has to set correctly these bits to not exceed 36 MHz on this domain.
+	0xx: HCLK not divided
+	100: HCLK divided by 2
+	101: HCLK divided by 4
+	110: HCLK divided by 8
+	111: HCLK divided by 16*/
+
+	return (Get_AHB_CLK() >> APB_PRE_SCALER[((RCC->RCC_CFGR>>8) & 0b111)]  );
+}
+uint32	Get_APB2_CLK(void){
+
+	return (Get_AHB_CLK() >> APB_PRE_SCALER[((RCC->RCC_CFGR >> 11) & 0b111)]);
+}
+void USART1_IRQHandler(void){
+
+	Global_Config->P_CallBack();
+}
+void USART2_IRQHandler(void){
+
+	Global_Config->P_CallBack();
+}
+void USART3_IRQHandler(void){
+
+	Global_Config->P_CallBack();
+}

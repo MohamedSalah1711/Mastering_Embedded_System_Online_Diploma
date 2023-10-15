@@ -1,0 +1,13 @@
+Stm32f103C6_Driver_USART.c:11:6:MCAL_USART_Init	24	static
+Stm32f103C6_Driver_USART.c:124:6:MCAL_USART_DeInit	16	static
+Stm32f103C6_Driver_USART.c:136:6:MCAL_USART_Send_Data	24	static
+Stm32f103C6_Driver_USART.c:148:6:MCAL_USART_Check_Last_Buffer	16	static
+Stm32f103C6_Driver_USART.c:152:6:MCAL_USART_ReceiveData	24	static
+Stm32f103C6_Driver_USART.c:171:6:MCAL_USART_GPIO_Set_Pins	24	static
+Stm32f103C6_Driver_USART.c:271:8:Get_SYS_CLK	4	static
+Stm32f103C6_Driver_USART.c:293:8:Get_AHB_CLK	8	static
+Stm32f103C6_Driver_USART.c:298:8:Get_APB1_CLK	8	static
+Stm32f103C6_Driver_USART.c:311:8:Get_APB2_CLK	8	static
+Stm32f103C6_Driver_USART.c:315:6:USART1_IRQHandler	8	static
+Stm32f103C6_Driver_USART.c:319:6:USART2_IRQHandler	8	static
+Stm32f103C6_Driver_USART.c:323:6:USART3_IRQHandler	8	static
