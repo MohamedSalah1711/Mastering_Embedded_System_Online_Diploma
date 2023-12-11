@@ -1,0 +1,14 @@
+/*
+ * I2C_Slave_EEPROM.c
+ *
+ *  Created on: Nov 3, 2023
+ *      Author: LEGION
+ */
+#include "I2C_Slave_EEPROM.h"
+void EEPROM_init(){
+	I2C_Config_TypeDef I2C1CFG;
+
+
+
+
+}

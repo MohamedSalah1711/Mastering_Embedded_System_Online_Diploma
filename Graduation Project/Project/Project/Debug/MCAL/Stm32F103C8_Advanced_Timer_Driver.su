@@ -1,0 +1,6 @@
+Stm32F103C8_Advanced_Timer_Driver.c:12:6:MCAL_Timer_GPIO_Init	24	static
+Stm32F103C8_Advanced_Timer_Driver.c:48:6:MCAL_SET_TIMx_GPIO	16	static
+Stm32F103C8_Advanced_Timer_Driver.c:57:6:MCAL_Timer_GPIO_DeInit	16	static
+Stm32F103C8_Advanced_Timer_Driver.c:69:6:MCAL_ICU_GPIO_Init	16	static
+Stm32F103C8_Advanced_Timer_Driver.c:148:6:MCAL_CTC_GPIO_Init	24	static
+Stm32F103C8_Advanced_Timer_Driver.c:230:6:MCAL_SET_TIMx_CTC_GPIO	16	static

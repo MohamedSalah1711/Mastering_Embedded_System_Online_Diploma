@@ -1,0 +1,17 @@
+/*
+ * DC_Motors.h
+ *
+ *  Created on: Dec 6, 2023
+ *      Author: LEGION
+ */
+
+#ifndef INC_DC_MOTORS_H_
+#define INC_DC_MOTORS_H_
+#include "Stm32F103C8_Advanced_Timer_Driver.h"
+
+
+
+
+void Dc_Motors_Init(void);
+
+#endif /* INC_DC_MOTORS_H_ */

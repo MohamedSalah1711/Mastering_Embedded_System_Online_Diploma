@@ -1,0 +1,23 @@
+/*
+ * DC_Motors.c
+ *
+ *  Created on: Dec 5, 2023
+ *      Author: mohamed salah
+ */
+
+
+#include "DC_Motors.h"
+void Dc_Motors_Init(void){
+	/*
+	 * 	Each Motor need one pwm channel and 2 output pins
+	 *
+	 */
+	//init Motor 1
+
+
+
+
+
+
+}
+

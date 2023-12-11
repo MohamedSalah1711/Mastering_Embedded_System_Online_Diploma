@@ -1,0 +1,179 @@
+/*
+ * DC_Motors.c
+ *
+ *  Created on: Dec 5, 2023
+ *      Author: mohamed salah
+ */
+
+
+#include "DC_Motors.h"
+void Dc_Motors_Init(void){
+	//init PWM to make 500HZ and 50% Duty cycle
+	Timer_CTC_Config CTC_con={INT_OFF,11,1600,800,0,1};
+	Timer_CTC_Output_Mode	Modee = {PWM1,Enable,ActiveLow};
+	GPIO_PIN_Config DIO_Config={MOTOR1_PIN1,Max_speed_10MHZ,OUTPUT_PP};
+
+	/*
+	 * 	Each Motor need one pwm channel and 2 output pins
+	 *
+	 */
+	//init Motor 1
+	MCAL_CTC_GPIO_Init(MOTORS_PWM_TIMER,&CTC_con,&Modee);
+	MCAL_GPIO_Init(MOTOR1_PORT,&DIO_Config);
+	DIO_Config.Pin_Num = MOTOR1_PIN2;
+	MCAL_GPIO_Init(MOTOR1_PORT,&DIO_Config);
+	//init Motor 2
+	CTC_con.Channel_Num=2;
+	MCAL_CTC_GPIO_Init(MOTORS_PWM_TIMER,&CTC_con,&Modee);
+	DIO_Config.Pin_Num = MOTOR2_PIN1;
+	MCAL_GPIO_Init(MOTOR2_PORT,&DIO_Config);
+	DIO_Config.Pin_Num = MOTOR2_PIN2;
+	MCAL_GPIO_Init(MOTOR2_PORT,&DIO_Config);
+	//init Motor 3
+	CTC_con.Channel_Num=3;
+	MCAL_CTC_GPIO_Init(MOTORS_PWM_TIMER,&CTC_con,&Modee);
+	DIO_Config.Pin_Num = MOTOR3_PIN1;
+	MCAL_GPIO_Init(MOTOR3_PORT,&DIO_Config);
+	DIO_Config.Pin_Num = MOTOR3_PIN2;
+	MCAL_GPIO_Init(MOTOR3_PORT,&DIO_Config);
+	//init Motor 4
+	CTC_con.Channel_Num=4;
+	MCAL_CTC_GPIO_Init(MOTORS_PWM_TIMER,&CTC_con,&Modee);
+	DIO_Config.Pin_Num = MOTOR4_PIN1;
+	MCAL_GPIO_Init(MOTOR4_PORT,&DIO_Config);
+	DIO_Config.Pin_Num = MOTOR4_PIN2;
+	MCAL_GPIO_Init(MOTOR4_PORT,&DIO_Config);
+
+	/*
+	 * Initialize ALL PINS with zero idle state
+	 */
+	MCAL_GPIO_WritePin(MOTOR1_PORT,MOTOR1_PIN1,PIN_LOW);
+	MCAL_GPIO_WritePin(MOTOR1_PORT,MOTOR1_PIN2,PIN_LOW);
+	MCAL_GPIO_WritePin(MOTOR2_PORT,MOTOR2_PIN1,PIN_LOW);
+	MCAL_GPIO_WritePin(MOTOR2_PORT,MOTOR2_PIN2,PIN_LOW);
+	MCAL_GPIO_WritePin(MOTOR3_PORT,MOTOR3_PIN1,PIN_LOW);
+	MCAL_GPIO_WritePin(MOTOR3_PORT,MOTOR3_PIN2,PIN_LOW);
+	MCAL_GPIO_WritePin(MOTOR4_PORT,MOTOR4_PIN1,PIN_LOW);
+	MCAL_GPIO_WritePin(MOTOR4_PORT,MOTOR4_PIN2,PIN_LOW);
+
+}
+void DC_Motor_Move_Stop(Motor_Number Motor,Motor_State State){
+	switch(Motor){
+	case M1:
+	{
+		switch(State){
+		case Stop:
+		{
+			MCAL_GPIO_WritePin(MOTOR1_PORT,MOTOR1_PIN1,PIN_LOW);
+			MCAL_GPIO_WritePin(MOTOR1_PORT,MOTOR1_PIN2,PIN_LOW);
+
+			break;
+		}
+		case Clock_Wise:
+		{
+			MCAL_GPIO_WritePin(MOTOR1_PORT,MOTOR1_PIN1,PIN_HIGH);
+			MCAL_GPIO_WritePin(MOTOR1_PORT,MOTOR1_PIN2,PIN_LOW);
+			break;
+		}
+		case CounterClock_Wise:
+		{
+			MCAL_GPIO_WritePin(MOTOR1_PORT,MOTOR1_PIN1,PIN_LOW);
+			MCAL_GPIO_WritePin(MOTOR1_PORT,MOTOR1_PIN2,PIN_HIGH);
+			break;
+		}
+
+
+		}
+
+		break;
+	}
+	case M2:
+	{
+		switch(State){
+		case Stop:
+		{
+			MCAL_GPIO_WritePin(MOTOR2_PORT,MOTOR2_PIN1,PIN_LOW);
+			MCAL_GPIO_WritePin(MOTOR2_PORT,MOTOR2_PIN2,PIN_LOW);
+			break;
+		}
+		case Clock_Wise:
+		{
+			MCAL_GPIO_WritePin(MOTOR2_PORT,MOTOR2_PIN1,PIN_HIGH);
+			MCAL_GPIO_WritePin(MOTOR2_PORT,MOTOR2_PIN2,PIN_LOW);
+			break;
+		}
+		case CounterClock_Wise:
+		{
+			MCAL_GPIO_WritePin(MOTOR2_PORT,MOTOR2_PIN1,PIN_LOW);
+			MCAL_GPIO_WritePin(MOTOR2_PORT,MOTOR2_PIN2,PIN_HIGH);
+			break;
+		}
+
+
+		}
+
+		break;
+	}
+
+
+	case M3:
+	{
+		switch(State){
+		case Stop:
+		{
+			MCAL_GPIO_WritePin(MOTOR3_PORT,MOTOR3_PIN1,PIN_LOW);
+			MCAL_GPIO_WritePin(MOTOR3_PORT,MOTOR3_PIN2,PIN_LOW);
+			break;
+		}
+		case Clock_Wise:
+		{
+			MCAL_GPIO_WritePin(MOTOR3_PORT,MOTOR3_PIN1,PIN_HIGH);
+			MCAL_GPIO_WritePin(MOTOR3_PORT,MOTOR3_PIN2,PIN_LOW);
+			break;
+		}
+		case CounterClock_Wise:
+		{
+			MCAL_GPIO_WritePin(MOTOR3_PORT,MOTOR3_PIN1,PIN_LOW);
+			MCAL_GPIO_WritePin(MOTOR3_PORT,MOTOR3_PIN2,PIN_HIGH);
+			break;
+		}
+
+
+		}
+
+		break;
+	}
+
+
+	case M4:
+	{
+		switch(State){
+		case Stop:
+		{
+			break;
+		}
+		case Clock_Wise:
+		{
+			break;
+		}
+		case CounterClock_Wise:
+		{
+			break;
+		}
+
+
+		}
+
+
+		break;
+	}
+
+
+
+
+
+
+
+
+	}
+}

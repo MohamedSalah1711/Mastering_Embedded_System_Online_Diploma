@@ -1,0 +1,8 @@
+Lcd.c:8:6:wait_ms	24	static
+Lcd.c:17:6:LCD_init	16	static
+Lcd.c:53:6:LCD_send_command	16	static
+Lcd.c:77:6:LCD_clear_screen	8	static
+Lcd.c:80:6:LCD_Send_a_charachter	16	static
+Lcd.c:107:6:LCD_Send_String	24	static
+Lcd.c:125:6:LCD_MOVE_CURSOR_XY	16	static
+Lcd.c:143:7:Get_command_bit	16	static

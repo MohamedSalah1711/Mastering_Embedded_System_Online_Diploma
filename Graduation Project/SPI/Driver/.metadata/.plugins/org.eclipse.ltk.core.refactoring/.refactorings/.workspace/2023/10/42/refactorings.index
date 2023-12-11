@@ -1,0 +1,4 @@
+1697725793168	Delete resource 'SPI_Driver/HAL'
+1697725795582	Delete resource 'SPI_Driver/MCAL'
+1697725847940	Delete resource 'SPI_Driver/MCAL/Stm32f103C6_Driver_USART.c'
+1697725852628	Delete resource 'SPI_Driver/MCAL/inc/Stm32f103C6_Driver_USART.h'

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;I2C/MCAL/inc/RCC_Sys_CLK.H&apos; to &apos;RCC_Sys_CLK.h&apos;" description="Rename resource &apos;RCC_Sys_CLK.H&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="MCAL/inc/RCC_Sys_CLK.H" name="RCC_Sys_CLK.h" stamp="1698930613556" updateReferences="true"/>
+</session>

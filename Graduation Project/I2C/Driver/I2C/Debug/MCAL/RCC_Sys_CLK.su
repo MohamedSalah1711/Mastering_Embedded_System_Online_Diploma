@@ -1,0 +1,4 @@
+RCC_Sys_CLK.c:11:8:Get_SYS_CLK	4	static
+RCC_Sys_CLK.c:33:8:Get_AHB_CLK	8	static
+RCC_Sys_CLK.c:38:8:Get_APB1_CLK	8	static
+RCC_Sys_CLK.c:51:8:Get_APB2_CLK	8	static

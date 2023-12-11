@@ -1,0 +1,27 @@
+/*
+ * HC-05.c
+ *
+ *  Created on: Dec 5, 2023
+ *      Author: mohamed salah
+ */
+#include "HC-05.h"
+void(*P_CallBack_HC05)(void);
+uint8 Received_char=0;
+void HAL_HC05_Init(){
+	ENABLE_CLOCK_GPIOA();
+	ENABLE_CLOCK_AFIO();
+	P_CallBack_HC05 = HAL_HC05_RecieveChar;
+	USART_Pin_Config USART_CON={Eight_Bit,One_Bit,Both,Default_Baud,Enable,Interrupt_RXNEIE_Enable,none,NONE,P_CallBack_HC05};
+	GPIO_PIN_Config config;
+	config.Mode = OUTPUT_PP;
+	config.speed = Max_speed_10MHZ;
+	config.Pin_Num = Vcc_Pin;
+	MCAL_GPIO_Init(GPIOA,&config);
+	MCAL_GPIO_WritePin(GPIOA, Vcc_Pin, 1);
+	MCAL_USART_Init(Bluetooth_Uart, &USART_CON);
+
+}
+void HAL_HC05_RecieveChar(void){
+	MCAL_USART_ReceiveData(Bluetooth_Uart,&Received_char,Enable);
+
+}

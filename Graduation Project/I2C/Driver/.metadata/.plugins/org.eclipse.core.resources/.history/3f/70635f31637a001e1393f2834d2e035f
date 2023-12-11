@@ -1,0 +1,122 @@
+/*
+ * Stm32f103C6_Driver_I2C.h
+ *
+ *  Created on: Oct 31, 2023
+ *      Author: LEGION
+ */
+
+#ifndef INC_STM32F103C6_DRIVER_I2C_H_
+#define INC_STM32F103C6_DRIVER_I2C_H_
+//-----------------------------
+//Includes
+//-----------------------------
+#include "Stm32f103x6.h"
+#include "RCC_Sys_CLK.h"
+#include "Stm32f103C6_Driver_gpio.h"
+//-----------------------------
+//User type definitions (structures)
+//-----------------------------
+typedef enum{
+	I2C_Mode,
+	SMBus_Mode //Not supported
+}SMBus_mode;
+typedef enum{
+	Disable,
+	Enable
+}ACK_Control;
+typedef enum{
+	Sm_Mode,
+	Fm_Mode //Not supported
+}Master_Mode_Selection;
+typedef enum{
+	With_Stretching,
+	Without_Strectching
+}Clock_Stretching_Slave;
+typedef enum{
+	Without_GNCALL,
+	With_GNCALL
+}General_Call_Enable;
+typedef enum{
+	Without_Dual_Address,
+	With_Dual_Address
+}Dual_addressing_mode;
+typedef enum{
+	Seven_Bit,
+	Ten_Bit
+}Adressing_Mode;
+struct S_I2C_Device_Address{
+	Dual_addressing_mode			Dual;
+	uint32							Primary_Slave_Address;
+	uint32							Secondary_Slave_Address;
+	Adressing_Mode					Mode;
+};
+typedef enum{
+	I2C_SB,
+	I2C_ERROR_AF,
+	I2C_EV_ADDR_Matched,
+	I2C_EV_DATA_REQ, //Slave must send data
+	I2C_EV_DATA_RCV	//slave must receive data
+}slave_state;
+typedef enum{
+	Stop,
+	Without_Stop
+}Stop_Condition;
+typedef enum{
+	start,
+	repeated_start
+}Repeated_Start;
+typedef enum{
+	Disable_ST,
+	Enable_ST
+}Functional_State;
+typedef enum{
+	RESET,
+	SET
+}FlagStatus;
+typedef enum{
+	I2C_FLAG_BUSY,
+	EV5,
+	EV6,
+	Master_Byte_Transmiting_Busy= 0X00070080,
+	EV8
+
+}Status;
+typedef enum{
+	Transmitter,
+	Receiver
+}I2C_Direction;
+typedef struct{
+	uint32							I2C_Clock_Speed; 				//Specify at @ref_I2C_Clock_Speed
+	SMBus_mode						Mode;
+	Master_Mode_Selection			Master_Mode;
+	Clock_Stretching_Slave			Stretching;
+	General_Call_Enable				G_Call;
+	struct S_I2C_Device_Address		Device_Address;
+	ACK_Control						Ack;
+	void(*P_CallBack_Slave)(slave_state state);
+}I2C_Config_TypeDef;
+//@ref_I2C_Clock_Speed
+#define I2C_SCLK_SM_50K				(50000U)
+#define I2C_SCLK_SM_100K			(100000U)
+#define I2C1_index					(0U)
+#define I2C2_index					(1U)
+#define I2C_FREQ_DIV				(1000000U)
+#define	Reset_Bit					(0U)
+#define	Set_Bit						(1U)
+#define I2C_MCAL_Port				GPIOB
+/*
+ *
+ * ===============================================
+ * APIs Supported by "MCAL GPIO DRIVER"
+ * ===============================================
+ */
+void MCAL_I2C_Init(I2C_Reg* I2Cx,I2C_Config_TypeDef* I2C_InitStruct);
+void MCAL_I2C_DeInit(I2C_Reg* I2Cx);
+void MCAL_I2C_GPIO_Set_Pins(I2C_Reg* I2Cx);
+//Master Polling Mechanism
+void MCAL_I2C_Mater_TX(I2C_Reg* I2Cx,uint16 Device_Address,uint8* DataOut,uint32 Data_Length,Stop_Condition Stop,Repeated_Start Start);
+void MCAL_I2C_Mater_RX(I2C_Reg* I2Cx,uint16 Device_Address,uint8* DataOut,uint32 Data_Length,Stop_Condition Stop,Repeated_Start Start);
+void I2C_Generate_Start(I2C_Reg* I2Cx ,Functional_State State,Repeated_Start Start );
+FlagStatus I2C_GetFlagStatus(I2C_Reg* I2Cx ,Status Flag);
+void I2C_SendAddress(I2C_Reg* I2Cx,uint16 Address,I2C_Direction Direction);
+#endif /* INC_STM32F103C6_DRIVER_I2C_H_ */

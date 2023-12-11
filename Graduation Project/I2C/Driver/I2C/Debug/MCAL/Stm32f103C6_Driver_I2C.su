@@ -1,0 +1,11 @@
+Stm32f103C6_Driver_I2C.c:10:6:MCAL_I2C_Init	32	static
+Stm32f103C6_Driver_I2C.c:115:6:MCAL_I2C_DeInit	16	static
+Stm32f103C6_Driver_I2C.c:127:6:MCAL_I2C_GPIO_Set_Pins	24	static
+Stm32f103C6_Driver_I2C.c:145:6:MCAL_I2C_Mater_TX	32	static
+Stm32f103C6_Driver_I2C.c:174:6:MCAL_I2C_Mater_RX	32	static
+Stm32f103C6_Driver_I2C.c:206:6:I2C_Generate_Start	16	static
+Stm32f103C6_Driver_I2C.c:218:12:I2C_GetFlagStatus	32	static
+Stm32f103C6_Driver_I2C.c:278:6:I2C_SendAddress	16	static
+Stm32f103C6_Driver_I2C.c:289:6:I2C_Generate_Stop	16	static
+Stm32f103C6_Driver_I2C.c:297:6:MCAL_I2C_Slave_Send	16	static
+Stm32f103C6_Driver_I2C.c:300:6:MCAL_I2C_Slave_Receive	16	static

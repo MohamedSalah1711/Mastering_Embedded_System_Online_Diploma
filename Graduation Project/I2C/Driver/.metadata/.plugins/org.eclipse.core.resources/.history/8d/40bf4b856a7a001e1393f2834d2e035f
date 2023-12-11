@@ -1,0 +1,313 @@
+/*
+ * Stm32f103C6_Driver_I2C.c
+ *
+ *  Created on: Oct 31, 2023
+ *      Author: LEGION
+ */
+#include "Stm32f103C6_Driver_I2C.h"
+I2C_Config_TypeDef Global_I2C_Config[2];
+
+void MCAL_I2C_Init(I2C_Reg* I2Cx,I2C_Config_TypeDef* I2C_InitStruct){
+	vuint32 Freq;
+	//Enable Clock For I2C
+	if(I2Cx == I2C1){
+		Global_I2C_Config[I2C1_index] = *I2C_InitStruct;
+		ENABLE_CLOCK_I2C1();
+	}else{
+		Global_I2C_Config[I2C2_index] = *I2C_InitStruct;
+		ENABLE_CLOCK_I2C2();
+	}
+	//Program the peripheral input clock in I2C_CR2 Register in order to generate correct
+	//timings
+	/*FREQ[5:0]: Peripheral clock frequency
+	The FREQ bits must be configured with the APB clock frequency value (I2C peripheral
+	connected to APB). The FREQ field is used by the peripheral to generate data setup and
+	hold times compliant with the I2C specifications. The minimum allowed frequency is 2 MHz,
+	the maximum frequency is limited by the maximum APB frequency and cannot exceed
+	50 MHz (peripheral intrinsic maximum limit).*/
+	Freq = Get_APB1_CLK();
+	I2Cx->I2C_CR2.BIT_Name.FREQ = (Freq/I2C_FREQ_DIV);
+	//Configure the clock control registers
+	/*
+	 * Note: fPCLK1 must be at least 2 MHz to achieve Sm mode I²C frequencies. It must be at least 4
+		MHz to achieve Fm mode I²C frequencies. It must be a multiple of 10MHz to reach the
+		400 kHz maximum I²C Fm mode clock.
+		The CCR register must be configured only when the I2C is disabled (PE = 0).*/
+	//Make sure that PE=0
+	I2Cx->I2C_CR1.BIT_Name.PE = Reset_Bit;
+	//Program CCR
+	//Bit 15 F/S: I2C master mode selection
+	I2Cx->I2C_CCR.BIT_Name.FS = I2C_InitStruct->Master_Mode;
+	/*	Bits 11:0 CCR[11:0]: Clock control register in Fm/Sm mode (Master mode)
+		Controls the SCL clock in master mode.
+		Sm mode or SMBus:
+		Thigh = CCR * TPCLK1
+		Tlow = CCR * TPCLK1*/
+	I2Cx->I2C_CCR.BIT_Name.CCR = (Freq/(I2C_InitStruct->I2C_Clock_Speed << 1 ));
+	//Configure the rise time register
+	/*Bits 5:0 TRISE[5:0]: Maximum rise time in Fm/Sm mode (Master mode)
+		These bits should provide the maximum duration of the SCL feedback loop in master mode.
+		The purpose is to keep a stable SCL frequency whatever the SCL rising edge duration.
+		These bits must be programmed with the maximum SCL rise time given in the I2C bus
+		specification, incremented by 1.
+		For instance: in Sm mode, the maximum allowed SCL rise time is 1000 ns.
+		if, in the I2C_CR2 register, the value of FREQ[5:0] bits is equal to 0x08 and TPCLK1 = 125 ns
+		therefore the TRISE[5:0] bits must be programmed with 09h.
+		(1000 ns / 125 ns = 8 + 1)
+		The filter value can also be added to TRISE[5:0].
+		If the result is not an integer, TRISE[5:0] must be programmed with the integer part, in order
+		to respect the tHIGH parameter.
+		Note: TRISE[5:0] must be configured only when the I2C is disabled (PE = 0).*/
+	I2Cx->I2C_TRISE.BIT_Name.TRISE = ((Freq/I2C_FREQ_DIV)+1);
+	//Program the I2C_CR1 register to enable the peripheral
+	/*Bit 7 NOSTRETCH: Clock stretching disable (Slave mode)
+		This bit is used to disable clock stretching in slave mode when ADDR or BTF flag is set, until
+		it is reset by software.
+		0: Clock stretching enabled
+		1: Clock stretching disabled*/
+	I2Cx->I2C_CR1.BIT_Name.NOSTRETCH = I2C_InitStruct->Stretching;
+	//Bit 6 ENGC: General call enable
+	//0: General call disabled. Address 00h is NACKed.
+	//1: General call enabled. Address 00h is ACKed.
+	I2Cx->I2C_CR1.BIT_Name.ENGC = I2C_InitStruct->G_Call;
+	//Bit 1 SMBUS: SMBus mode
+	//0: I2C mode
+	//1: SMBus mode
+	I2Cx->I2C_CR1.BIT_Name.SMBUS = I2C_InitStruct->Mode;
+	/*Bit 10 ACK: Acknowledge enable
+		This bit is set and cleared by software and cleared by hardware when PE=0.
+		0: No acknowledge returned
+		1: Acknowledge returned after a byte is received (matched address or data)*/
+	I2Cx->I2C_CR1.BIT_Name.ACK = I2C_InitStruct->Ack;
+	//For Slave Device
+	I2Cx->I2C_OAR1.BIT_Name.ADDMODE =  I2C_InitStruct->Device_Address.Mode;
+	//Bit 14 Should always be kept at 1 by software.
+	I2Cx->I2C_OAR1.BIT_Name.Reserved = (1<<4);
+	//Put Slave Adress
+	if(I2C_InitStruct->Device_Address.Mode == Ten_Bit){
+		I2Cx->I2C_OAR1.BIT_Name.ADD0 = (I2C_InitStruct->Device_Address.Primary_Slave_Address & 0x01);
+		I2Cx->I2C_OAR1.BIT_Name.ADD = (I2C_InitStruct->Device_Address.Primary_Slave_Address & 0XFE);
+		I2Cx->I2C_OAR1.BIT_Name.ADD1 = (I2C_InitStruct->Device_Address.Primary_Slave_Address & 0X300);
+	}else{
+		I2Cx->I2C_OAR1.BIT_Name.ADD = I2C_InitStruct->Device_Address.Primary_Slave_Address;
+	}
+	//Dual addressing mode enable
+	I2Cx->I2C_OAR2.BIT_Name.ENDUAL = I2C_InitStruct->Device_Address.Dual;
+	if(I2C_InitStruct->Device_Address.Dual == Set_Bit)
+		I2Cx->I2C_OAR2.BIT_Name.ADD2 = I2C_InitStruct->Device_Address.Secondary_Slave_Address;
+	//Interrupt Mode Slave // Check Call back != Null
+	if(I2C_InitStruct->P_CallBack_Slave != NULL){
+		//Enable IRQ
+		I2Cx->I2C_CR2.BIT_Name.ITERREN = Set_Bit;
+		I2Cx->I2C_CR2.BIT_Name.ITEVTEN = Set_Bit;
+		I2Cx->I2C_CR2.BIT_Name.ITBUFEN = Set_Bit;
+		if(I2Cx == I2C1){
+			I2C1_EV_NVIC_EN();
+			I2C1_ER_NVIC_EN();
+		}else{
+			I2C2_EV_NVIC_EN();
+			I2C2_ER_NVIC_EN();
+		}
+	}
+	//Enable PE
+	I2Cx->I2C_CR1.BIT_Name.PE = Set_Bit;
+}
+void MCAL_I2C_DeInit(I2C_Reg* I2Cx){
+
+	if(I2Cx == I2C1){
+		I2C1_EV_NVIC_Dis();
+		I2C1_ER_NVIC_Dis();
+		I2C1_RESET();
+	}else{
+		I2C2_EV_NVIC_Dis();
+		I2C2_ER_NVIC_Dis();
+		I2C2_RESET();
+	}
+}
+void MCAL_I2C_GPIO_Set_Pins(I2C_Reg* I2Cx){
+	//I2C2 >>>>> PB10>>>SCL ,,,,, PB11>>>SDA
+	//I2C1 >>>>> PB6>>>SCL ,,,,, PB7>>>SDA
+	GPIO_PIN_Config Pin_Config;
+	Pin_Config.Mode = ALT_OUTPUT_OD;
+	Pin_Config.speed = Max_speed_10MHZ;
+	if(I2Cx == I2C1){
+		Pin_Config.Pin_Num = PIN_6;
+		MCAL_GPIO_Init(I2C_MCAL_Port , &Pin_Config);
+		Pin_Config.Pin_Num = PIN_7;
+		MCAL_GPIO_Init(I2C_MCAL_Port , &Pin_Config);
+	}else{
+		Pin_Config.Pin_Num = PIN_10;
+		MCAL_GPIO_Init(I2C_MCAL_Port , &Pin_Config);
+		Pin_Config.Pin_Num = PIN_11;
+		MCAL_GPIO_Init(I2C_MCAL_Port , &Pin_Config);
+	}
+}
+void MCAL_I2C_Mater_TX(I2C_Reg* I2Cx,uint16 Device_Address,uint8* DataOut,uint32 Data_Length,Stop_Condition Stop,Repeated_Start Start){
+	uint32 i;
+	//Start BIT
+	I2C_Generate_Start(I2Cx , Enable_ST , start);
+	//Wait For EV5
+	while(!I2C_GetFlagStatus(I2Cx , EV5));
+	//Send the address
+	I2C_SendAddress(I2Cx , Device_Address ,Transmitter);
+	//Wait for EV6 ADDR=1, cleared by reading SR1 register followed by reading SR2.
+	while(!I2C_GetFlagStatus(I2Cx , EV6));
+	//Master ,Byte , Transmitting Busy checking
+	while(!I2C_GetFlagStatus(I2Cx , Master_Byte_Transmiting_Busy));
+	//Transmitt data
+	for(i=0 ; i< Data_Length ;i++){
+		//send data
+		I2Cx->I2C_DR.BIT_Name.DR = DataOut[i];
+		//wait for ev8
+		while(!I2C_GetFlagStatus(I2Cx , EV8));
+
+	}
+	if(Stop == Stop){
+		I2C_Generate_Stop(I2Cx , Enable_ST);
+	}else{
+		I2C_Generate_Stop(I2Cx , Disable_ST);
+	}
+
+
+
+}
+void MCAL_I2C_Mater_RX(I2C_Reg* I2Cx,uint16 Device_Address,uint8* DataOut,uint32 Data_Length,Stop_Condition Stop,Repeated_Start Start){
+	uint32 i;
+	uint8 index = I2Cx == I2C1 ? I2C1_index : I2C2_index;
+	//Start BIT
+	I2C_Generate_Start(I2Cx , Enable_ST , start);
+	//Wait For EV5
+	while(!I2C_GetFlagStatus(I2Cx , EV5));
+	//Send the address
+	I2C_SendAddress(I2Cx , Device_Address ,Receiver);
+	//Wait for EV6 ADDR=1, cleared by reading SR1 register followed by reading SR2.
+	while(!I2C_GetFlagStatus(I2Cx , EV6));
+	I2Cx->I2C_CR1.BIT_Name.ACK = Set_Bit;
+	if(Data_Length){
+		for(i=Data_Length ; i>0 ;i--){
+			//Check for EV2
+			while(!I2C_GetFlagStatus(I2Cx , EV2));
+			*DataOut = I2Cx->I2C_DR.BIT_Name.DR;
+			DataOut++;
+		}
+
+	}
+	//Generate Nack
+	I2Cx->I2C_CR1.BIT_Name.ACK = Reset_Bit;
+	if(Stop == Stop){
+		I2C_Generate_Stop(I2Cx , Enable_ST);
+	}else{
+		I2C_Generate_Stop(I2Cx , Disable_ST);
+	}
+	if(Global_I2C_Config[index].Ack == Enable){
+		I2Cx->I2C_CR1.BIT_Name.ACK = Set_Bit;
+	}
+}
+void I2C_Generate_Start(I2C_Reg* I2Cx ,Functional_State State,Repeated_Start Start ){
+	if(Start == start){
+		//Check if bus is busy
+		while(I2C_GetFlagStatus(I2Cx ,I2C_FLAG_BUSY));
+	}
+	if(State != Disable_ST){
+		I2Cx->I2C_CR1.BIT_Name.START = Set_Bit;
+
+	}else{
+		I2Cx->I2C_CR1.BIT_Name.START = Reset_Bit;
+	}
+}
+FlagStatus I2C_GetFlagStatus(I2C_Reg* I2Cx ,Status Flag){
+	FlagStatus Bit_Status = RESET;
+	vuint32 Dummy_Read = 0;
+	vuint32 flag1=0,flag2=0;
+	switch(Flag){
+	case I2C_FLAG_BUSY:{
+		//Bit 1 BUSY: Bus busy
+		if(I2Cx->I2C_SR2.BIT_Name.BUSY)
+			Bit_Status = SET;
+		else
+			Bit_Status = RESET;
+		break;
+	}
+	case EV5:{
+		if(I2Cx->I2C_SR1.BIT_Name.SB)
+			Bit_Status = SET;
+		else
+			Bit_Status = RESET;
+		break;
+	}
+	case EV6:{
+		if(I2Cx->I2C_SR1.BIT_Name.ADDR)
+			Bit_Status = SET;
+		else
+			Bit_Status = RESET;
+		Dummy_Read = I2Cx->I2C_SR2.ALL_Reg;
+		break;
+	}
+	case Master_Byte_Transmiting_Busy:{
+		flag2 = I2Cx->I2C_SR2.ALL_Reg;
+		flag2 = flag2<<16;
+		flag2 |= flag1 & (0x00FFFFFFFF);
+		if((flag2 & Master_Byte_Transmiting_Busy )== Master_Byte_Transmiting_Busy)
+			Bit_Status = SET;
+		else
+			Bit_Status = RESET;
+		break;
+	}
+	case EV8_1:
+	case EV8:{
+		if(I2Cx->I2C_SR1.BIT_Name.TxE)
+			Bit_Status = SET;
+		else
+			Bit_Status = RESET;
+		break;
+
+
+	}
+	case EV2:{
+		if(I2Cx->I2C_SR1.BIT_Name.RxNE)
+			Bit_Status = SET;
+		else
+			Bit_Status = RESET;
+		break;
+	}
+	}
+
+	return Bit_Status;
+}
+void I2C_SendAddress(I2C_Reg* I2Cx,uint16 Address,I2C_Direction Direction){
+	Address = (Address<<1) ;
+	if(Direction == Receiver){
+		Address |= (1<<0);
+	}else{
+		//0 for write
+		Address &= ~(1<<0);
+	}
+	//send address
+	I2Cx->I2C_DR.ALL_Reg = Address;
+}
+void I2C_Generate_Stop(I2C_Reg* I2Cx,Functional_State State){
+	if(State == Enable_ST){
+		I2Cx->I2C_CR1.BIT_Name.STOP = Set_Bit;
+	}else{
+		I2Cx->I2C_CR1.BIT_Name.STOP = Reset_Bit;
+	}
+
+}
+void MCAL_I2C_Slave_Send(I2C_Reg* I2Cx,uint8 data){
+	I2Cx->I2C_DR.BIT_Name.DR = data;
+}
+void MCAL_I2C_Slave_Receive(I2C_Reg* I2Cx){
+	return (uint8)I2Cx->I2C_DR.BIT_Name.DR;
+}
+void I2C1_EV_IRQHandler(){
+
+}
+void I2C1_ER_IRQHandler(){
+
+}
+void I2C1_EV_IRQHandler(){
+
+}
+void I2C1_EV_IRQHandler(){
+
+}

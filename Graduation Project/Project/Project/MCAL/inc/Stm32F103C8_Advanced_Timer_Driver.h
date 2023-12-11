@@ -1,0 +1,109 @@
+/*
+ * Stm32F103C6_Timer_Driver.h
+ *
+ *  Created on: Nov 27, 2023
+ *      Author: LEGION
+ */
+
+#ifndef INC_STM32F103C8_ADVANCED_TIMER_DRIVER_H_
+#define INC_STM32F103C8_ADVANCED_TIMER_DRIVER_H_
+//-----------------------------
+//Includes
+//-----------------------------
+#include "Stm32f103x6.h"
+#include "Stm32f103C6_Driver_gpio.h"
+//-----------------------------
+//Timer Macros
+//-----------------------------
+#define TIM1_UP_NVIC_ENABLE()				NVIC_ISER0 |= (1<<25)
+#define TIM1_UP_NVIC_DISABLE()				NVIC_ICER0 |= (1<<25)
+#define TIM1_ICU_NVIC_ENABLE()				NVIC_ISER0 |= (1<<27)
+#define	Channel1							1
+#define	Channel2							2
+#define	Channel3							3
+#define	Channel4							4
+
+
+//-----------------------------
+//User type definitions (structures)
+//-----------------------------
+typedef enum{
+	Upcounting,
+	Downcounting,
+	Center_aligned
+}Counter_Modes;
+typedef enum{
+	Repetition_ON,
+	Repetition_OFF
+}Repetition_counter;
+typedef enum{
+	INT_ON,
+	INT_OFF
+}Interrupt_Poolin_Mechanism;
+typedef enum{
+	Rising,
+	Falling
+
+
+}Edge_Level;
+typedef enum{
+	Disable_Pre,
+	Enable_Pre
+}PreLoad;
+typedef enum{
+	ActiveHigh,
+	ActiveLow
+}Polarity;
+typedef enum{
+	Frozen,
+	active_level,
+	inactive,
+	Toggle,
+	PWM1=6,
+	PWM2
+}Output_Compare_mode;
+typedef struct{
+	Counter_Modes									Mode;
+	Repetition_counter								Repetition;
+	Interrupt_Poolin_Mechanism						Mechanism;
+	uint16											ARR_Val;
+	uint16											Prescaler;
+	uint16											Repetition_Val;
+	void(*P_CallBack)(void);
+}Timer_Config;
+typedef struct{
+	Interrupt_Poolin_Mechanism						Mechanism;
+	Edge_Level										Edge;
+	uint16											Prescaler;
+	uint16											Repetition_Val;
+	uint8											Channel_Num;
+	void(*P_CallBack)(void);
+}Timer_ICU_Config;
+typedef struct{
+	Interrupt_Poolin_Mechanism						Mechanism;
+	uint16											Prescaler;
+	uint16											ARR_Val;
+	uint16											CCRx_Val;
+	uint16											Repetition_Val;
+	uint8											Channel_Num;
+	void(*P_CallBack)(void);
+}Timer_CTC_Config;
+typedef struct{
+	Output_Compare_mode								Mode;
+	PreLoad											PRR;
+	Polarity										Polarityy;
+}Timer_CTC_Output_Mode;
+
+
+/*
+ * ===============================================
+ * APIs Supported by "MCAL Timer DRIVER"
+ * ===============================================
+ */
+void MCAL_Timer_GPIO_Init(Advanced_TIM_Reg* TIMx,Timer_Config* Cfg);
+void MCAL_SET_TIMx_GPIO(Advanced_TIM_Reg* TIMx);
+void MCAL_Timer_GPIO_DeInit(Advanced_TIM_Reg* TIMx);
+void MCAL_ICU_GPIO_Init(Advanced_TIM_Reg* TIMx,Timer_ICU_Config* Config);
+void MCAL_CTC_GPIO_Init(Advanced_TIM_Reg* TIMx,Timer_CTC_Config* Config,Timer_CTC_Output_Mode* Config_Mode);
+void MCAL_SET_TIMx_CTC_GPIO(Advanced_TIM_Reg* TIMx,uint8 Channel);
+#endif /* INC_STM32F103C8_ADVANCED_TIMER_DRIVER_H_ */

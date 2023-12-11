@@ -1,0 +1,981 @@
+/* Learn-In-Depth
+ * File name :Stm32f103x6.h
+ *  Description: Header file for MCU stm32f103x6 >>>LQFP48
+ * Created By: mohamed salah fathy
+ */
+
+#ifndef INC_STM32F103X6_H_
+#define INC_STM32F103X6_H_
+//-----------------------------
+//Includes
+//-----------------------------
+#include "Platform_Types.h"
+
+
+//-----------------------------
+//Base addresses for Memories
+//-----------------------------
+#define SRAM_BASE 						(uint32) 0X20000000UL
+#define FLASH_MEMORY_BASE 				(uint32) 0X08000000UL
+#define PERIPHERALS_BASE 				(uint32) 0X40000000UL
+#define CORTEX_M3_INTERNAL_PERIPHERALS  (uint32) 0XE0000000UL
+
+//NVIC Register (Cortex M3)
+#define NVIC_BASE						(uint32)(0xE000E100UL)
+#define NVIC_ISER0						(*(uint32 *)(NVIC_BASE + 0x00))
+#define NVIC_ISER1						(*(uint32 *)(NVIC_BASE + 0x04))
+#define NVIC_ISER2						(*(uint32 *)(NVIC_BASE + 0x08))
+#define NVIC_ISER3						(*(uint32 *)(NVIC_BASE + 0x0C))
+#define NVIC_ISER4						(*(uint32 *)(NVIC_BASE + 0x10))
+#define NVIC_ISER5						(*(uint32 *)(NVIC_BASE + 0x14))
+#define NVIC_ISER6						(*(uint32 *)(NVIC_BASE + 0x18))
+#define NVIC_ISER7						(*(uint32 *)(NVIC_BASE + 0x1C))
+#define NVIC_ICER0						(*(uint32 *)(NVIC_BASE + 0x80))
+#define NVIC_ICER1						(*(uint32 *)(NVIC_BASE + 0x84))
+#define NVIC_ICER2						(*(uint32 *)(NVIC_BASE + 0x88))
+#define NVIC_ICER3						(*(uint32 *)(NVIC_BASE + 0x8C))
+#define NVIC_ICER4						(*(uint32 *)(NVIC_BASE + 0x90))
+#define NVIC_ICER5						(*(uint32 *)(NVIC_BASE + 0x94))
+#define NVIC_ICER6						(*(uint32 *)(NVIC_BASE + 0x98))
+
+
+//-----------------------------
+//Base addresses for AHB Peripherals
+//-----------------------------
+#define RCC_BASE 0x40021000UL
+
+//-----------------------------
+//Base addresses for APB2 Peripherals
+//-----------------------------
+//GPIOA and GPIOB is fully used in >>> (MCU)LQFP48
+#define GPIOA_BASE 0x40010800UL
+#define GPIOB_BASE 0x40010C00UL
+//GPIOA and GPIOB is partially used in >>> (MCU)LQFP48
+#define GPIOC_BASE 0x40011000UL
+#define GPIOD_BASE 0x40011400UL
+//GPIOE is not used in >>> (MCU)LQFP48
+#define GPIOE_BASE 0x40011800UL
+
+#define EXTI_BASE  		0x40010400UL
+#define AFIO_BASE  		0x40010000UL
+#define USART1_BASE 	0x40013800UL
+#define SPI1_BASE		0x40013000UL
+#define TIM1_BASE		0x40012C00UL
+//-----------------------------
+//Base addresses for APB1 Peripherals
+//-----------------------------
+#define USART2_BASE 	0x40004400UL
+#define USART3_BASE 	0x40004800UL
+#define SPI2_BASE		0x40003800UL
+#define SPI3_BASE		0x40003C00UL
+#define TIM2_BASE		0x40000000UL
+#define TIM3_BASE		0x40000400UL
+#define TIM4_BASE		0x40000800UL
+//-*-*-*-*-*-*-*-*-*-*-*-
+//Peripheral register: GPIO
+//-*-*-*-*-*-*-*-*-*-*-*
+typedef struct {
+	vuint32 CRL;
+	vuint32 CRH;
+	vuint32 IDR;
+	vuint32 ODR;
+	vuint32 BSRR;
+	vuint32 BRR;
+	vuint32 LCKR;
+}GPIO_Typedef;
+//-*-*-*-*-*-*-*-*-*-*-*-
+//Peripheral register: GPIO
+//-*-*-*-*-*-*-*-*-*-*-*
+typedef struct {
+	vuint32 RCC_CR;
+	vuint32 RCC_CFGR;
+	vuint32 RCC_CIR;
+	vuint32 RCC_APB2RSTR;
+	vuint32 RCC_APB1RSTR;
+	vuint32 RCC_AHBENR;
+	vuint32 RCC_APB2ENR;
+	vuint32 RCC_APB1ENR;
+	vuint32 RCC_BDCR;
+}RCC_Typedef;
+
+
+
+//-*-*-*-*-*-*-*-*-*-*-*-
+//Peripheral register: EXTI
+//-*-*-*-*-*-*-*-*-*-*-*
+typedef struct {
+	vuint32 EXTI_IMR;
+	vuint32 EXTI_EMR;
+	vuint32 EXTI_RTSR;
+	vuint32 EXTI_FTSR;
+	vuint32 EXTI_SWIER;
+	vuint32 EXTI_PR;
+}EXTI_Typedef;
+
+//-*-*-*-*-*-*-*-*-*-*-*-
+//Peripheral register: AFIO
+//-*-*-*-*-*-*-*-*-*-*-*
+typedef struct {
+	vuint32 AFIO_EVCR;
+	vuint32 AFIO_MAPR;
+	vuint32 AFIO_EXTICR[4];
+	vuint32 RESERVED;
+	vuint32 AFIO_MAPR2;
+}AFIO_Typedef;
+//-*-*-*-*-*-*-*-*-*-*-*-
+//Peripheral register: USART
+//-*-*-*-*-*-*-*-*-*-*-*
+typedef union{
+	vuint32 ALL_REG;
+	struct SR_bits{
+		vuint32 PE:1;
+		vuint32 FE:1;
+		vuint32 NE:1;
+		vuint32 ORE:1;
+		vuint32 IDLE:1;
+		vuint32 RXNE:1;
+		vuint32 TC:1;
+		vuint32 TXE:1;
+		vuint32 LBD:1;
+		vuint32 CTS:1;
+	}BIT_Name;
+}SR;
+typedef union{
+	vuint32 ALL_REG;
+	struct DR_bits{
+		vuint32 DR:8;
+	}BIT_Name;
+}DR;
+typedef union{
+	vuint32 ALL_REG;
+	struct BRR_bits{
+		vuint32 DIV_Fraction:4;
+		vuint32 DIV_Mantissa:12;
+	}BIT_Name;
+}BRR;
+typedef union{
+	vuint32 ALL_REG;
+	struct CR1_bits{
+		vuint32 SBK:1;
+		vuint32 RWU:1;
+		vuint32 RE:1;
+		vuint32 TE:1;
+		vuint32 IDLEIE:1;
+		vuint32 RXNEIE:1;
+		vuint32 TCIE:1;
+		vuint32 TXEIE:1;
+		vuint32 PEIE:1;
+		vuint32 PS:1;
+		vuint32 PCE:1;
+		vuint32 WAKE:1;
+		vuint32 M:1;
+		vuint32 UE:1;
+	}BIT_Name;
+}CR1;
+typedef union{
+	vuint32 ALL_REG;
+	struct CR2_bits{
+		vuint32 ADD:4;
+		vuint32 Reserved:1;
+		vuint32 LBDL:1;
+		vuint32 LBDIE:1;
+		vuint32 Reservedd:1;
+		vuint32 LBCL:1;
+		vuint32 CPHA:1;
+		vuint32 CPOL:1;
+		vuint32 CLK_EN:1;
+		vuint32 STOP:2;
+		vuint32 LINEN:1;
+	}BIT_Name;
+}CR2;
+typedef union{
+	vuint32 ALL_REG;
+	struct CR3_bits{
+		vuint32 EIE:1;
+		vuint32 IREN:1;
+		vuint32 IRLP:1;
+		vuint32 HDSEL:1;
+		vuint32 NACK:1;
+		vuint32 SCEN:1;
+		vuint32 DMAR:1;
+		vuint32 DMAT:1;
+		vuint32 RTSE:1;
+		vuint32 CTSE:1;
+		vuint32 CTSIE:1;
+	}BIT_Name;
+}CR3;
+typedef union{
+	vuint32 ALL_REG;
+	struct GTPR_bits{
+		vuint32 PSC:8;
+		vuint32 GT:8;
+	}BIT_Name;
+}GTPR;
+typedef struct {
+	volatile SR USART_SR;
+	volatile DR USART_DR;
+	volatile BRR USART_BRR;
+	volatile CR1 USART_CR1;
+	volatile CR2 USART_CR2;
+	volatile CR3 USART_CR3;
+	volatile GTPR USART_GTPR;
+}USART_Reg;
+//-*-*-*-*-*-*-*-*-*-*-*-
+//Peripheral register: SPI
+//-*-*-*-*-*-*-*-*-*-*-*
+typedef union{
+	vuint32 ALL_REG;
+	struct CR1_BITS{
+		vuint32 CPHA:1;
+		vuint32 CPOL:1;
+		vuint32 MSTR:1;
+		vuint32 BR:3;
+		vuint32 SPE:1;
+		vuint32 LSBFIRST:1;
+		vuint32 SSI:1;
+		vuint32 SSM:1;
+		vuint32 RXONLY:1;
+		vuint32 DFF:1;
+		vuint32 CRCNEXT:1;
+		vuint32 CRCEN:1;
+		vuint32 BIDIOE:1;
+		vuint32 BIDIMODE:1;
+		//16bit next reserved
+
+	}BIT_NAME;
+}SPI_CR1;
+typedef union{
+	vuint32 ALL_REG;
+	struct CR2_BITS{
+		vuint32 RXDMAEN:1;
+		vuint32 TXDMAEN:1;
+		vuint32 SSOE:1;
+		vuint32 Res:2;
+		vuint32 ERRIE:1;
+		vuint32 RXNEIE:1;
+		vuint32 TXEIE:1;
+		vuint32 Reserved:8;
+	}BIT_NAME;
+}SPI_CR2;
+typedef union{
+	vuint32 ALL_REG;
+	struct SR_BITS{
+		vuint32 RXNE:1;
+		vuint32 TXE:1;
+		vuint32 CHSIDE:1;
+		vuint32 UDR:1;
+		vuint32 CRCERR:1;
+		vuint32 MODF:1;
+		vuint32 OVR:1;
+		vuint32 BSY:1;
+		vuint32 Reserved:8;
+	}BIT_NAME;
+}SPI_SR;
+typedef union{
+	vuint32 ALL_REG;
+	struct DR_BITS{
+		vuint32 DR:16;
+	}BIT_NAME;
+}SPI_DR;
+typedef union{
+	vuint32 ALL_REG;
+	struct CRCPR_BITS{
+		vuint32 CRCPOLY:16;
+	}BIT_NAME;
+}SPI_CRCPR;
+typedef union{
+	vuint32 ALL_REG;
+	struct RXCRCR_BITS{
+		vuint32 RXCRCR:16;
+	}BIT_NAME;
+}SPI_RXCRCR;
+typedef union{
+	vuint32 ALL_REG;
+	struct TXCRCR_BITS{
+		vuint32 TXCRCR:16;
+	}BIT_NAME;
+}SPI_TXCRCR;
+typedef union{
+	vuint32 ALL_REG;
+	struct I2SCFGR_BITS{
+		vuint32 CHLEN:1;
+		vuint32 DATLEN:1;
+		vuint32 CKPOL:1;
+		vuint32 I2SSTD:2;
+		vuint32 Res:1;
+		vuint32 PCMSYNC:1;
+		vuint32 I2SCFG:2;
+		vuint32 I2SE:1;
+		vuint32 I2SMOD:1;
+		vuint32 Reserved:4;
+	}BIT_NAME;
+}SPI_I2SCFGR;
+typedef union{
+	vuint32 ALL_REG;
+	struct I2SPR_BITS{
+		vuint32 I2SDIV:8;
+		vuint32 ODD:1;
+		vuint32 MCKOE:1;
+		vuint32 Reserved:6;
+	}BIT_NAME;
+}SPI_I2SPR;
+typedef struct{
+	SPI_CR1		SPI_CR1;
+	SPI_CR2		SPI_CR2;
+	SPI_SR		SPI_SR;
+	SPI_DR		SPI_DR;
+	SPI_CRCPR	SPI_CRCPR;
+	SPI_RXCRCR	SPI_RXCRCR;
+	SPI_TXCRCR	SPI_TXCRCR;
+	SPI_I2SCFGR	SPI_I2SCFGR;
+	SPI_I2SPR	SPI_I2SPR;
+}SPI_Reg;
+//-*-*-*-*-*-*-*-*-*-*-*-
+//Peripheral register: I2C
+//-*-*-*-*-*-*-*-*-*-*-*
+typedef union{
+	vuint32 ALL_Reg;
+	struct	CR1_Bits{
+		vuint32	PE:1;
+		vuint32	SMBUS:1;
+		vuint32	Reserved:1;
+		vuint32	SMBTYPE:1;
+		vuint32	ENARP:1;
+		vuint32	ENPEC:1;
+		vuint32	ENGC:1;
+		vuint32	NOSTRETCH:1;
+		vuint32	START:1;
+		vuint32	STOP:1;
+		vuint32	ACK:1;
+		vuint32	POS:1;
+		vuint32	PEC:1;
+		vuint32	ALERT:1;
+		vuint32	Reserved1:1;
+		vuint32	SWRST:1;
+		vuint32	Reserved2:16;
+	}BIT_Name;
+}I2C_CR1;
+typedef union{
+	vuint32 ALL_Reg;
+	struct	CR2_Bits{
+		vuint32	FREQ:6;
+		vuint32	Reserved:2;
+		vuint32	ITERREN:1;
+		vuint32	ITEVTEN:1;
+		vuint32	ITBUFEN:1;
+		vuint32	DMAEN:1;
+		vuint32	LAST:1;
+		vuint32	Reserved1:19;
+	}BIT_Name;
+}I2C_CR2;
+typedef union{
+	vuint32 ALL_Reg;
+	struct	OAR1_Bits{
+		vuint32	ADD0:1;
+		vuint32	ADD:7;
+		vuint32	ADD1:2;
+		vuint32	Reserved:5;
+		vuint32	ADDMODE:1;
+		vuint32	Reserved1:16;
+	}BIT_Name;
+}I2C_OAR1;
+typedef union{
+	vuint32 ALL_Reg;
+	struct	OAR2_Bits{
+		vuint32	ENDUAL:1;
+		vuint32	ADD2:7;
+		vuint32	Reserved:24;
+	}BIT_Name;
+}I2C_OAR2;
+typedef union{
+	vuint32 ALL_Reg;
+	struct	DR_Bits{
+		vuint32	DR:8;
+		vuint32	Reserved:24;
+	}BIT_Name;
+}I2C_DR;
+typedef union{
+	vuint32 ALL_Reg;
+	struct	SR1_Bits{
+		vuint32	SB:1;
+		vuint32	ADDR:1;
+		vuint32	BTF:1;
+		vuint32	ADD10:1;
+		vuint32	STOPF:1;
+		vuint32	Reserved:1;
+		vuint32	RxNE:1;
+		vuint32	TxE:1;
+		vuint32	BERR:1;
+		vuint32	ARLO:1;
+		vuint32	AF:1;
+		vuint32	OVR:1;
+		vuint32	PECERR:1;
+		vuint32	Reserved1:1;
+		vuint32	TIMEOUT:1;
+		vuint32	SMBALERT:1;
+		vuint32	Reserved2:16;
+	}BIT_Name;
+}I2C_SR1;
+typedef union{
+	vuint32 ALL_Reg;
+	struct	SR2_Bits{
+		vuint32	MSL:1;
+		vuint32	BUSY:1;
+		vuint32	TRA:1;
+		vuint32	Reserved:1;
+		vuint32	GENCALL:1;
+		vuint32	SMBDEFAULT:1;
+		vuint32	SMBHOST:1;
+		vuint32	DUALF:1;
+		vuint32	PEC:8;
+		vuint32	Reserved2:16;
+	}BIT_Name;
+}I2C_SR2;
+typedef union{
+	vuint32 ALL_Reg;
+	struct	CCR_Bits{
+		vuint32	CCR:12;
+		vuint32	Reserved:1;
+		vuint32	DUTY:1;
+		vuint32	FS:1;
+		vuint32	Reserved1:16;
+	}BIT_Name;
+}I2C_CCR;
+typedef union{
+	vuint32 ALL_Reg;
+	struct	TRISE_Bits{
+		vuint32	TRISE:6;
+		vuint32	Reserved1:26;
+	}BIT_Name;
+}I2C_TRISE;
+typedef struct{
+	I2C_CR1						I2C_CR1;
+	I2C_CR2						I2C_CR2;
+	I2C_OAR1					I2C_OAR1;
+	I2C_OAR2					I2C_OAR2;
+	I2C_DR						I2C_DR;
+	I2C_SR1						I2C_SR1;
+	I2C_SR2						I2C_SR2;
+	I2C_CCR						I2C_CCR;
+	I2C_TRISE					I2C_TRISE;
+}I2C_Reg;
+//-*-*-*-*-*-*-*-*-*-*-*-
+//Peripheral register: TIM1
+//-*-*-*-*-*-*-*-*-*-*-*
+typedef union{
+	vuint32 ALL_REG;
+	struct TIM_CR1_BITS{
+		vuint32 CEN:1;
+		vuint32 UDIS:1;
+		vuint32 URS:1;
+		vuint32 OPM:1;
+		vuint32 DIR:1;
+		vuint32 CMS:2;
+		vuint32 ARPE:1;
+		vuint32 CKD:2;
+		vuint32 Reserved:22;
+	}BIT_NAME;
+}TIM_CR1;
+typedef union{
+	vuint32 ALL_REG;
+	struct TIM_CR2_BITS{
+		vuint32 CCPC:1;
+		vuint32 Reserved:1;
+		vuint32 CCUS:1;
+		vuint32 CCDS:1;
+		vuint32 MMS:3;
+		vuint32 TI1S:1;
+		vuint32 OIS1:1;
+		vuint32 OIS1N:1;
+		vuint32 OIS2:1;
+		vuint32 OIS2N:1;
+		vuint32 OIS3:1;
+		vuint32 OIS3N:1;
+		vuint32 OIS4:1;
+		vuint32 Res:17;
+	}BIT_NAME;
+}TIM_CR2;
+typedef union{
+	vuint32 ALL_REG;
+	struct TIM_SMCR_BITS{
+		vuint32 SMS:3;
+		vuint32 Reserved:1;
+		vuint32 TS:3;
+		vuint32 MSM:1;
+		vuint32 ETF:4;
+		vuint32 ETPS:2;
+		vuint32 ECE:1;
+		vuint32 ETP:1;
+		vuint32 Res:16;
+	}BIT_NAME;
+}TIM_SMCR;
+typedef union{
+	vuint32 ALL_REG;
+	struct TIM_DIER_BITS{
+		vuint32 UIE:1;
+		vuint32 CC1IE:1;
+		vuint32 CC2IE:1;
+		vuint32 CC3IE:1;
+		vuint32 CC4IE:1;
+		vuint32 COMIE:1;
+		vuint32 TIE:1;
+		vuint32 BIE:1;
+		vuint32 UDE:1;
+		vuint32 CC1DE:1;
+		vuint32 CC2DE:1;
+		vuint32 CC3DE:1;
+		vuint32 CC4DE:1;
+		vuint32 COMDE:1;
+		vuint32 TDE:1;
+		vuint32 Reserved:17;
+	}BIT_NAME;
+}TIM_DIER;
+typedef union{
+	vuint32 ALL_REG;
+	struct TIM_SR_BITS{
+		vuint32 UIF:1;
+		vuint32 CC1IF:1;
+		vuint32 CC2IF:1;
+		vuint32 CC3IF:1;
+		vuint32 CC4IF:1;
+		vuint32 COMIF:1;
+		vuint32 TIF:1;
+		vuint32 BIF:1;
+		vuint32 Reserved:1;
+		vuint32 CC1OF:1;
+		vuint32 CC2OF:1;
+		vuint32 CC3OF:1;
+		vuint32 CC4OF:1;
+		vuint32 Res:19;
+	}BIT_NAME;
+}TIM_SR;
+typedef union{
+	vuint32 ALL_REG;
+	struct EGR_BITS{
+		vuint32 UG:1;
+		vuint32 CC1G:1;
+		vuint32 CC2G:1;
+		vuint32 CC3G:1;
+		vuint32 CC4G:1;
+		vuint32 COMG:1;
+		vuint32 TG:1;
+		vuint32 BG:1;
+		vuint32 Res:24;
+	}BIT_NAME;
+}TIM_EGR;
+typedef union{
+	vuint32 ALL_REG;
+	struct CCMR1_Compare_BITS{
+		vuint32 CC1S:2;
+		vuint32 OC1FE:1;
+		vuint32 OC1PE:1;
+		vuint32 OC1M:3;
+		vuint32 OC1CE:1;
+		vuint32 CC2S:2;
+		vuint32 OC2FE:1;
+		vuint32 OC2PE:1;
+		vuint32 OC2M:3;
+		vuint32 OC2CE:1;
+		vuint32 Res:16;
+	}Compare_BIT_NAME;
+	struct CCMR1_input_Capture_BITS{
+		vuint32 CC1S:2;
+		vuint32 IC1PSC:2;
+		vuint32 IC1F:4;
+		vuint32 CC2S:2;
+		vuint32 IC2PSC:2;
+		vuint32 IC2F:4;
+		vuint32 :16;
+	}input_NAME;
+}TIM_CCMR1_Output;
+typedef union{
+	vuint32 ALL_REG;
+	struct Compare_CCMR2{
+		vuint32 CC3S:2;
+		vuint32 OC3FE:1;
+		vuint32 OC3PE:1;
+		vuint32 OC3M:3;
+		vuint32 OC3CE:1;
+		vuint32 CC4S:2;
+		vuint32 OC4FE:1;
+		vuint32 OC4PE:1;
+		vuint32 OC4M:3;
+		vuint32 O24CE:1;
+		vuint32 :16;
+	}BIT_NAME;
+	struct CCMR2_input_Capture_BITS{
+		vuint32 CC3S:2;
+		vuint32 IC3PSC:2;
+		vuint32 IC3F:4;
+		vuint32 CC4S:2;
+		vuint32 IC4PSC:2;
+		vuint32 IC4F:4;
+		vuint32 :16;
+	}input_NAME;
+}TIM_CCMR2;
+typedef union {
+	vuint32 ALL_BITS;
+	struct CCER_BITS{
+		vuint32 CC1E:1;
+		vuint32 CC1P:1;
+		vuint32 CC1NE:1;
+		vuint32 CC1NP:1;
+		vuint32 CC2E:1;
+		vuint32 CC2P:1;
+		vuint32 CC2NE:1;
+		vuint32 CC2NP:1;
+		vuint32 CC3E:1;
+		vuint32 CC3P:1;
+		vuint32 CC3NE:1;
+		vuint32 CC3NP:1;
+		vuint32 CC4E:1;
+		vuint32 CC4P:1;
+		vuint32 :18;
+	}BIT_NAME;
+}TIM__CCER;
+typedef union {
+	vuint32 ALL_BITS;
+	struct BDTR_BITS{
+		vuint32 DT:8;
+		vuint32 LOCK:2;
+		vuint32 OSSI:1;
+		vuint32 OSSR:1;
+		vuint32 BKE:1;
+		vuint32 BKP:1;
+		vuint32 AOE:1;
+		vuint32 MOE:1;
+		vuint32 :16;
+
+	}BIT_NAME;
+}TIM__BDTR;
+typedef union {
+	vuint32 ALL_BITS;
+	struct DCR_BITS{
+		vuint32 DBA:5;
+		vuint32 :3;
+		vuint32 DBL:5;
+		vuint32 :13;
+
+	}BIT_NAME;
+}TIM__DCR;
+typedef struct{
+	TIM_CR1  				CR1;
+	TIM_CR2					CR2;
+	TIM_SMCR				SMCR;
+	TIM_DIER				DIER;
+	TIM_SR					SR;
+	TIM_EGR					EGR;
+	TIM_CCMR1_Output		CCMR1;
+	TIM_CCMR2				CCMR2;
+	TIM__CCER				CCER;
+	vuint32	 				CNT;
+	vuint32					PSC;
+	vuint32					ARR;
+	vuint32					REP;
+	vuint32					CCR1;
+	vuint32					CCR2;
+	vuint32					CCR3;
+	vuint32					CCR4;
+	TIM__BDTR				BDTR;
+	TIM__DCR				DCR;
+	vuint32					DMAB;
+}Advanced_TIM_Reg;
+//-*-*-*-*-*-*-*-*-*-*-*-
+//Peripheral register: GP_Timer
+//-*-*-*-*-*-*-*-*-*-*-*
+typedef union{
+	vuint32 ALL_REG;
+	struct GP_TIM_CR1_BITS{
+		vuint32 CEN:1;
+		vuint32 UDIS:1;
+		vuint32 URS:1;
+		vuint32 OPM:1;
+		vuint32 DIR:1;
+		vuint32 CMS:2;
+		vuint32 ARPE:1;
+		vuint32 CKD:2;
+		vuint32 Reserved:22;
+	}BIT_NAME;
+}GP_TIM_CR1;
+typedef union{
+	vuint32 ALL_REG;
+	struct GP_TIM_CR2_BITS{
+		vuint32 :3;
+		vuint32 CCDS:1;
+		vuint32 MMS:3;
+		vuint32 TI1S:1;
+		vuint32 :24;
+	}BIT_NAME;
+}GP_TIM_CR2;
+////////////////
+typedef union{
+	vuint32 ALL_REG;
+	struct GP_TIM_SMCR_BITS{
+		vuint32 SMS:3;
+		vuint32 :1;
+		vuint32 TS:3;
+		vuint32 MSM:1;
+		vuint32 ETF:4;
+		vuint32 ETPS:2;
+		vuint32 ECE:1;
+		vuint32 ETP:1;
+		vuint32 :16;
+	}BIT_NAME;
+}GP_TIM_SMCR;
+typedef union{
+	vuint32 ALL_REG;
+	struct GP_TIM_DIER_BITS{
+		vuint32 UIE:1;
+		vuint32 CC1IE:1;
+		vuint32 CC2IE:1;
+		vuint32 CC3IE:1;
+		vuint32 CC4IE:1;
+		vuint32 :1;
+		vuint32 TIE:1;
+		vuint32 :1;
+		vuint32 UDE:1;
+		vuint32 CC1DE:1;
+		vuint32 CC2DE:1;
+		vuint32 CC3DE:1;
+		vuint32 CC4DE:1;
+		vuint32 COMDE:1;
+		vuint32 TDE:1;
+		vuint32 :17;
+	}BIT_NAME;
+}GP_TIM_DIER;
+typedef union{
+	vuint32 ALL_REG;
+	struct GP_TIM_SR_BITS{
+		vuint32 UIF:1;
+		vuint32 CC1IF:1;
+		vuint32 CC2IF:1;
+		vuint32 CC3IF:1;
+		vuint32 CC4IF:1;
+		vuint32 :1;
+		vuint32 TIF:1;
+		vuint32 :2;
+		vuint32 CC1OF:1;
+		vuint32 CC2OF:1;
+		vuint32 CC3OF:1;
+		vuint32 CC4OF:1;
+		vuint32 	 :19;
+	}BIT_NAME;
+}GP_TIM_SR;
+typedef union{
+	vuint32 ALL_REG;
+	struct GP_EGR_BITS{
+		vuint32 UG:1;
+		vuint32 CC1G:1;
+		vuint32 CC2G:1;
+		vuint32 CC3G:1;
+		vuint32 CC4G:1;
+		vuint32 :1;
+		vuint32 TG:1;
+		vuint32 :25;
+	}BIT_NAME;
+}GP_TIM_EGR;
+typedef union{
+	vuint32 ALL_REG;
+	struct GP_CCMR1_Compare_BITS{
+		vuint32 CC1S:2;
+		vuint32 OC1FE:1;
+		vuint32 OC1PE:1;
+		vuint32 OC1M:3;
+		vuint32 OC1CE:1;
+		vuint32 CC2S:2;
+		vuint32 OC2FE:1;
+		vuint32 OC2PE:1;
+		vuint32 OC2M:3;
+		vuint32 OC2CE:1;
+		vuint32 	 :16;
+	}GP_Compare_BIT_NAME;
+	struct GP_CCMR1_input_Capture_BITS{
+		vuint32 CC1S:2;
+		vuint32 IC1PSC:2;
+		vuint32 IC1F:4;
+		vuint32 CC2S:2;
+		vuint32 IC2PSC:2;
+		vuint32 IC2F:4;
+		vuint32 :16;
+	}GP_input_NAME;
+}GP_TIM_CCMR1_Output;
+typedef union{
+	vuint32 ALL_REG;
+	struct GP_Compare_CCMR2{
+		vuint32 CC3S:2;
+		vuint32 OC3FE:1;
+		vuint32 OC3PE:1;
+		vuint32 OC3M:3;
+		vuint32 OC3CE:1;
+		vuint32 CC4S:2;
+		vuint32 OC4FE:1;
+		vuint32 OC4PE:1;
+		vuint32 OC4M:3;
+		vuint32 O24CE:1;
+		vuint32 :16;
+	}BIT_NAME;
+	struct GP_CCMR2_input_Capture_BITS{
+		vuint32 CC3S:2;
+		vuint32 IC3PSC:2;
+		vuint32 IC3F:4;
+		vuint32 CC4S:2;
+		vuint32 IC4PSC:2;
+		vuint32 IC4F:4;
+		vuint32 :16;
+	}input_NAME;
+}GP_TIM_CCMR2;
+typedef union {
+	vuint32 ALL_BITS;
+	struct GP_CCER_BITS{
+		vuint32 CC1E:1;
+		vuint32 CC1P:1;
+		vuint32 	:2;
+		vuint32 CC2E:1;
+		vuint32 CC2P:1;
+		vuint32 	:2;
+		vuint32 CC3E:1;
+		vuint32 CC3P:1;
+		vuint32 	:2;
+		vuint32 CC4E:1;
+		vuint32 CC4P:1;
+		vuint32 	:18;
+
+	}BIT_NAME;
+}GP_TIM__CCER;
+typedef union {
+	vuint32 ALL_BITS;
+	struct GP_DCR_BITS{
+		vuint32 DBA:5;
+		vuint32 :3;
+		vuint32 DBL:5;
+		vuint32 :13;
+
+	}BIT_NAME;
+}GP_TIM__DCR;
+typedef struct{
+	GP_TIM_CR1  				CR1;
+	GP_TIM_CR2					CR2;
+	GP_TIM_SMCR					SMCR;
+	GP_TIM_DIER					DIER;
+	GP_TIM_SR					SR;
+	GP_TIM_EGR					EGR;
+	GP_TIM_CCMR1_Output			CCMR1;
+	GP_TIM_CCMR2				CCMR2;
+	GP_TIM__CCER				CCER;
+	vuint32	 					CNT;
+	vuint32						PSC;
+	vuint32						ARR;
+	vuint32						RCR;
+	vuint32						CCR1;
+	vuint32						CCR2;
+	vuint32						CCR3;
+	vuint32						CCR4;
+	vuint32						Reserved;
+	GP_TIM__DCR					DCR;
+	vuint32						DMAB;
+}GP_TIMx_Reg;
+//-*-*-*-*-*-*-*-*-*-*-*-
+//Peripheral Instants:
+//-*-*-*-*-*-*-*-*-*-*-*
+#define GPIOA		((GPIO_Typedef *)GPIOA_BASE)
+#define GPIOB		((GPIO_Typedef *)GPIOB_BASE)
+#define GPIOC		((GPIO_Typedef *)GPIOC_BASE)
+#define GPIOD		((GPIO_Typedef *)GPIOD_BASE)
+#define GPIOE		((GPIO_Typedef *)GPIOE_BASE)
+#define AFIO		((AFIO_Typedef*)AFIO_BASE)
+#define EXTI		((EXTI_Typedef*)EXTI_BASE)
+#define RCC			((RCC_Typedef*)RCC_BASE)
+#define USART1		((USART_Reg*)USART1_BASE)
+#define USART2		((USART_Reg*)USART2_BASE)
+#define USART3		((USART_Reg*)USART3_BASE)
+#define SPI1		((SPI_Reg *)SPI1_BASE)
+#define SPI2		((SPI_Reg *)SPI2_BASE)
+#define SPI3		((SPI_Reg *)SPI3_BASE)
+#define TIM1		((Advanced_TIM_Reg *)TIM1_BASE)
+#define TIM2		((GP_TIMx_Reg *)TIM2_BASE)
+#define TIM3		((GP_TIMx_Reg *)TIM3_BASE)
+#define TIM4		((GP_TIMx_Reg *)TIM4_BASE)
+#define I2C1		((I2C_Reg *)I2C1_BASE)
+#define I2C2		((I2C_Reg *)I2C2_BASE)
+//-*-*-*-*-*-*-*-*-*-*-*-
+//clock enable Macros:
+//-*-*-*-*-*-*-*-*-*-*-*
+#define ENABLE_CLOCK_GPIOA()		(RCC->RCC_APB2ENR |= (1<<2))
+#define ENABLE_CLOCK_GPIOB()		(RCC->RCC_APB2ENR |= (1<<3))
+#define ENABLE_CLOCK_GPIOC()		(RCC->RCC_APB2ENR |= (1<<4))
+#define ENABLE_CLOCK_GPIOD()		(RCC->RCC_APB2ENR |= (1<<5))
+#define ENABLE_CLOCK_GPIOE()		(RCC->RCC_APB2ENR |= (1<<6))
+#define ENABLE_CLOCK_AFIO()			(RCC->RCC_APB2ENR |= (1<<0))
+#define ENABLE_CLOCK_USART1()		(RCC->RCC_APB2ENR |= (1<<14))
+#define ENABLE_CLOCK_USART2()		(RCC->RCC_APB1ENR |= (1<<17))
+#define ENABLE_CLOCK_USART3()		(RCC->RCC_APB1ENR |= (1<<18))
+#define ENABLE_CLOCK_SPI1()			(RCC->RCC_APB2ENR |= (1<<12))
+#define ENABLE_CLOCK_SPI2()			(RCC->RCC_APB1ENR |= (1<<14))
+#define ENABLE_CLOCK_SPI3()			(RCC->RCC_APB1ENR |= (1<<15))
+#define ENABLE_CLOCK_TIM1()			(RCC->RCC_APB2ENR |= (1<<11))
+#define ENABLE_CLOCK_TIM2()			(RCC->RCC_APB1ENR |= (1<<0))
+#define ENABLE_CLOCK_TIM3()			(RCC->RCC_APB1ENR |= (1<<1))
+#define ENABLE_CLOCK_TIM4()			(RCC->RCC_APB1ENR |= (1<<2))
+#define ENABLE_CLOCK_I2C1()			(RCC->RCC_APB1ENR |= (1<<21))
+#define ENABLE_CLOCK_I2C2()			(RCC->RCC_APB1ENR |= (1<<22))
+//-*-*-*-*-*-*-*-*-*-*-*-
+//Reset macros:
+//-*-*-*-*-*-*-*-*-*-*-*
+//-*-*-*-*-*-*-*-*-*-*-*-
+#define GPIOA_RESET()		(RCC->RCC_APB2RSTR |= (1<<2))
+#define GPIOB_RESET()		(RCC->RCC_APB2RSTR |= (1<<3))
+#define GPIOC_RESET()		(RCC->RCC_APB2RSTR |= (1<<4))
+#define GPIOD_RESET()		(RCC->RCC_APB2RSTR |= (1<<5))
+#define GPIOE_RESET()		(RCC->RCC_APB2RSTR |= (1<<6))
+#define	USART1_RESET()		(RCC->RCC_APB2RSTR |= (1<<14))
+#define	USART2_RESET()		(RCC->RCC_APB1RSTR |= (1<<17))
+#define	USART3_RESET()		(RCC->RCC_APB1RSTR |= (1<<18))
+#define	SPI1_RESET()		(RCC->RCC_APB2RSTR |= (1<<12))
+#define	SPI2_RESET()		(RCC->RCC_APB1RSTR |= (1<<14))
+#define	SPI3_RESET()		(RCC->RCC_APB1RSTR |= (1<<15))
+#define TIM1_RESET()		(RCC->RCC_APB2RSTR |= (1<<11))
+#define TIM2_RESET()		(RCC->RCC_APB1RSTR |= (1<<0))
+#define TIM3_RESET()		(RCC->RCC_APB1RSTR |= (1<<1))
+#define TIM4_RESET()		(RCC->RCC_APB1RSTR |= (1<<2))
+//-*-*-*-*-*-*-*-*-*-*-*-
+//Enable NVIC Macros USART:
+//-*-*-*-*-*-*-*-*-*-*-*
+//-*-*-*-*-*-*-*-*-*-*-*-
+#define USART1_NVIC_EN()	NVIC_ISER1 |= (1 << 5)
+#define USART2_NVIC_EN()	NVIC_ISER1 |= (1 << 6)
+#define USART3_NVIC_EN()	NVIC_ISER1 |= (1 << 7)
+//-*-*-*-*-*-*-*-*-*-*-*-
+//Enable NVIC Macros SPI:
+//-*-*-*-*-*-*-*-*-*-*-*
+//-*-*-*-*-*-*-*-*-*-*-*-
+#define SPI1_IRQ			35
+#define SPI2_IRQ			36
+#define SPI3_IRQ			51
+#define SPI1_NVIC_EN()	NVIC_ISER1 |= (1 << SPI1_IRQ-32)
+#define SPI2_NVIC_EN()	NVIC_ISER1 |= (1 << SPI2_IRQ-32)
+#define SPI3_NVIC_EN()	NVIC_ISER1 |= (1 << SPI3_IRQ-32)
+
+//-*-*-*-*-*-*-*-*-*-*-*-
+//Disable NVIC Macros USART:
+//-*-*-*-*-*-*-*-*-*-*-*
+//-*-*-*-*-*-*-*-*-*-*-*-
+#define USART1_NVIC_DIS()	NVIC_ICER1 |= (1 << 5)
+#define USART2_NVIC_DIS()	NVIC_ICER1 |= (1 << 6)
+#define USART3_NVIC_DIS()	NVIC_ICER1 |= (1 << 7)
+//-*-*-*-*-*-*-*-*-*-*-*-
+//Disable NVIC Macros SPI:
+//-*-*-*-*-*-*-*-*-*-*-*
+//-*-*-*-*-*-*-*-*-*-*-*-
+#define SPI1_NVIC_DIS()	NVIC_ICER1 |= (1 << SPI1_IRQ-32)
+#define SPI2_NVIC_DIS()	NVIC_ICER1 |= (1 << SPI2_IRQ-32)
+#define SPI3_NVIC_DIS()	NVIC_ICER1 |= (1 << SPI3_IRQ-32)
+
+//Generic Macros:
+//-*-*-*-*-*-*-*-*-*-*-*
+#define NULL 						0
+#define CNF_SHIFT 					(2U)
+#define OUTPUT_MODE_E 				(4U)
+#define ERROR						0
+#define PIN_Set						1
+#define PIN_Clear					0
+#endif /* INC_STM32F103X6_H_ */

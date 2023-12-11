@@ -1,0 +1,253 @@
+/*
+ * Stm32f103C6_Driver_SPI.c
+ *
+ *  Created on: Oct 19, 2023
+ *      Author: LEGION
+ */
+
+#include "Stm32f103C6_Driver_SPI.h"
+SPI_Config* G_Config[2] = {NULL,NULL};
+SPI_Config G_SPI1_Config;
+SPI_Config G_SPI2_Config;
+void MCAL_SPI_Init(SPI_Reg* SPIx,SPI_Config* Config){
+	if(SPIx = SPI1){
+		G_SPI1_Config = *Config;
+		ENABLE_CLOCK_SPI1();
+		G_Config[0] = &G_SPI1_Config;
+	}else{
+		ENABLE_CLOCK_SPI2();
+		G_SPI2_Config = *Config;
+		G_Config[1] = &G_SPI1_Config;
+	}
+	//Select the BR[2:0] bits to define the serial clock baud rate (see SPI_CR1 register).
+	if(Config->Mode == Master)
+		SPIx->SPI_CR1.BIT_NAME.BR = Config->BaudRate;
+	// Set the DFF bit to define 8- or 16-bit data frame format
+	SPIx->SPI_CR1.BIT_NAME.DFF=Config->Format;
+	//Select the CPOL and CPHA bits to define one of the four relationships between the
+	//data transfer and the serial clock . For correct data transfer, the CPOL
+	//and CPHA bits must be configured in the same way in the slave device and the master
+	//device.
+	SPIx->SPI_CR1.BIT_NAME.CPHA=Config->Phase;
+	SPIx->SPI_CR1.BIT_NAME.CPOL=Config->Polarity;
+	//The frame format (MSB-first or LSB-first depending on the value of the LSBFIRST bit in
+	//the SPI_CR1 register) must be the same as the master device.
+	SPIx->SPI_CR1.BIT_NAME.LSBFIRST=Config->Endian_Format;
+	//In Hardware mode (refer to Slave select (NSS) pin management), the NSS pin must be
+	//connected to a low level signal during the complete byte transmit sequence. In NSS
+	//software mode, set the SSM bit and clear the SSI bit in the SPI_CR1 register.
+
+
+	/*********************NSS*******************/
+	switch(Config->Nss_mode){
+	case HardWare:
+		//do nothing
+		break;
+	case SoftWare:
+		if(Config->Mode == Master){
+			if(Config->Pin_Mode == Input){
+				SPIx->SPI_CR1.BIT_NAME.SSM = BIT_SET;
+				SPIx->SPI_CR1.BIT_NAME.SSI = BIT_SET;
+			}else{
+				SPIx->SPI_CR2.BIT_NAME.SSOE = BIT_SET;
+			}
+		}else{
+			SPIx->SPI_CR1.BIT_NAME.SSM = BIT_SET;
+			SPIx->SPI_CR1.BIT_NAME.SSI = BIT_RESET;
+		}
+		break;
+	}
+
+	if(Config->Mode == Master){
+		SPIx->SPI_CR1.BIT_NAME.MSTR = BIT_SET;
+		SPIx->SPI_CR1.BIT_NAME.SPE = BIT_SET;
+	}else{
+		SPIx->SPI_CR1.BIT_NAME.MSTR = BIT_RESET;
+		SPIx->SPI_CR1.BIT_NAME.SPE = BIT_SET;
+	}
+
+	//Interrupy and polling handling
+	if(Config->Interrupt_Pooling == Interrupt){
+		switch(Config->type){
+		case TXEIE:
+			SPIx->SPI_CR2.BIT_NAME.TXEIE = BIT_SET;
+			break;
+
+		case RXNEIE:
+			SPIx->SPI_CR2.BIT_NAME.RXNEIE = BIT_SET;
+			break;
+
+		case ERRIE:
+			SPIx->SPI_CR2.BIT_NAME.ERRIE = BIT_SET;
+			break;
+
+		}
+		if(SPIx == SPI1){
+			SPI1_NVIC_EN();
+
+		}else if (SPIx == SPI2){
+			SPI2_NVIC_EN();
+		}
+
+	}
+
+}
+void MCAL_SPI_Deinit(SPI_Reg* SPIx){
+	if(SPIx == SPI1){
+		SPI1_RESET();
+		SPI1_NVIC_DIS();
+	}else{
+		SPI2_RESET();
+		SPI2_NVIC_DIS();
+	}
+}
+void MCAL_SPI_SendData(SPI_Reg* SPIx,uint16* P_bufferTx,Check_Mechanism Check){
+	if(Check == Polling)
+		while(!(SPIx->SPI_SR.BIT_NAME.TXE));
+	SPIx->SPI_DR.ALL_REG =  (* P_bufferTx);
+}
+void MCAL_SPI_ReceiveData(SPI_Reg* SPIx,uint16* P_bufferRx,Check_Mechanism Check){
+	if(Check == Polling)
+		while(!(SPIx->SPI_SR.BIT_NAME.RXNE));
+	(*P_bufferRx) = SPIx->SPI_DR.ALL_REG;
+}
+void MCAL_SPI_TX_RX(SPI_Reg* SPIx,uint16* P_bufferTx,Check_Mechanism Check){
+	if(Check == Polling)
+		while(!(SPIx->SPI_SR.BIT_NAME.TXE));
+	SPIx->SPI_DR.ALL_REG =  (*P_bufferTx);
+	if(Check == Polling)
+		while(!(SPIx->SPI_SR.BIT_NAME.RXNE));
+	(* P_bufferTx) = SPIx->SPI_DR.ALL_REG;
+}
+void SPI1_IRQHandler(void){
+	struct S_IRQ_SRC irq_src;
+	irq_src.TXE = (SPI1->SPI_SR.BIT_NAME.TXE);
+	irq_src.RXNE = (SPI1->SPI_SR.BIT_NAME.RXNE);
+	irq_src.ERRIE = (SPI1->SPI_SR.BIT_NAME.CRCERR);
+	G_Config[0]->P_CallBack(irq_src);
+
+}
+void SPI2_IRQHandler(void){
+	struct S_IRQ_SRC irq_src;
+	irq_src.TXE = (SPI2->SPI_SR.BIT_NAME.TXE);
+	irq_src.RXNE = (SPI2->SPI_SR.BIT_NAME.RXNE);
+	irq_src.ERRIE = (SPI2->SPI_SR.BIT_NAME.CRCERR);
+	G_Config[1]->P_CallBack(irq_src);
+
+}
+void MCAL_SPI_GPIO_Set_Pins(SPI_Reg* SPIx){
+	GPIO_PIN_Config Pin_Config;
+	if(SPIx == SPI1){
+		if(G_Config[0]->Mode == Master){
+			//NSS PIN
+			if(G_Config[0]->Nss_mode == HardWare){
+				switch(G_Config[0]->Pin_Mode){
+				case Output:
+					Pin_Config.Mode = ALT_OUTPUT_PP;
+					Pin_Config.speed = Max_speed_10MHZ;
+					Pin_Config.Pin_Num= PIN_4;
+					MCAL_GPIO_Init(GPIOA,&Pin_Config);
+					break;
+				case Input:
+					Pin_Config.Mode = Floating_Mode;
+					Pin_Config.Pin_Num= PIN_4;
+					MCAL_GPIO_Init(GPIOA,&Pin_Config);
+					break;
+				}
+			}
+			//SCLK PIN
+			Pin_Config.Mode = ALT_OUTPUT_PP;
+			Pin_Config.speed = Max_speed_10MHZ;
+			Pin_Config.Pin_Num= PIN_5;
+			MCAL_GPIO_Init(GPIOA,&Pin_Config);
+			//SPI1_MISO
+			Pin_Config.Mode = Floating_Mode;
+			Pin_Config.Pin_Num= PIN_6;
+			MCAL_GPIO_Init(GPIOA,&Pin_Config);
+			//SPI MOSI
+			Pin_Config.Mode = ALT_OUTPUT_PP;
+			Pin_Config.speed = Max_speed_10MHZ;
+			Pin_Config.Pin_Num= PIN_7;
+			MCAL_GPIO_Init(GPIOA,&Pin_Config);
+
+		}else{
+			if(G_Config[0]->Nss_mode == HardWare){
+				Pin_Config.Mode = Floating_Mode;
+				Pin_Config.Pin_Num= PIN_4;
+				MCAL_GPIO_Init(GPIOA,&Pin_Config);
+			}
+			//SCLK PIN
+			Pin_Config.Mode = Floating_Mode;
+			Pin_Config.Pin_Num= PIN_5;
+			MCAL_GPIO_Init(GPIOA,&Pin_Config);
+			//SPI1_MISO
+			Pin_Config.Mode = ALT_OUTPUT_PP;
+			Pin_Config.speed = Max_speed_10MHZ;
+			Pin_Config.Pin_Num= PIN_6;
+			MCAL_GPIO_Init(GPIOA,&Pin_Config);
+			//SPI MOSI
+			Pin_Config.Mode = Floating_Mode;
+			Pin_Config.Pin_Num= PIN_7;
+			MCAL_GPIO_Init(GPIOA,&Pin_Config);
+
+		}
+
+	}
+	if(SPIx == SPI2){
+
+		if(G_Config[1]->Mode == Master){
+			//NSS PIN
+			if(G_Config[1]->Nss_mode == HardWare){
+				switch(G_Config[1]->Pin_Mode){
+				case Output:
+					Pin_Config.Mode = ALT_OUTPUT_PP;
+					Pin_Config.speed = Max_speed_10MHZ;
+					Pin_Config.Pin_Num= PIN_12;
+					MCAL_GPIO_Init(GPIOB,&Pin_Config);
+					break;
+				case Input:
+					Pin_Config.Mode = Floating_Mode;
+					Pin_Config.Pin_Num= PIN_12;
+					MCAL_GPIO_Init(GPIOB,&Pin_Config);
+					break;
+				}
+			}
+			//SCLK PIN
+			Pin_Config.Mode = ALT_OUTPUT_PP;
+			Pin_Config.speed = Max_speed_10MHZ;
+			Pin_Config.Pin_Num= PIN_13;
+			MCAL_GPIO_Init(GPIOB,&Pin_Config);
+			//SPI1_MISO
+			Pin_Config.Mode = Floating_Mode;
+			Pin_Config.Pin_Num= PIN_14;
+			MCAL_GPIO_Init(GPIOB,&Pin_Config);
+			//SPI MOSI
+			Pin_Config.Mode = ALT_OUTPUT_PP;
+			Pin_Config.speed = Max_speed_10MHZ;
+			Pin_Config.Pin_Num= PIN_15;
+			MCAL_GPIO_Init(GPIOB,&Pin_Config);
+
+		}else{
+			if(G_Config[1]->Nss_mode == HardWare){
+				Pin_Config.Mode = Floating_Mode;
+				Pin_Config.Pin_Num= PIN_12;
+				MCAL_GPIO_Init(GPIOB,&Pin_Config);
+			}
+			//SCLK PIN
+			Pin_Config.Mode = Floating_Mode;
+			Pin_Config.Pin_Num= PIN_13;
+			MCAL_GPIO_Init(GPIOB,&Pin_Config);
+			//SPI1_MISO
+			Pin_Config.Mode = ALT_OUTPUT_PP;
+			Pin_Config.speed = Max_speed_10MHZ;
+			Pin_Config.Pin_Num= PIN_14;
+			MCAL_GPIO_Init(GPIOB,&Pin_Config);
+			//SPI MOSI
+			Pin_Config.Mode = Floating_Mode;
+			Pin_Config.Pin_Num= PIN_15;
+			MCAL_GPIO_Init(GPIOB,&Pin_Config);
+
+		}
+	}
+
+}

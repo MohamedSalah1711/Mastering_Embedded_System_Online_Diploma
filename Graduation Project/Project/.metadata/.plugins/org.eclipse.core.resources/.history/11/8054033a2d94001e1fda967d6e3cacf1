@@ -1,0 +1,26 @@
+/*
+ * DC_Motors.c
+ *
+ *  Created on: Dec 5, 2023
+ *      Author: mohamed salah
+ */
+
+
+#include "DC_Motors.h"
+void Dc_Motors_Init(void){
+	Timer_CTC_Config PWM_Config={INT_OFF,Rising,};
+	/*
+	 * 	Each Motor need one pwm channel and 2 output pins
+	 *
+	 */
+	//init Motor 1
+
+
+	//MCAL_CTC_GPIO_Init(Advanced_TIM_Reg* TIMx,Timer_CTC_Config* Config,Timer_CTC_Output_Mode* Config_Mode);
+
+
+
+
+
+}
+

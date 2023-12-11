@@ -1,0 +1,18 @@
+/*
+ * I2C_Slave_EEPROM.h
+ *
+ *  Created on: Nov 3, 2023
+ *      Author: LEGION
+ */
+
+#ifndef INC_I2C_SLAVE_EEPROM_H_
+#define INC_I2C_SLAVE_EEPROM_H_
+#include "Stm32f103C6_Driver_I2C.h"
+#define EEPROM_Slave_Address	0x2A
+void EEPROM_init();
+void EPPROM_write(uint32 Memory_Adress,uint8 *data,uint8 len);
+uint8 EPPROM_READ(uint32 Memory_Adress,uint8_t *data,uint8 len,uint8 len);
+
+
+
+#endif /* INC_I2C_SLAVE_EEPROM_H_ */

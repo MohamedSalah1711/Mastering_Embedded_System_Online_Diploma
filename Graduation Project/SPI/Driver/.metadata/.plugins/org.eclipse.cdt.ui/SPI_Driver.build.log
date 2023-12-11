@@ -1,0 +1,42 @@
+16:47:16 **** Incremental Build of configuration Debug for project SPI_Driver ****
+make -j12 all 
+arm-none-eabi-gcc -gdwarf-2 "../Src/main.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DSTM32 -DSTM32F1 -DSTM32F103C8Tx -DDEBUG -c -I../Inc -I"D:/kerollos course/unit 2/unit8/SPI/Lecture/SPI_Driver/HAL/inc" -I"D:/kerollos course/unit 2/unit8/SPI/Lecture/SPI_Driver/Inc" -I"D:/kerollos course/unit 2/unit8/SPI/Lecture/SPI_Driver/MCAL/inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Src/main.o"
+../Src/main.c: In function 'UART_IRQ_CallBack':
+../Src/main.c:40:33: warning: passing argument 2 of 'MCAL_USART_ReceiveData' from incompatible pointer type [-Wincompatible-pointer-types]
+  MCAL_USART_ReceiveData(USART1, &ch, Enable);
+                                 ^
+In file included from ../Src/main.c:28:0:
+D:/kerollos course/unit 2/unit8/SPI/Lecture/SPI_Driver/MCAL/inc/Stm32f103C6_Driver_USART.h:129:6: note: expected 'uint16 * {aka short unsigned int *}' but argument is of type 'uint8 * {aka unsigned char *}'
+ void MCAL_USART_ReceiveData(USART_Reg* USARTx, uint16 * P_Buffer,Interrupt_Status Interrupt);
+      ^~~~~~~~~~~~~~~~~~~~~~
+../Src/main.c:41:31: warning: passing argument 2 of 'MCAL_USART_Send_Data' from incompatible pointer type [-Wincompatible-pointer-types]
+  MCAL_USART_Send_Data(USART1, &ch, Disable);
+                               ^
+In file included from ../Src/main.c:28:0:
+D:/kerollos course/unit 2/unit8/SPI/Lecture/SPI_Driver/MCAL/inc/Stm32f103C6_Driver_USART.h:127:6: note: expected 'uint16 * {aka short unsigned int *}' but argument is of type 'uint8 * {aka unsigned char *}'
+ void MCAL_USART_Send_Data(USART_Reg* USARTx, uint16 * P_Buffer,Interrupt_Status Interrupt);
+      ^~~~~~~~~~~~~~~~~~~~
+../Src/main.c:44:22: warning: passing argument 2 of 'MCAL_SPI_TX_RX' from incompatible pointer type [-Wincompatible-pointer-types]
+  MCAL_SPI_TX_RX(SPI1,&ch,Polling);
+                      ^
+In file included from ../Src/main.c:30:0:
+D:/kerollos course/unit 2/unit8/SPI/Lecture/SPI_Driver/MCAL/inc/Stm32f103C6_Driver_SPI.h:82:6: note: expected 'uint16 * {aka short unsigned int *}' but argument is of type 'uint8 * {aka unsigned char *}'
+ void MCAL_SPI_TX_RX(SPI_Reg* SPIx,uint16* P_bufferRx,Check_Mechanism Check);
+      ^~~~~~~~~~~~~~
+arm-none-eabi-gcc -gdwarf-2 -o "SPI_Driver.elf" @"objects.list"   -mcpu=cortex-m3 -T"D:\kerollos course\unit 2\unit8\SPI\Lecture\SPI_Driver\STM32F103C8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="SPI_Driver.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: SPI_Driver.elf
+ 
+arm-none-eabi-objdump -h -S  SPI_Driver.elf  > "SPI_Driver.list"
+arm-none-eabi-objcopy  -O binary  SPI_Driver.elf  "SPI_Driver.bin"
+arm-none-eabi-size   SPI_Driver.elf 
+   text	   data	    bss	    dec	    hex	filename
+   5128	     32	   1640	   6800	   1a90	SPI_Driver.elf
+Finished building: default.size.stdout
+ 
+Finished building: SPI_Driver.bin
+ 
+Finished building: SPI_Driver.list
+ 
+
+16:47:17 Build Finished. 0 errors, 3 warnings. (took 478ms)
+

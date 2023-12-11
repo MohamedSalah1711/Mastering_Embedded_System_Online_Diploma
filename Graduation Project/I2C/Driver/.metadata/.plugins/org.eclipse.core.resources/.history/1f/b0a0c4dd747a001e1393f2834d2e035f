@@ -1,0 +1,38 @@
+/*
+ * I2C_Slave_EEPROM.c
+ *
+ *  Created on: Nov 3, 2023
+ *      Author: LEGION
+ */
+#include "I2C_Slave_EEPROM.h"
+void EEPROM_init(){
+	I2C_Config_TypeDef I2C1CFG;
+	I2C1CFG.G_Call = With_GNCALL;
+	I2C1CFG.Ack = Enable;
+	I2C1CFG.I2C_Clock_Speed = I2C_SCLK_SM_100K;
+	I2C1CFG.Mode = I2C_Mode;
+	I2C1CFG.Master_Mode=Sm_Mode;
+	I2C1CFG.Stretching=With_Stretching;
+	MCAL_I2C_GPIO_Set_Pins(I2C1);
+	MCAL_I2C_Init(I2C1, &I2C1CFG);
+
+}
+void EPPROM_write(uint16 Memory_Adress,uint8 *data,uint8 len){
+	uint8 i=0;
+	uint8 buffer[256];
+	buffer[0] = (uint8)(Memory_Adress>>8);
+    buffer[1] = (uint8)(Memory_Adress);
+    for(i=0 ; i< (len+2) ; i++){
+    	buffer[i]= data[i-2];
+    }
+    MCAL_I2C_Mater_TX(I2C1, EEPROM_Slave_Address, buffer, len+2, Stop, start);
+
+}
+void EPPROM_READ(uint16 Memory_Adress,uint8_t *data,uint8 len,uint8 len){
+	uint8 buffer[2];
+	buffer[0] = (uint8)(Memory_Adress>>8);
+    buffer[1] = (uint8)(Memory_Adress);
+
+	MCAL_I2C_Mater_TX(I2C1, EEPROM_Slave_Address, &buffer, 2, Without_Stop, start);
+	MCAL_I2C_Mater_RX(I2C1, EEPROM_Slave_Address, data, len, Stop, Start)
+}

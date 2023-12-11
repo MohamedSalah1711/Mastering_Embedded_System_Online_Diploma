@@ -1,0 +1,19 @@
+/*
+ * RCC_Sys_CLK.H
+ *
+ *  Created on: Nov 2, 2023
+ *      Author: LEGION
+ */
+
+#ifndef INC_RCC_SYS_CLK_H_
+#define INC_RCC_SYS_CLK_H_
+#define	HSI						(8000000UL)
+#define	HSE						(16000000UL)
+#define	PLL						(16000000UL)
+uint32	Get_SYS_CLK(void);
+uint32	Get_AHB_CLK(void);
+uint32	Get_APB1_CLK(void);
+uint32	Get_APB2_CLK(void);
+
+
+#endif /* INC_RCC_SYS_CLK_H_ */
